@@ -12,7 +12,7 @@ public class Datos_Ahorros {
     public int getID_AHORRO() {
         return ID_AHORRO;
     }
-
+    //HOLA
     public void setID_AHORRO(int ID_AHORRO) {
         this.ID_AHORRO = ID_AHORRO;
     }
