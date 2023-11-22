@@ -34,8 +34,12 @@ public class Ventana_Opciones extends javax.swing.JFrame {
         btnCambiarUsuario = new javax.swing.JButton();
         btnGestionar = new javax.swing.JButton();
         btnConfigurarPerfil = new javax.swing.JButton();
+        Recordatorios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnIngreso.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnIngreso.setText("Ingreso");
@@ -44,6 +48,7 @@ public class Ventana_Opciones extends javax.swing.JFrame {
                 btnIngresoActionPerformed(evt);
             }
         });
+        jPanel1.add(btnIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 162, 144));
 
         btnEgreso.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnEgreso.setText("Egreso");
@@ -52,6 +57,7 @@ public class Ventana_Opciones extends javax.swing.JFrame {
                 btnEgresoActionPerformed(evt);
             }
         });
+        jPanel1.add(btnEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 162, 144));
 
         btnSaldoActual.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnSaldoActual.setText("<html><center>Saldo<br> Actual<html>");
@@ -60,6 +66,7 @@ public class Ventana_Opciones extends javax.swing.JFrame {
                 btnSaldoActualActionPerformed(evt);
             }
         });
+        jPanel1.add(btnSaldoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 162, 144));
 
         btnReporte.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnReporte.setText("Ver Estado de Cuenta");
@@ -68,6 +75,7 @@ public class Ventana_Opciones extends javax.swing.JFrame {
                 btnReporteActionPerformed(evt);
             }
         });
+        jPanel1.add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, -1, -1));
 
         btnCambiarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnCambiarUsuario.setText("<- Cambiar Usuario");
@@ -76,6 +84,7 @@ public class Ventana_Opciones extends javax.swing.JFrame {
                 btnCambiarUsuarioActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCambiarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 15, -1, -1));
 
         btnGestionar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnGestionar.setText("<html><center>Gestionar<br> Ingreso<html>");
@@ -84,6 +93,7 @@ public class Ventana_Opciones extends javax.swing.JFrame {
                 btnGestionarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnGestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 162, 145));
 
         btnConfigurarPerfil.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnConfigurarPerfil.setText("Configurar Perfil");
@@ -97,68 +107,18 @@ public class Ventana_Opciones extends javax.swing.JFrame {
                 btnConfigurarPerfilActionPerformed(evt);
             }
         });
+        jPanel1.add(btnConfigurarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 260, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(btnCambiarUsuario))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGestionar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSaldoActual, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnConfigurarPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(164, 164, 164))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btnCambiarUsuario)
-                .addGap(15, 15, 15)
-                .addComponent(btnConfigurarPerfil)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReporte)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                    .addComponent(btnEgreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSaldoActual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(btnGestionar, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
-        );
+        Recordatorios.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Recordatorios.setText("Recordatorios");
+        Recordatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecordatoriosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Recordatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 190, 144));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, 570, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -196,11 +156,16 @@ public class Ventana_Opciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConfigurarPerfilComponentMoved
 
+    private void RecordatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordatoriosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RecordatoriosActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton Recordatorios;
     public javax.swing.JButton btnCambiarUsuario;
     public javax.swing.JButton btnConfigurarPerfil;
     public javax.swing.JButton btnEgreso;
