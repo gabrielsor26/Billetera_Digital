@@ -2,6 +2,7 @@
 package Controlador;
 
 import Modelo.Consulta_Datos_Ingreso;
+import Modelo.Consulta_Email_Notificacion;
 import Modelo.Datos_Ingreso;
 import Vista.Ventana_Historial_Ingreso;
 import Vista.Ventana_Ingreso;
@@ -45,12 +46,14 @@ public class CtrlMenu_Ingreso implements ActionListener{
             System.out.println("3: " + usuario_id);
             
             Consulta_Datos_Ingreso modC_ingreso = new Consulta_Datos_Ingreso();
-
+            
+            Consulta_Email_Notificacion email = new Consulta_Email_Notificacion();
+            
             Ventana_Registrar_Ingreso frm_registar_ingreso_new = new Ventana_Registrar_Ingreso();
             
             
             
-            CtrlDatos_Ingreso ctrl_datos_ingreso = new CtrlDatos_Ingreso(mod_ingreso, usuario_id, modC_ingreso, frm_registar_ingreso_new);
+            CtrlDatos_Ingreso ctrl_datos_ingreso = new CtrlDatos_Ingreso(mod_ingreso, usuario_id, modC_ingreso, email, frm_registar_ingreso_new);
             
             ctrl_datos_ingreso.iniciar();
             frm_registar_ingreso_new.setVisible(true);

@@ -2,6 +2,7 @@ package Controlador;
 
 import Modelo.Consulta_Categoria_Ingreso_Select;
 import Modelo.Consulta_Datos_Ingreso;
+import Modelo.Consulta_Email_Notificacion;
 import Modelo.Datos_Categoria_Ingreso;
 import Modelo.Datos_Ingreso;
 import Vista.Ventana_Ingreso;
@@ -15,6 +16,12 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 
 public class CtrlDatos_Ingreso implements MouseListener, ItemListener {
@@ -22,18 +29,18 @@ public class CtrlDatos_Ingreso implements MouseListener, ItemListener {
     private final Datos_Ingreso modelo;
     private final int usuario_id;
     private final Consulta_Datos_Ingreso consultas;
+    private final Consulta_Email_Notificacion consultaEmail;
     private final Ventana_Registrar_Ingreso vista;
 
-    public CtrlDatos_Ingreso(Datos_Ingreso modelo, int usuario_id, Consulta_Datos_Ingreso consultas, Ventana_Registrar_Ingreso vista) {
+    public CtrlDatos_Ingreso(Datos_Ingreso modelo, int usuario_id, Consulta_Datos_Ingreso consultas, Consulta_Email_Notificacion consultaEmail, Ventana_Registrar_Ingreso vista) {
         this.modelo = modelo;
         this.usuario_id = usuario_id;
         this.consultas = consultas;
+        this.consultaEmail = consultaEmail;
         this.vista = vista;
-        //this.vista.btnRegistrar.addActionListener(this);
-        //this.vista.btnAtras.addActionListener(this);
+        //Botones
         this.vista.txtRegistrarIngreso.addMouseListener(this);
         this.vista.cbxTipoIngreso.addItemListener(this);
-
     }
 
     public void iniciar() {
@@ -110,7 +117,17 @@ public class CtrlDatos_Ingreso implements MouseListener, ItemListener {
 
                 if (consultas.registrar(modelo, usuario_id)) {
                     JOptionPane.showMessageDialog(null, "Registro Guardado");
+
+                    System.out.println(modelo);
+
+                    Datos_Ingreso cuerpoDatosIngreso = modelo;
+
+                    enviarmail(cuerpoDatosIngreso);
+
                     limpiar();
+                    java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
+                    vista.txtFECHA_INGRESO.setForeground(new Color(255, 113, 17));
+                    vista.txtFECHA_INGRESO.setText(String.valueOf(date));
                 } else {
                     mostrarError("Error al Guardar");
                 }
@@ -121,15 +138,41 @@ public class CtrlDatos_Ingreso implements MouseListener, ItemListener {
             }
         }
 
-        /*
-        if (e.getSource() == vista.cbxTipoIngreso) {
-            
-            String tipoIngresoSeleccionado = (String) vista.cbxTipoIngreso.getSelectedItem();
-            
-            System.out.println(tipoIngresoSeleccionado);
-            
+    }
+
+    public void enviarmail(Datos_Ingreso cuerpoDatosIngreso) {
+        String remitente = "gabrielsortestersor@gmail.com";
+        String clave = "qdfc diak skwx gceu";
+        String destino = "" + consultaEmail.obtenerEmailUsuario(usuario_id);
+        String asunto = "INGRESO REGISTRADO";
+        String cuerpo = "Buenas, acaba de registrarse un ingreso\n\n"
+                + "Con los siguientes datos\n"
+                + cuerpoDatosIngreso; 
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.user", remitente);
+        props.put("mail.smtp.clave", clave);
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage mensaje = new MimeMessage(session);
+
+        try {
+            mensaje.addRecipients(Message.RecipientType.TO, InternetAddress.parse(destino));
+            mensaje.setSubject(asunto);
+            mensaje.setText(cuerpo);
+            Transport transport = session.getTransport("smtp");
+            transport.connect("smtp.gmail.com", remitente, clave);
+            transport.sendMessage(mensaje, mensaje.getAllRecipients());
+            transport.close();
+            JOptionPane.showMessageDialog(null, "Correo Enviado");
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-         */
     }
 
     @Override

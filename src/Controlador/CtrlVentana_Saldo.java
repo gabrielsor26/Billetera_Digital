@@ -14,7 +14,6 @@ import Modelo.Datos_Egreso;
 import Modelo.Datos_Ingreso;
 import Vista.Ventana_ConsultaSaldo;
 import static Vista.Ventana_Login.usuario_id;
-import Vista.Ventana_Login;
 import Vista.Ventana_Opciones;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

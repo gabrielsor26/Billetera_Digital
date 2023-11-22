@@ -1,14 +1,16 @@
-
 package Modelo;
 
 import java.sql.Date;
 
 public class Datos_Egreso {
-    
+
     private int ID_EGRESO;
     private Double MONTO_EGRESO;
-    private Date  FECHA_EGRESO;
-    private String  TIPO_EGRESO;
+    private Date FECHA_EGRESO;
+    private String TIPO_EGRESO;
+
+    public Datos_Egreso() {
+    }
 
     public int getID_EGRESO() {
         return ID_EGRESO;
@@ -41,6 +43,9 @@ public class Datos_Egreso {
     public void setTIPO_EGRESO(String TIPO_EGRESO) {
         this.TIPO_EGRESO = TIPO_EGRESO;
     }
-    
-    
+
+    public String toString() {
+        return "" + MONTO_EGRESO + " | " + FECHA_EGRESO + " | " + TIPO_EGRESO;
+    }
+
 }

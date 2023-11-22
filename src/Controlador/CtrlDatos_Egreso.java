@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.Consulta_Datos_Egreso;
+import Modelo.Consulta_Email_Notificacion;
 import Modelo.Consulta_Obtener_Dinero_Ahorrado;
 import Modelo.Consulta_Obtener_Dinero_Inversion;
 import Modelo.Consulta_Obtener_Suma_Egresos;
@@ -13,6 +14,12 @@ import static Vista.Ventana_Login.usuario_id;
 import Vista.Ventana_Registrar_Egreso;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 
 public class CtrlDatos_Egreso implements ActionListener {
@@ -25,9 +32,10 @@ public class CtrlDatos_Egreso implements ActionListener {
     private final Consulta_Obtener_Dinero_Ahorrado consultaDineroAhorrado;
     private final Consulta_Obtener_Dinero_Inversion consultaDineroInversion;
     private final Consulta_Datos_Egreso consultas;
+    private final Consulta_Email_Notificacion consultaEmail;
     private final Ventana_Registrar_Egreso vista;
 
-    public CtrlDatos_Egreso(Datos_Egreso modelo, int usuario_id, Consulta_Obtener_Suma_Ingresos consultaSumaIngresos, Consulta_Obtener_Suma_Egresos consultaSumaEgresos, Consulta_Obtener_Suma_Recursos_Asignados_Metas consultaSumaRecursosAsignados, Consulta_Obtener_Dinero_Ahorrado consultaDineroAhorrado, Consulta_Obtener_Dinero_Inversion consultaDineroInversion, Consulta_Datos_Egreso consultas, Ventana_Registrar_Egreso vista) {
+    public CtrlDatos_Egreso(Datos_Egreso modelo, int usuario_id, Consulta_Obtener_Suma_Ingresos consultaSumaIngresos, Consulta_Obtener_Suma_Egresos consultaSumaEgresos, Consulta_Obtener_Suma_Recursos_Asignados_Metas consultaSumaRecursosAsignados, Consulta_Obtener_Dinero_Ahorrado consultaDineroAhorrado, Consulta_Obtener_Dinero_Inversion consultaDineroInversion, Consulta_Datos_Egreso consultas, Consulta_Email_Notificacion consultaEmail, Ventana_Registrar_Egreso vista) {
         this.modelo = modelo;
         this.usuario_id = usuario_id;
         this.consultaSumaIngresos = consultaSumaIngresos;
@@ -36,6 +44,7 @@ public class CtrlDatos_Egreso implements ActionListener {
         this.consultaDineroAhorrado = consultaDineroAhorrado;
         this.consultaDineroInversion = consultaDineroInversion;
         this.consultas = consultas;
+        this.consultaEmail = consultaEmail;
         this.vista = vista;
 
         //Botones
@@ -59,7 +68,7 @@ public class CtrlDatos_Egreso implements ActionListener {
             double sumaRecursosAsignados = consultaSumaRecursosAsignados.obtenerRecursosAsignados(usuario_id);
             double obtenerDineroAhorrado = consultaDineroAhorrado.obtenerDineroAhorrado(usuario_id);
             double obtenerDineroInversion = consultaDineroInversion.obtenerDineroInversion(usuario_id);
-            
+
             double saldo_disponible = sumaIngresos - sumaEgresos - sumaRecursosAsignados - obtenerDineroAhorrado - obtenerDineroInversion;
 
             Double monto_egreso = Double.valueOf(vista.txtMONTO_EGRESO.getText());
@@ -101,6 +110,11 @@ public class CtrlDatos_Egreso implements ActionListener {
 
                 if (consultas.registrar(modelo, usuario_id)) {
                     JOptionPane.showMessageDialog(null, "Registro Guardado");
+
+                    Datos_Egreso cuerpoDatosEgreso = modelo;
+                    enviarmail(cuerpoDatosEgreso);
+                    
+                    
                     limpiar();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Guardar");
@@ -122,6 +136,41 @@ public class CtrlDatos_Egreso implements ActionListener {
 
         }
 
+    }
+
+    public void enviarmail(Datos_Egreso cuerpoDatosEgreso) {
+        String remitente = "gabrielsortestersor@gmail.com";
+        String clave = "qdfc diak skwx gceu";
+        String destino = "" + consultaEmail.obtenerEmailUsuario(usuario_id);
+        String asunto = "EGRESO REGISTRADO";
+        String cuerpo = "Buenas, acaba de registrarse un egreso\n\n"
+                + "Con los siguientes datos\n"
+                + cuerpoDatosEgreso;
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.user", remitente);
+        props.put("mail.smtp.clave", clave);
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage mensaje = new MimeMessage(session);
+
+        try {
+            mensaje.addRecipients(Message.RecipientType.TO, InternetAddress.parse(destino));
+            mensaje.setSubject(asunto);
+            mensaje.setText(cuerpo);
+            Transport transport = session.getTransport("smtp");
+            transport.connect("smtp.gmail.com", remitente, clave);
+            transport.sendMessage(mensaje, mensaje.getAllRecipients());
+            transport.close();
+            JOptionPane.showMessageDialog(null, "Correo Enviado");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void limpiar() {

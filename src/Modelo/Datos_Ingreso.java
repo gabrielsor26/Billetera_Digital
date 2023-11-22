@@ -1,15 +1,22 @@
-
 package Modelo;
 
 import java.sql.Date;
 
-
 public class Datos_Ingreso {
-    
+
     private int ID_INGRESO;
     private Double MONTO_INGRESO;
-    private Date  FECHA_INGRESO;
-    private String  DESCRIPCION_INGRESO;
+    private Date FECHA_INGRESO;
+    private String DESCRIPCION_INGRESO;
+
+    public Datos_Ingreso() {
+    }
+
+    public Datos_Ingreso(Double MONTO_INGRESO, Date FECHA_INGRESO, String DESCRIPCION_INGRESO) {
+        this.MONTO_INGRESO = MONTO_INGRESO;
+        this.FECHA_INGRESO = FECHA_INGRESO;
+        this.DESCRIPCION_INGRESO = DESCRIPCION_INGRESO;
+    }
 
     public int getID_INGRESO() {
         return ID_INGRESO;
@@ -43,8 +50,8 @@ public class Datos_Ingreso {
         this.DESCRIPCION_INGRESO = DESCRIPCION_INGRESO;
     }
 
+    public String toString() {
+        return "" + MONTO_INGRESO + " | " + FECHA_INGRESO + " | " + DESCRIPCION_INGRESO;
+    }
 
-
-
-      
 }
