@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.Consulta_Categoria_Ingreso_Insert;
+import Modelo.Consulta_Familia_Insert;
 import Modelo.Consulta_Limites_Fechas;
 import Modelo.Consulta_Nombre_Ventana_Saldo;
 import Modelo.Consulta_Obtener_Dinero_Ahorrado;
@@ -10,6 +11,7 @@ import Modelo.Consulta_Obtener_Suma_Ingresos;
 import Modelo.Consulta_Obtener_Suma_Recursos_Asignados_Metas;
 import Modelo.Datos_Categoria_Ingreso;
 import Modelo.Datos_Egreso;
+import Modelo.Datos_Familia;
 import Modelo.Datos_Ingreso;
 import Vista.Ventana_Configurar_Perfil;
 import Vista.Ventana_ConsultaSaldo;
@@ -125,7 +127,15 @@ public class CtrlMenu_Opciones implements ActionListener {
             Consulta_Categoria_Ingreso_Insert consulta_datos_categoria_Ingreso = new Consulta_Categoria_Ingreso_Insert();
             Ventana_Configurar_Perfil frm_configurar_perfil = new Ventana_Configurar_Perfil();
             Consulta_Nombre_Ventana_Saldo consulta_nombre_ventana_saldo = new Consulta_Nombre_Ventana_Saldo();
-            Ctrl_Configurar_Perfil ctrl_configurar_perfil = new Ctrl_Configurar_Perfil(datos_categoria_Ingreso, consulta_datos_categoria_Ingreso, frm_configurar_perfil, usuario_id, consulta_nombre_ventana_saldo);
+            Datos_Familia dfamilia = new Datos_Familia();
+            Consulta_Familia_Insert cfamilia = new Consulta_Familia_Insert();
+            Ctrl_Configurar_Perfil ctrl_configurar_perfil = new Ctrl_Configurar_Perfil(datos_categoria_Ingreso,
+                    consulta_datos_categoria_Ingreso,
+                    dfamilia,
+                    cfamilia,
+                    frm_configurar_perfil,
+                    usuario_id,
+                    consulta_nombre_ventana_saldo);
             ctrl_configurar_perfil.iniciar();
             frm_configurar_perfil.setVisible(true);
 

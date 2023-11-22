@@ -51,10 +51,20 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
         txtEliminar = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JPanel();
         txtAgregar = new javax.swing.JLabel();
+        bgTabla1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtFamilia = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        btnEliminar1 = new javax.swing.JPanel();
+        txtEliminarFamilia = new javax.swing.JLabel();
+        btnAgregar1 = new javax.swing.JPanel();
+        txtAgregarFamilia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 48, 60));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -271,18 +281,76 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 340, 120, 110));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        bgTabla1.setBackground(new java.awt.Color(0, 92, 75));
+        bgTabla1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jtFamilia.setBackground(new java.awt.Color(0, 92, 75));
+        jtFamilia.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jtFamilia.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jtFamilia.setForeground(new java.awt.Color(255, 255, 255));
+        jtFamilia.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtFamilia.setGridColor(new java.awt.Color(0, 92, 75));
+        jtFamilia.setMaximumSize(new java.awt.Dimension(0, 0));
+        jtFamilia.setMinimumSize(new java.awt.Dimension(0, 0));
+        jtFamilia.setSelectionBackground(new java.awt.Color(26, 177, 136));
+        jtFamilia.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane3.setViewportView(jtFamilia);
+
+        bgTabla1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 280, 160));
+
+        jPanel1.add(bgTabla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 280, 140));
+
+        jLabel11.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel11.setText("FAMILIA");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 180, 30));
+
+        jPanel3.setBackground(new java.awt.Color(67, 89, 112));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnEliminar1.setBackground(new java.awt.Color(255, 51, 51));
+        btnEliminar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtEliminarFamilia.setFont(new java.awt.Font("Roboto Mono", 1, 14)); // NOI18N
+        txtEliminarFamilia.setForeground(new java.awt.Color(255, 255, 255));
+        txtEliminarFamilia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtEliminarFamilia.setText("Eliminar");
+        btnEliminar1.add(txtEliminarFamilia, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 40));
+
+        jPanel3.add(btnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 40));
+
+        btnAgregar1.setBackground(new java.awt.Color(45, 204, 112));
+        btnAgregar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtAgregarFamilia.setFont(new java.awt.Font("Roboto Mono", 1, 14)); // NOI18N
+        txtAgregarFamilia.setForeground(new java.awt.Color(255, 255, 255));
+        txtAgregarFamilia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtAgregarFamilia.setText("Agregar");
+        txtAgregarFamilia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAgregarFamiliaMouseClicked(evt);
+            }
+        });
+        btnAgregar1.add(txtAgregarFamilia, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 40));
+
+        jPanel3.add(btnAgregar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 540, 120, 110));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 750));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -356,6 +424,10 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAgregarMouseClicked
 
+    private void txtAgregarFamiliaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAgregarFamiliaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAgregarFamiliaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -393,26 +465,35 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel bgTabla;
+    public javax.swing.JPanel bgTabla1;
     private javax.swing.JPanel btnAgregar;
+    private javax.swing.JPanel btnAgregar1;
     private javax.swing.JLabel btnAtras;
     private javax.swing.JPanel btnEliminar;
+    private javax.swing.JPanel btnEliminar1;
     private javax.swing.JPanel btnModificarUsuario;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     public javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JScrollPane jScrollPane3;
     public javax.swing.JTable jtCategoriaIngreso;
+    public javax.swing.JTable jtFamilia;
     public javax.swing.JLabel txtAgregar;
+    public javax.swing.JLabel txtAgregarFamilia;
     public javax.swing.JTextField txtApellido;
     public javax.swing.JLabel txtBienvenida;
     public javax.swing.JTextField txtContraseña;
     public javax.swing.JLabel txtEliminar;
+    public javax.swing.JLabel txtEliminarFamilia;
     public javax.swing.JTextField txtEmail;
     public javax.swing.JLabel txtModificarUsuario;
     public javax.swing.JTextField txtNombre;

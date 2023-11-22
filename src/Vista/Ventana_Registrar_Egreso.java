@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import Modelo.Datos_Familia;
+
 /**
  *
  * @author Usuario
@@ -35,17 +37,25 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         ComboBoxTIPO_EGRESO = new javax.swing.JComboBox<>();
         btnAtras = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        cbxDestinoFamiliar = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Coloque el monto del egreso:");
+        jLabel1.setText("Destino Familiar:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Fecha del Egreso:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setText("Seleccione el tipo de Egreso:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
         txtMONTO_EGRESO.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txtMONTO_EGRESO.addActionListener(new java.awt.event.ActionListener() {
@@ -53,6 +63,7 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
                 txtMONTO_EGRESOActionPerformed(evt);
             }
         });
+        jPanel1.add(txtMONTO_EGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 211, 36));
 
         txtFECHA_EGRESO.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txtFECHA_EGRESO.addActionListener(new java.awt.event.ActionListener() {
@@ -60,6 +71,7 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
                 txtFECHA_EGRESOActionPerformed(evt);
             }
         });
+        jPanel1.add(txtFECHA_EGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 211, 36));
 
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnRegistrar.setText("Registrar Egreso");
@@ -68,6 +80,7 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
                 btnRegistrarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 290, -1, -1));
 
         ComboBoxTIPO_EGRESO.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         ComboBoxTIPO_EGRESO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione . . .", "Comida", "Transporte", "Entretenimiento", "Servicios", "Gastos Varios" }));
@@ -77,52 +90,7 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
                 ComboBoxTIPO_EGRESOActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtFECHA_EGRESO, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(txtMONTO_EGRESO, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(ComboBoxTIPO_EGRESO, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(btnRegistrar)))
-                        .addContainerGap(37, Short.MAX_VALUE))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMONTO_EGRESO, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFECHA_EGRESO, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(ComboBoxTIPO_EGRESO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(66, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRegistrar)
-                        .addGap(32, 32, 32))))
-        );
+        jPanel1.add(ComboBoxTIPO_EGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 211, -1));
 
         btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnAtras.setText("<-");
@@ -131,27 +99,22 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
                 btnAtrasActionPerformed(evt);
             }
         });
+        jPanel1.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 60, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAtras))
-                .addGap(0, 0, 0))
-        );
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setText("Coloque el monto del egreso:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+
+        cbxDestinoFamiliar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cbxDestinoFamiliar.setInheritsPopupMenu(true);
+        cbxDestinoFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxDestinoFamiliarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbxDestinoFamiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 211, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 830, 350));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -176,6 +139,10 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    private void cbxDestinoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDestinoFamiliarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxDestinoFamiliarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -185,9 +152,11 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
     public javax.swing.JComboBox<String> ComboBoxTIPO_EGRESO;
     public javax.swing.JButton btnAtras;
     public javax.swing.JButton btnRegistrar;
+    public javax.swing.JComboBox<Datos_Familia> cbxDestinoFamiliar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JTextField txtFECHA_EGRESO;
     public javax.swing.JTextField txtMONTO_EGRESO;

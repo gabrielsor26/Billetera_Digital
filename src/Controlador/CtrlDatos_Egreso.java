@@ -2,18 +2,21 @@ package Controlador;
 
 import Modelo.Consulta_Datos_Egreso;
 import Modelo.Consulta_Email_Notificacion;
+import Modelo.Consulta_Familia_Select;
 import Modelo.Consulta_Obtener_Dinero_Ahorrado;
 import Modelo.Consulta_Obtener_Dinero_Inversion;
 import Modelo.Consulta_Obtener_Suma_Egresos;
 import Modelo.Consulta_Obtener_Suma_Ingresos;
 import Modelo.Consulta_Obtener_Suma_Recursos_Asignados_Metas;
 import Modelo.Datos_Egreso;
+import Modelo.Datos_Familia;
 import Vista.Ventana_Egreso;
 import Vista.Ventana_Login;
 import static Vista.Ventana_Login.usuario_id;
 import Vista.Ventana_Registrar_Egreso;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -55,6 +58,26 @@ public class CtrlDatos_Egreso implements ActionListener {
     public void iniciar() {
         vista.setTitle("Registrar Egreso");
         vista.setLocationRelativeTo(null);
+        llenarDatos_Familia();
+    }
+
+    public void llenarDatos_Familia() {
+
+        Consulta_Familia_Select consulta_familia_select = new Consulta_Familia_Select();
+        ArrayList<Datos_Familia> listaDatos_Familia = consulta_familia_select.getDatos_Familia();
+
+        vista.cbxDestinoFamiliar.removeAllItems();
+
+        vista.cbxDestinoFamiliar.addItem(new Datos_Familia("Me"));
+
+        for (int i = 0; i < listaDatos_Familia.size(); i++) {
+
+            vista.cbxDestinoFamiliar.addItem(new Datos_Familia(listaDatos_Familia.get(i).getID_FAMILIA(),
+                    listaDatos_Familia.get(i).getRELACION_FAMILIAR()));
+
+        }
+
+        vista.cbxDestinoFamiliar.setSelectedItem("Me");
 
     }
 
@@ -94,6 +117,7 @@ public class CtrlDatos_Egreso implements ActionListener {
                 }
 
                 String tipoEgresoSeleccionado = (String) vista.ComboBoxTIPO_EGRESO.getSelectedItem();
+                Datos_Familia destinoFamiliar = (Datos_Familia) vista.cbxDestinoFamiliar.getSelectedItem();
 
                 if ("Gastos Varios".equals(tipoEgresoSeleccionado)) {
                     // Si se selecciona "Gastos Varios", mostrar un JOptionPane para ingresar una cadena adicional
@@ -101,11 +125,11 @@ public class CtrlDatos_Egreso implements ActionListener {
 
                     // Comprobar si el usuario ingresó una cadena antes de asignarla al modelo
                     if (cadenaAdicional != null) {
-                        modelo.setTIPO_EGRESO("Gastos Varios - " + cadenaAdicional);
+                        modelo.setTIPO_EGRESO("Gastos Varios - " + cadenaAdicional + " - " + destinoFamiliar);
                     }
                 } else {
                     // Para otras selecciones, simplemente asignar el valor seleccionado al modelo
-                    modelo.setTIPO_EGRESO(tipoEgresoSeleccionado);
+                    modelo.setTIPO_EGRESO(tipoEgresoSeleccionado + " - " + destinoFamiliar);
                 }
 
                 if (consultas.registrar(modelo, usuario_id)) {
@@ -113,8 +137,7 @@ public class CtrlDatos_Egreso implements ActionListener {
 
                     Datos_Egreso cuerpoDatosEgreso = modelo;
                     enviarmail(cuerpoDatosEgreso);
-                    
-                    
+
                     limpiar();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Guardar");
