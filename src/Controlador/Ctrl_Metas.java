@@ -6,6 +6,8 @@ package Controlador;
 
 import Modelo.Consulta_Datos_Egreso;
 import Modelo.Consulta_Datos_Metas;
+import Modelo.Consulta_Obtener_Dinero_Ahorrado;
+import Modelo.Consulta_Obtener_Dinero_Inversion;
 import Modelo.Consulta_Obtener_Suma_Egresos;
 import Modelo.Consulta_Obtener_Suma_Ingresos;
 import Modelo.Consulta_Obtener_Suma_Recursos_Asignados_Metas;
@@ -71,6 +73,8 @@ public class Ctrl_Metas implements ActionListener {
             Consulta_Obtener_Suma_Ingresos consulta_obtener_suma_ingreso = new Consulta_Obtener_Suma_Ingresos();
             Consulta_Obtener_Suma_Egresos consulta_obtener_suma_egreso = new Consulta_Obtener_Suma_Egresos();
             Consulta_Obtener_Suma_Recursos_Asignados_Metas consulta_obtener_suma_recursos_asignados = new Consulta_Obtener_Suma_Recursos_Asignados_Metas();
+            Consulta_Obtener_Dinero_Ahorrado dineroahorrado = new Consulta_Obtener_Dinero_Ahorrado();
+            Consulta_Obtener_Dinero_Inversion dineroinversion = new Consulta_Obtener_Dinero_Inversion();
             Ctrl_Asignar_Recursos_Metas ctrl_asignar_recursos_meta = new Ctrl_Asignar_Recursos_Metas(
                     mod_egreso,
                     modC_egreso,
@@ -78,6 +82,8 @@ public class Ctrl_Metas implements ActionListener {
                     consulta_obtener_suma_ingreso,
                     consulta_obtener_suma_egreso,
                     consulta_obtener_suma_recursos_asignados,
+                    dineroahorrado,
+                    dineroinversion,
                     usuario_id);
 
             ctrl_asignar_recursos_meta.iniciar();

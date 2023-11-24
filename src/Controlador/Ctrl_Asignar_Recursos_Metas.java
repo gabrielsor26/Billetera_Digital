@@ -2,6 +2,8 @@ package Controlador;
 
 import Modelo.Conexion;
 import Modelo.Consulta_Datos_Egreso;
+import Modelo.Consulta_Obtener_Dinero_Ahorrado;
+import Modelo.Consulta_Obtener_Dinero_Inversion;
 import Modelo.Consulta_Obtener_Suma_Egresos;
 import Modelo.Consulta_Obtener_Suma_Ingresos;
 import Modelo.Consulta_Obtener_Suma_Recursos_Asignados_Metas;
@@ -27,6 +29,8 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
     private final Consulta_Obtener_Suma_Ingresos consultaSumaIngresos;
     private final Consulta_Obtener_Suma_Egresos consultaSumaEgresos;
     private final Consulta_Obtener_Suma_Recursos_Asignados_Metas consultaSumaRecursosAsignados;
+    private final Consulta_Obtener_Dinero_Ahorrado consultaDineroAhorrado;
+    private final Consulta_Obtener_Dinero_Inversion consultaDineroInversion;
     private final int usuario_id;
     DefaultTableModel modelo = new DefaultTableModel();
 
@@ -43,20 +47,15 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
         }
     }
 
-    public Ctrl_Asignar_Recursos_Metas(
-            Datos_Egreso datos,
-            Consulta_Datos_Egreso consultas,
-            Ventana_Asignar_Recursos vista,
-            Consulta_Obtener_Suma_Ingresos consultaSumaIngresos,
-            Consulta_Obtener_Suma_Egresos consultaSumaEgresos,
-            Consulta_Obtener_Suma_Recursos_Asignados_Metas consultaSumaRecursosAsignados,
-            int usuario_id) {
-        this.vista = vista;
+    public Ctrl_Asignar_Recursos_Metas(Datos_Egreso datos, Consulta_Datos_Egreso consultas, Ventana_Asignar_Recursos vista, Consulta_Obtener_Suma_Ingresos consultaSumaIngresos, Consulta_Obtener_Suma_Egresos consultaSumaEgresos, Consulta_Obtener_Suma_Recursos_Asignados_Metas consultaSumaRecursosAsignados, Consulta_Obtener_Dinero_Ahorrado consultaDineroAhorrado, Consulta_Obtener_Dinero_Inversion consultaDineroInversion, int usuario_id) {
         this.datos = datos;
         this.consultas = consultas;
+        this.vista = vista;
         this.consultaSumaIngresos = consultaSumaIngresos;
         this.consultaSumaEgresos = consultaSumaEgresos;
         this.consultaSumaRecursosAsignados = consultaSumaRecursosAsignados;
+        this.consultaDineroAhorrado = consultaDineroAhorrado;
+        this.consultaDineroInversion = consultaDineroInversion;
         this.usuario_id = usuario_id;
 
         //Botones
@@ -66,7 +65,6 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
         this.vista.btnObtener.addActionListener(this);
         this.vista.btnAgregar.addActionListener(this);
         this.vista.btnQuitar.addActionListener(this);
-
     }
 
     public void iniciar() {
@@ -213,8 +211,10 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
             double sumaIngresos = consultaSumaIngresos.obtenerSumaIngresos(usuario_id);
             double sumaEgresos = consultaSumaEgresos.obtenerSumaEgresos(usuario_id);
             double sumaRecursosAsignados = consultaSumaRecursosAsignados.obtenerRecursosAsignados(usuario_id);
+            double dineroinversion = consultaDineroInversion.obtenerDineroInversion(usuario_id);
+            double dineroahorros = consultaDineroAhorrado.obtenerDineroAhorrado(usuario_id);
 
-            double saldo_disponible = sumaIngresos - sumaEgresos - sumaRecursosAsignados;
+            double saldo_disponible = sumaIngresos - sumaEgresos - sumaRecursosAsignados - dineroinversion - dineroahorros;
 
             if (vista.jtMetas.getSelectedRow() == -1) {
                 JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila de la tabla antes de agregar recursos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -307,7 +307,7 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
 
             boolean metaLograda = false;  // Variable para rastrear si la meta ya está "LOGRADA"
 
-            int Fila = this.vista.jtMetas.getSelectedRow(); 
+            int Fila = this.vista.jtMetas.getSelectedRow();
             int ID_META = (int) this.vista.jtMetas.getValueAt(Fila, 0);
             Double MONTO_META = (Double) this.vista.jtMetas.getValueAt(Fila, 2);
             Double RECURSOS_ASIGNADOS = (Double) this.vista.jtMetas.getValueAt(Fila, 4);
