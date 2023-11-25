@@ -60,6 +60,15 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
         txtEliminarFamilia = new javax.swing.JLabel();
         btnAgregar1 = new javax.swing.JPanel();
         txtAgregarFamilia = new javax.swing.JLabel();
+        bgTabla2 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jtTipoServicio = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        btnEliminar2 = new javax.swing.JPanel();
+        txtEliminarServicio = new javax.swing.JLabel();
+        btnAgregar2 = new javax.swing.JPanel();
+        txtAgregarServicio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -350,7 +359,76 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 540, 120, 110));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 750));
+        bgTabla2.setBackground(new java.awt.Color(0, 92, 75));
+        bgTabla2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jtTipoServicio.setBackground(new java.awt.Color(0, 92, 75));
+        jtTipoServicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jtTipoServicio.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jtTipoServicio.setForeground(new java.awt.Color(255, 255, 255));
+        jtTipoServicio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtTipoServicio.setGridColor(new java.awt.Color(0, 92, 75));
+        jtTipoServicio.setMaximumSize(new java.awt.Dimension(0, 0));
+        jtTipoServicio.setMinimumSize(new java.awt.Dimension(0, 0));
+        jtTipoServicio.setSelectionBackground(new java.awt.Color(26, 177, 136));
+        jtTipoServicio.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane4.setViewportView(jtTipoServicio);
+
+        bgTabla2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 280, 160));
+
+        jPanel1.add(bgTabla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 720, 280, 140));
+
+        jLabel12.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("TIPO SERVICIO");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 680, 180, 30));
+
+        jPanel4.setBackground(new java.awt.Color(67, 89, 112));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnEliminar2.setBackground(new java.awt.Color(255, 51, 51));
+        btnEliminar2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtEliminarServicio.setFont(new java.awt.Font("Roboto Mono", 1, 14)); // NOI18N
+        txtEliminarServicio.setForeground(new java.awt.Color(255, 255, 255));
+        txtEliminarServicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtEliminarServicio.setText("Eliminar");
+        btnEliminar2.add(txtEliminarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 40));
+
+        jPanel4.add(btnEliminar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 40));
+
+        btnAgregar2.setBackground(new java.awt.Color(45, 204, 112));
+        btnAgregar2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtAgregarServicio.setFont(new java.awt.Font("Roboto Mono", 1, 14)); // NOI18N
+        txtAgregarServicio.setForeground(new java.awt.Color(255, 255, 255));
+        txtAgregarServicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtAgregarServicio.setText("Agregar");
+        txtAgregarServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAgregarServicioMouseClicked(evt);
+            }
+        });
+        btnAgregar2.add(txtAgregarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 40));
+
+        jPanel4.add(btnAgregar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 730, 120, 110));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 920));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -428,6 +506,10 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAgregarFamiliaMouseClicked
 
+    private void txtAgregarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAgregarServicioMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAgregarServicioMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -466,16 +548,20 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel bgTabla;
     public javax.swing.JPanel bgTabla1;
+    public javax.swing.JPanel bgTabla2;
     private javax.swing.JPanel btnAgregar;
     private javax.swing.JPanel btnAgregar1;
+    private javax.swing.JPanel btnAgregar2;
     private javax.swing.JLabel btnAtras;
     private javax.swing.JPanel btnEliminar;
     private javax.swing.JPanel btnEliminar1;
+    private javax.swing.JPanel btnEliminar2;
     private javax.swing.JPanel btnModificarUsuario;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -483,17 +569,22 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane jScrollPane3;
+    public javax.swing.JScrollPane jScrollPane4;
     public javax.swing.JTable jtCategoriaIngreso;
     public javax.swing.JTable jtFamilia;
+    public javax.swing.JTable jtTipoServicio;
     public javax.swing.JLabel txtAgregar;
     public javax.swing.JLabel txtAgregarFamilia;
+    public javax.swing.JLabel txtAgregarServicio;
     public javax.swing.JTextField txtApellido;
     public javax.swing.JLabel txtBienvenida;
     public javax.swing.JTextField txtContraseña;
     public javax.swing.JLabel txtEliminar;
     public javax.swing.JLabel txtEliminarFamilia;
+    public javax.swing.JLabel txtEliminarServicio;
     public javax.swing.JTextField txtEmail;
     public javax.swing.JLabel txtModificarUsuario;
     public javax.swing.JTextField txtNombre;

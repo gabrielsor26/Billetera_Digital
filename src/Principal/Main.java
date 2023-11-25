@@ -12,6 +12,6 @@ public class Main {
         
         Ventana_Login frm_login = new Ventana_Login();
         frm_login.setVisible(true);
-        
+                            
     }
 }

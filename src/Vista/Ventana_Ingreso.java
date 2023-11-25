@@ -46,7 +46,7 @@ public class Ventana_Ingreso extends javax.swing.JFrame {
                 btnRegistrarIngresoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrarIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 470, -1));
+        jPanel1.add(btnRegistrarIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 520, -1));
 
         btnConsultarHistorial.setBackground(new java.awt.Color(0, 102, 102));
         btnConsultarHistorial.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
@@ -57,7 +57,7 @@ public class Ventana_Ingreso extends javax.swing.JFrame {
                 btnConsultarHistorialActionPerformed(evt);
             }
         });
-        jPanel1.add(btnConsultarHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 470, -1));
+        jPanel1.add(btnConsultarHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 520, -1));
 
         btnAtras.setBackground(new java.awt.Color(0, 102, 102));
         btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N

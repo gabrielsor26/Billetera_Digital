@@ -4,23 +4,23 @@
  */
 package Vista;
 
-import Controlador.CtrlMenu_Ingreso;
-import Modelo.Datos_Categoria_Ingreso;
-import static Vista.Ventana_Login.usuario_id;
+import Modelo.Datos_Recordatorio;
+import Modelo.Datos_Tipo_Servicio;
 import java.awt.Color;
 
 /**
  *
  * @author Usuario
  */
-public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
+public class Ventana_Crear_Recordatorio extends javax.swing.JFrame {
 
     int xMouseCrema, yMouseCrema;
 
-    public Ventana_Registrar_Ingreso() {
+    /**
+     * Creates new form Ventana_Crear_Recordatorio
+     */
+    public Ventana_Crear_Recordatorio() {
         initComponents();
-
-        txtRegistrarIngreso.requestFocusInWindow();
     }
 
     /**
@@ -36,20 +36,20 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
-        cbxTipoIngreso = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
+        cbxPrioridad = new javax.swing.JComboBox<>();
         txtBienvenida = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtMONTO_INGRESO = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtFECHA_INGRESO = new javax.swing.JTextField();
         btnRegistrarIngreso = new javax.swing.JPanel();
-        txtRegistrarIngreso = new javax.swing.JLabel();
+        txtCrearRecordatorio = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        cbxTipoServicio = new javax.swing.JComboBox<>();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
+        jLabel11 = new javax.swing.JLabel();
+        txtMonto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 48, 60));
@@ -84,7 +84,7 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
                 exitTxtMouseExited(evt);
             }
         });
-        header.add(exitTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, -10, 50, 50));
+        header.add(exitTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, -10, 50, 50));
 
         btnAtras.setFont(new java.awt.Font("FG Virgil", 1, 30)); // NOI18N
         btnAtras.setForeground(new java.awt.Color(62, 82, 102));
@@ -104,86 +104,81 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
         });
         header.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 40));
 
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 40));
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 40));
 
-        cbxTipoIngreso.setBackground(new java.awt.Color(36, 48, 60));
-        cbxTipoIngreso.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        cbxTipoIngreso.setForeground(new java.awt.Color(255, 255, 255));
-        cbxTipoIngreso.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        jPanel1.add(cbxTipoIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 270, 40));
-
-        jLabel7.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(26, 177, 136));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("('AÑO'-'MES'-'DIA')");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 290, 30));
+        cbxPrioridad.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        cbxPrioridad.setBorder(null);
+        jPanel1.add(cbxPrioridad, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 260, 40));
 
         txtBienvenida.setBackground(new java.awt.Color(255, 255, 255));
         txtBienvenida.setFont(new java.awt.Font("Roboto Mono", 1, 30)); // NOI18N
         txtBienvenida.setForeground(new java.awt.Color(255, 255, 255));
         txtBienvenida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtBienvenida.setText("REGISTRAR INGRESO");
-        jPanel1.add(txtBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 400, 50));
+        txtBienvenida.setText("CREAR RECORDATORIO");
+        jPanel1.add(txtBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 470, 50));
 
         jLabel8.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("TIPO");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 70, 30));
-
-        txtMONTO_INGRESO.setBackground(new java.awt.Color(36, 48, 60));
-        txtMONTO_INGRESO.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txtMONTO_INGRESO.setForeground(new java.awt.Color(255, 255, 255));
-        txtMONTO_INGRESO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        txtMONTO_INGRESO.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtMONTO_INGRESO.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtMONTO_INGRESOMousePressed(evt);
-            }
-        });
-        txtMONTO_INGRESO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMONTO_INGRESOActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtMONTO_INGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 270, 40));
+        jLabel8.setText("FECHA Y HORA");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 200, 40));
 
         jLabel9.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("MONTO");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 80, 30));
-
-        txtFECHA_INGRESO.setBackground(new java.awt.Color(36, 48, 60));
-        txtFECHA_INGRESO.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txtFECHA_INGRESO.setForeground(new java.awt.Color(255, 255, 255));
-        txtFECHA_INGRESO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        txtFECHA_INGRESO.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtFECHA_INGRESO.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtFECHA_INGRESOMousePressed(evt);
-            }
-        });
-        jPanel1.add(txtFECHA_INGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 270, 40));
+        jLabel9.setText("TIPO SERVICIO");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 200, 40));
 
         btnRegistrarIngreso.setBackground(new java.awt.Color(26, 177, 136));
         btnRegistrarIngreso.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtRegistrarIngreso.setFont(new java.awt.Font("Roboto Mono", 1, 22)); // NOI18N
-        txtRegistrarIngreso.setForeground(new java.awt.Color(255, 255, 255));
-        txtRegistrarIngreso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtRegistrarIngreso.setText("<html><center>Registrar<br>Ingreso<html>");
-        btnRegistrarIngreso.add(txtRegistrarIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 60));
+        txtCrearRecordatorio.setFont(new java.awt.Font("Roboto Mono", 1, 22)); // NOI18N
+        txtCrearRecordatorio.setForeground(new java.awt.Color(255, 255, 255));
+        txtCrearRecordatorio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtCrearRecordatorio.setText("<html><center>Crear<br>Recordatorio<html>");
+        btnRegistrarIngreso.add(txtCrearRecordatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 60));
 
-        jPanel1.add(btnRegistrarIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 180, 60));
+        jPanel1.add(btnRegistrarIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 180, 60));
 
         jLabel10.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("FECHA");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 80, 30));
+        jLabel10.setText("MONTO");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 590));
+        cbxTipoServicio.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        cbxTipoServicio.setBorder(null);
+        jPanel1.add(cbxTipoServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 260, 40));
+
+        jDateChooser.setBackground(new java.awt.Color(36, 48, 60));
+        jDateChooser.setDateFormatString("yyyy-MM-dd");
+        jDateChooser.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jPanel1.add(jDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 260, 40));
+
+        jLabel11.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("PRIORIDAD");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 200, 40));
+
+        txtMonto.setBackground(new java.awt.Color(36, 48, 60));
+        txtMonto.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        txtMonto.setForeground(new java.awt.Color(255, 255, 255));
+        txtMonto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtMonto.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtMonto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtMontoMousePressed(evt);
+            }
+        });
+        txtMonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMontoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 260, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -204,12 +199,8 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
 
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         this.dispose();
-        Ventana_Ingreso frm_ingreso = new Ventana_Ingreso();
-        CtrlMenu_Ingreso ctrlmenu_ingreso = new CtrlMenu_Ingreso(frm_ingreso);
-        ctrlmenu_ingreso.iniciar();
-        frm_ingreso.setVisible(true);
-        usuario_id = Ventana_Login.getUsuarioId();
-        System.out.println("2: " + usuario_id);
+        Ventana_Opciones_Recordatorio opciones_Recordatorio = new Ventana_Opciones_Recordatorio();
+        opciones_Recordatorio.setVisible(true);
     }//GEN-LAST:event_btnAtrasMouseClicked
 
     private void btnAtrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseEntered
@@ -231,17 +222,13 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
         yMouseCrema = evt.getYOnScreen() - this.getY();
     }//GEN-LAST:event_headerMousePressed
 
-    private void txtMONTO_INGRESOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMONTO_INGRESOActionPerformed
+    private void txtMontoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMontoMousePressed
+        txtMonto.setForeground(Color.white);
+    }//GEN-LAST:event_txtMontoMousePressed
 
-    }//GEN-LAST:event_txtMONTO_INGRESOActionPerformed
+    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
 
-    private void txtMONTO_INGRESOMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMONTO_INGRESOMousePressed
-        txtMONTO_INGRESO.setForeground(Color.white);
-    }//GEN-LAST:event_txtMONTO_INGRESOMousePressed
-
-    private void txtFECHA_INGRESOMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFECHA_INGRESOMousePressed
-        txtFECHA_INGRESO.setForeground(Color.white);
-    }//GEN-LAST:event_txtFECHA_INGRESOMousePressed
+    }//GEN-LAST:event_txtMontoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,21 +247,20 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ventana_Registrar_Ingreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana_Crear_Recordatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ventana_Registrar_Ingreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana_Crear_Recordatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ventana_Registrar_Ingreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana_Crear_Recordatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ventana_Registrar_Ingreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana_Crear_Recordatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ventana_Registrar_Ingreso().setVisible(true);
+                new Ventana_Crear_Recordatorio().setVisible(true);
             }
         });
     }
@@ -282,17 +268,19 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAtras;
     public javax.swing.JPanel btnRegistrarIngreso;
-    public javax.swing.JComboBox<Datos_Categoria_Ingreso> cbxTipoIngreso;
+    public javax.swing.JComboBox<String> cbxPrioridad;
+    public javax.swing.JComboBox<Datos_Tipo_Servicio> cbxTipoServicio;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
+    public com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel txtBienvenida;
-    public javax.swing.JTextField txtFECHA_INGRESO;
-    public javax.swing.JTextField txtMONTO_INGRESO;
-    public javax.swing.JLabel txtRegistrarIngreso;
+    public javax.swing.JLabel txtCrearRecordatorio;
+    public javax.swing.JTextField txtMonto;
     // End of variables declaration//GEN-END:variables
+
 }

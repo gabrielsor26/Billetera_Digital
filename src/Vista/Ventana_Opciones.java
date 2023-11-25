@@ -34,7 +34,7 @@ public class Ventana_Opciones extends javax.swing.JFrame {
         btnCambiarUsuario = new javax.swing.JButton();
         btnGestionar = new javax.swing.JButton();
         btnConfigurarPerfil = new javax.swing.JButton();
-        Recordatorios = new javax.swing.JButton();
+        btnRecordatorios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -124,16 +124,16 @@ public class Ventana_Opciones extends javax.swing.JFrame {
         });
         jPanel1.add(btnConfigurarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 330, -1));
 
-        Recordatorios.setBackground(new java.awt.Color(0, 102, 102));
-        Recordatorios.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        Recordatorios.setForeground(new java.awt.Color(255, 255, 255));
-        Recordatorios.setText("Recordatorios");
-        Recordatorios.addActionListener(new java.awt.event.ActionListener() {
+        btnRecordatorios.setBackground(new java.awt.Color(0, 102, 102));
+        btnRecordatorios.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnRecordatorios.setForeground(new java.awt.Color(255, 255, 255));
+        btnRecordatorios.setText("Recordatorios");
+        btnRecordatorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RecordatoriosActionPerformed(evt);
+                btnRecordatoriosActionPerformed(evt);
             }
         });
-        jPanel1.add(Recordatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 410, 230, 144));
+        jPanel1.add(btnRecordatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 410, 230, 144));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 0, 930, 590));
 
@@ -173,21 +173,21 @@ public class Ventana_Opciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConfigurarPerfilComponentMoved
 
-    private void RecordatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordatoriosActionPerformed
+    private void btnRecordatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordatoriosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_RecordatoriosActionPerformed
+    }//GEN-LAST:event_btnRecordatoriosActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton Recordatorios;
     public javax.swing.JButton btnCambiarUsuario;
     public javax.swing.JButton btnConfigurarPerfil;
     public javax.swing.JButton btnEgreso;
     public javax.swing.JButton btnGestionar;
     public javax.swing.JButton btnIngreso;
+    public javax.swing.JButton btnRecordatorios;
     public javax.swing.JButton btnReporte;
     public javax.swing.JButton btnSaldoActual;
     private javax.swing.JPanel jPanel1;

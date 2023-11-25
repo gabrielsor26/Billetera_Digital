@@ -8,8 +8,11 @@ import Modelo.Conexion;
 import Modelo.Consulta_Categoria_Ingreso_Insert;
 import Modelo.Consulta_Familia_Insert;
 import Modelo.Consulta_Nombre_Ventana_Saldo;
+import Modelo.Consulta_Tipo_Servicio_Insert;
 import Modelo.Datos_Categoria_Ingreso;
 import Modelo.Datos_Familia;
+import Modelo.Datos_Recordatorio;
+import Modelo.Datos_Tipo_Servicio;
 import Vista.Ventana_Configurar_Perfil;
 import static Vista.Ventana_Login.usuario_id;
 import java.awt.Color;
@@ -31,6 +34,8 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
     private final Consulta_Categoria_Ingreso_Insert consultas;
     private final Datos_Familia modelofamilia;
     private final Consulta_Familia_Insert consultafamilia;
+    private final Datos_Tipo_Servicio modeloservicio;
+    private final Consulta_Tipo_Servicio_Insert consultaservicio;
     private final Ventana_Configurar_Perfil vista;
     private final int usuario_id;
     private final Consulta_Nombre_Ventana_Saldo consultaNombre;
@@ -61,24 +66,42 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
         }
     }
 
-    public Ctrl_Configurar_Perfil(Datos_Categoria_Ingreso modelo, Consulta_Categoria_Ingreso_Insert consultas, Datos_Familia modelofamilia, Consulta_Familia_Insert consultafamilia, Ventana_Configurar_Perfil vista, int usuario_id, Consulta_Nombre_Ventana_Saldo consultaNombre) {
+    public class MyTableModel2 extends DefaultTableModel {
+
+        public MyTableModel2(Object[][] data, Object[] columnNames) {
+            super(data, columnNames);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Aquí puedes especificar las columnas que no quieres que sean editables
+            return false; // La columna 0, 1, 5 (ID) no será editable
+        }
+    }
+
+    public Ctrl_Configurar_Perfil(Datos_Categoria_Ingreso modelo, Consulta_Categoria_Ingreso_Insert consultas, Datos_Familia modelofamilia, Consulta_Familia_Insert consultafamilia, Datos_Tipo_Servicio modeloservicio, Consulta_Tipo_Servicio_Insert consultaservicio, Ventana_Configurar_Perfil vista, int usuario_id, Consulta_Nombre_Ventana_Saldo consultaNombre) {
         this.modelo = modelo;
         this.consultas = consultas;
         this.modelofamilia = modelofamilia;
         this.consultafamilia = consultafamilia;
+        this.modeloservicio = modeloservicio;
+        this.consultaservicio = consultaservicio;
         this.vista = vista;
         this.usuario_id = usuario_id;
         this.consultaNombre = consultaNombre;
-
+        
         //Botones
         this.vista.txtModificarUsuario.addMouseListener(this);
         this.vista.txtAgregar.addMouseListener(this);
         this.vista.txtEliminar.addMouseListener(this);
         this.vista.txtAgregarFamilia.addMouseListener(this);
         this.vista.txtEliminarFamilia.addMouseListener(this);
+        this.vista.txtAgregarServicio.addMouseListener(this);
+        this.vista.txtEliminarServicio.addMouseListener(this);
         
-
     }
+
+    
 
     public void iniciar() {
         vista.setLocationRelativeTo(null);
@@ -118,6 +141,7 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
         //Tabla Categorizar Ingreso
         mostrarTablaCategoria();
         mostrarTablaFamilia();
+        mostrarTablaServicios();
     }
 
     @Override
@@ -198,7 +222,7 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
             }
             mostrarTablaCategoria();
         }
-        
+
         if (e.getSource() == vista.txtAgregarFamilia) {
 
             String miembro_familiar = JOptionPane.showInputDialog("Ingrese el miembro familiar para registrarlo");
@@ -213,7 +237,7 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
             }
 
         }
-        
+
         if (e.getSource() == vista.txtEliminarFamilia) {
 
             int Fila = vista.jtFamilia.getSelectedRow();
@@ -247,10 +271,56 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
             }
             mostrarTablaFamilia();
         }
-        
-        
-        
-        
+
+        if (e.getSource() == vista.txtAgregarServicio) {
+
+            String servicio = JOptionPane.showInputDialog("Ingrese un servicio que paga recurrentemente");
+
+            modeloservicio.setTIPO_SERVICIO(servicio);
+
+            if (consultaservicio.registrar(modeloservicio, usuario_id)) {
+                mostrarTablaServicios();
+                JOptionPane.showMessageDialog(null, "Registro Guardado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al Guardar");
+            }
+
+        }
+
+        if (e.getSource() == vista.txtEliminarServicio) {
+
+            int Fila = vista.jtTipoServicio.getSelectedRow();
+
+            if (Fila < 0) {
+                JOptionPane.showMessageDialog(null, "Selecciona una fila antes de eliminar.");
+                return;
+            }
+
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminarlo?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                PreparedStatement ps = null;
+                int codigo = (int) vista.jtTipoServicio.getValueAt(Fila, 0);
+
+                try {
+                    Conexion objCon = new Conexion();
+                    Connection conn = objCon.getConexion();
+
+                    ps = conn.prepareStatement("DELETE FROM tipo_servicio WHERE ID_SERVICIO=?");
+                    ps.setString(1, String.valueOf(codigo));
+                    ps.execute();
+
+                    ((MyTableModel1) vista.jtTipoServicio.getModel()).removeRow(Fila);
+                    JOptionPane.showMessageDialog(null, "Registro Eliminado");
+
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al Eliminar Usuario");
+                    System.out.println(ex.toString());
+                }
+            }
+            mostrarTablaServicios();
+        }
+
     }
 
     public void mostrarTablaCategoria() {
@@ -391,6 +461,76 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
         this.vista.jtFamilia.setBorder(BorderFactory.createEmptyBorder());
         this.vista.jtFamilia.setIntercellSpacing(new java.awt.Dimension(0, 0));
         this.vista.jScrollPane3.getViewport().setBackground(new Color(0, 92, 75));
+    }
+
+    public void mostrarTablaServicios() {
+
+        PreparedStatement ps3 = null;
+        ResultSet rs3 = null;
+
+        try {
+            MyTableModel2 modelotabla = new MyTableModel2(new Object[][]{}, new Object[]{"ID_SERVICIO", "TIPO_SERVICIO", "usuario_id"});
+            this.vista.jtTipoServicio.setModel(modelotabla);
+            //PreparedStatement ps = null;
+            //ResultSet rs = null;
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "SELECT ID_SERVICIO, TIPO_SERVICIO, usuario_id FROM tipo_servicio WHERE usuario_id = ?";
+            ps3 = con.prepareStatement(sql);
+            ps3.setInt(1, usuario_id);
+            rs3 = ps3.executeQuery();
+
+            ResultSetMetaData rsMd3 = (ResultSetMetaData) rs3.getMetaData();
+            int cantidadColumnas = rsMd3.getColumnCount();
+
+            int altoFila = 30;
+            int[] anchos = {50, 50, 50, 50};
+            this.vista.jtTipoServicio.setRowHeight(altoFila);
+
+            for (int i = 0; i < this.vista.jtTipoServicio.getColumnCount(); i++) {
+                this.vista.jtTipoServicio.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            }
+
+            //Centrar Texto
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+            for (int i = 0; i < vista.jtTipoServicio.getColumnCount(); i++) {
+                vista.jtTipoServicio.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            }
+
+            while (rs3.next()) {
+                Object[] filas = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    filas[i] = rs3.getObject(i + 1);
+                    System.out.print(rs3.getObject(i + 1) + " ");
+                }
+
+                System.out.println();
+                modelotabla.addRow(filas);
+
+            }
+
+            javax.swing.table.TableColumnModel columnModel = vista.jtTipoServicio.getColumnModel();
+            javax.swing.table.TableColumn idColumn = columnModel.getColumn(0);
+            javax.swing.table.TableColumn idColumn2 = columnModel.getColumn(2);
+            idColumn.setMinWidth(0);
+            idColumn.setMaxWidth(0);
+            idColumn.setPreferredWidth(0);
+            idColumn.setResizable(false);
+            idColumn2.setMinWidth(0);
+            idColumn2.setMaxWidth(0);
+            idColumn2.setPreferredWidth(0);
+            idColumn2.setResizable(false);
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+
+        this.vista.jtTipoServicio.getTableHeader().setVisible(false);
+        this.vista.jtTipoServicio.setBorder(BorderFactory.createEmptyBorder());
+        this.vista.jtTipoServicio.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        this.vista.jScrollPane4.getViewport().setBackground(new Color(0, 92, 75));
     }
 
     @Override

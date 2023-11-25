@@ -9,10 +9,12 @@ import Modelo.Consulta_Obtener_Dinero_Inversion;
 import Modelo.Consulta_Obtener_Suma_Egresos;
 import Modelo.Consulta_Obtener_Suma_Ingresos;
 import Modelo.Consulta_Obtener_Suma_Recursos_Asignados_Metas;
+import Modelo.Consulta_Tipo_Servicio_Insert;
 import Modelo.Datos_Categoria_Ingreso;
 import Modelo.Datos_Egreso;
 import Modelo.Datos_Familia;
 import Modelo.Datos_Ingreso;
+import Modelo.Datos_Tipo_Servicio;
 import Vista.Ventana_Configurar_Perfil;
 import Vista.Ventana_ConsultaSaldo;
 import Vista.Ventana_Egreso;
@@ -23,6 +25,7 @@ import Vista.Ventana_Login;
 import static Vista.Ventana_Login.usuario_id;
 import Vista.Ventana_Metas;
 import Vista.Ventana_Opciones;
+import Vista.Ventana_Opciones_Recordatorio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -39,6 +42,7 @@ public class CtrlMenu_Opciones implements ActionListener {
         this.vista.btnGestionar.addActionListener(this);
         this.vista.btnConfigurarPerfil.addActionListener(this);
         this.vista.btnReporte.addActionListener(this);
+        this.vista.btnRecordatorios.addActionListener(this);
 
     }
 
@@ -129,10 +133,14 @@ public class CtrlMenu_Opciones implements ActionListener {
             Consulta_Nombre_Ventana_Saldo consulta_nombre_ventana_saldo = new Consulta_Nombre_Ventana_Saldo();
             Datos_Familia dfamilia = new Datos_Familia();
             Consulta_Familia_Insert cfamilia = new Consulta_Familia_Insert();
+            Datos_Tipo_Servicio dservicios = new Datos_Tipo_Servicio();
+            Consulta_Tipo_Servicio_Insert cservicios = new Consulta_Tipo_Servicio_Insert();
             Ctrl_Configurar_Perfil ctrl_configurar_perfil = new Ctrl_Configurar_Perfil(datos_categoria_Ingreso,
                     consulta_datos_categoria_Ingreso,
                     dfamilia,
                     cfamilia,
+                    dservicios,
+                    cservicios,
                     frm_configurar_perfil,
                     usuario_id,
                     consulta_nombre_ventana_saldo);
@@ -149,6 +157,14 @@ public class CtrlMenu_Opciones implements ActionListener {
             CtrlVentana_Estado_Cuenta ctrl_estado_cuenta = new CtrlVentana_Estado_Cuenta(frm_estado_cuenta, consulta_limites_fechas, usuario_id);
             ctrl_estado_cuenta.iniciar();
             frm_estado_cuenta.setVisible(true);
+
+        }
+
+        if (e.getSource() == vista.btnRecordatorios) {
+
+            vista.dispose();
+            Ventana_Opciones_Recordatorio opciones_Recordatorio = new Ventana_Opciones_Recordatorio();
+            opciones_Recordatorio.setVisible(true);
 
         }
 
