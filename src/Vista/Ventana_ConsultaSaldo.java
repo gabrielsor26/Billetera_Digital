@@ -30,50 +30,64 @@ public class Ventana_ConsultaSaldo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel5.setBackground(new java.awt.Color(36, 48, 60));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelMontoSaldoTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelMontoSaldoTotal.setFont(new java.awt.Font("Roboto Mono", 1, 16)); // NOI18N
+        jLabelMontoSaldoTotal.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMontoSaldoTotal.setText("jLabelMontoSaldoTotal");
-        jPanel5.add(jLabelMontoSaldoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
+        jPanel5.add(jLabelMontoSaldoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Resumen:");
-        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 148, -1, -1));
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
-        jLabelSaldo.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabelSaldo.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
+        jLabelSaldo.setForeground(new java.awt.Color(255, 255, 255));
         jLabelSaldo.setText("Hola!! ");
-        jPanel5.add(jLabelSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        jPanel5.add(jLabelSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
-        jLabelNombre.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabelNombre.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelNombre.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
+        jLabelNombre.setForeground(new java.awt.Color(0, 204, 153));
+        jLabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelNombre.setText("jLabelNombre");
-        jPanel5.add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 240, 51));
+        jPanel5.add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 540, 51));
 
-        jLabelMontoSaldoDisponible.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabelMontoSaldoDisponible.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabelMontoSaldoDisponible.setForeground(new java.awt.Color(255, 204, 0));
         jLabelMontoSaldoDisponible.setText("jLabelMontoSaldoDisponible");
-        jPanel5.add(jLabelMontoSaldoDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 198, -1, -1));
+        jPanel5.add(jLabelMontoSaldoDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
-        jLabelMontoSaldoDestinadoInversion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelMontoSaldoDestinadoInversion.setFont(new java.awt.Font("Roboto Mono", 1, 16)); // NOI18N
+        jLabelMontoSaldoDestinadoInversion.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMontoSaldoDestinadoInversion.setText("jLabelMontoSaldoDestinadoInversion");
-        jPanel5.add(jLabelMontoSaldoDestinadoInversion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
+        jPanel5.add(jLabelMontoSaldoDestinadoInversion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
 
-        btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnAtras.setText("Atras");
+        btnAtras.setBackground(new java.awt.Color(36, 48, 60));
+        btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
+        btnAtras.setForeground(new java.awt.Color(0, 153, 153));
+        btnAtras.setText("<-");
+        btnAtras.setBorder(null);
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtrasActionPerformed(evt);
             }
         });
-        jPanel5.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 387, 162, -1));
+        jPanel5.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 70, 30));
 
-        jLabelMontoSaldoDestinadoMetas1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelMontoSaldoDestinadoMetas1.setFont(new java.awt.Font("Roboto Mono", 1, 16)); // NOI18N
+        jLabelMontoSaldoDestinadoMetas1.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMontoSaldoDestinadoMetas1.setText("jLabelMontoSaldoDestinadoMetas");
-        jPanel5.add(jLabelMontoSaldoDestinadoMetas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        jPanel5.add(jLabelMontoSaldoDestinadoMetas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
 
-        jLabelMontoSaldoDestinadoAhorros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelMontoSaldoDestinadoAhorros.setFont(new java.awt.Font("Roboto Mono", 1, 16)); // NOI18N
+        jLabelMontoSaldoDestinadoAhorros.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMontoSaldoDestinadoAhorros.setText("jLabelMontoSaldoDestinadoAhorros");
-        jPanel5.add(jLabelMontoSaldoDestinadoAhorros, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
+        jPanel5.add(jLabelMontoSaldoDestinadoAhorros, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 490));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

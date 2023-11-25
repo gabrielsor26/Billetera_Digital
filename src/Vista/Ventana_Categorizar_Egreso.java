@@ -45,22 +45,22 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
             Conexion conn = new Conexion();
             java.sql.Connection con = conn.getConexion();
 
-            String sql1 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosComida FROM egreso WHERE TIPO_EGRESO = 'Comida' AND usuario_id = ?";
+            String sql1 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosComida FROM egreso WHERE TIPO_EGRESO LIKE 'Comida%' AND usuario_id = ?";
             ps1 = con.prepareStatement(sql1);
             ps1.setInt(1, usuario_id);
             rs1 = ps1.executeQuery();
 
-            String sql2 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosTrasporte FROM egreso WHERE TIPO_EGRESO = 'Transporte' AND usuario_id = ?";
+            String sql2 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosTrasporte FROM egreso WHERE TIPO_EGRESO LIKE 'Transporte%' AND usuario_id = ?";
             ps2 = con.prepareStatement(sql2);
             ps2.setInt(1, usuario_id);
             rs2 = ps2.executeQuery();
 
-            String sql3 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosEntretenimiento FROM egreso WHERE TIPO_EGRESO = 'Entretenimiento' AND usuario_id = ?";
+            String sql3 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosEntretenimiento FROM egreso WHERE TIPO_EGRESO LIKE 'Entretenimiento%' AND usuario_id = ?";
             ps3 = con.prepareStatement(sql3);
             ps3.setInt(1, usuario_id);
             rs3 = ps3.executeQuery();
 
-            String sql4 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosServicios FROM egreso WHERE TIPO_EGRESO = 'Servicios' AND usuario_id = ?";
+            String sql4 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosServicios FROM egreso WHERE TIPO_EGRESO LIKE 'Servicios%' AND usuario_id = ?";
             ps4 = con.prepareStatement(sql4);
             ps4.setInt(1, usuario_id);
             rs4 = ps4.executeQuery();
@@ -129,131 +129,98 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
         btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        pizarra.setBackground(new java.awt.Color(36, 48, 60));
         pizarra.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        pizarra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
-        jLabel1.setText("Categorización de Egresos");
+        jLabel1.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("CATEGORIZACION EGRESO");
+        pizarra.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Comida:");
+        pizarra.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 450, -1, -1));
 
-        txt_comida.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_comida.setBackground(new java.awt.Color(36, 48, 60));
+        txt_comida.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        txt_comida.setForeground(new java.awt.Color(255, 204, 0));
+        txt_comida.setBorder(null);
+        pizarra.add(txt_comida, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 450, 190, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Transporte:");
+        pizarra.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 520, -1, -1));
 
-        txt_transporte.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_transporte.setBackground(new java.awt.Color(36, 48, 60));
+        txt_transporte.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        txt_transporte.setForeground(new java.awt.Color(255, 204, 0));
+        txt_transporte.setBorder(null);
+        pizarra.add(txt_transporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 190, -1));
 
+        btn_g.setBackground(new java.awt.Color(0, 153, 153));
         btn_g.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        btn_g.setText("Graficar");
+        btn_g.setForeground(new java.awt.Color(255, 255, 255));
+        btn_g.setText("GRAFICAR");
+        btn_g.setBorder(null);
         btn_g.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_gActionPerformed(evt);
             }
         });
+        pizarra.add(btn_g, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 560, 140, 40));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Entretenimiento:");
+        pizarra.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Servicios:");
+        pizarra.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 650, -1, -1));
 
-        txt_entretenimiento.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_entretenimiento.setBackground(new java.awt.Color(36, 48, 60));
+        txt_entretenimiento.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        txt_entretenimiento.setForeground(new java.awt.Color(255, 204, 0));
+        txt_entretenimiento.setBorder(null);
+        pizarra.add(txt_entretenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 590, 190, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Gastos Varios:");
+        pizarra.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 720, -1, -1));
 
-        txt_servicios.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_servicios.setBackground(new java.awt.Color(36, 48, 60));
+        txt_servicios.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        txt_servicios.setForeground(new java.awt.Color(255, 204, 0));
+        txt_servicios.setBorder(null);
+        pizarra.add(txt_servicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 650, 190, -1));
 
-        txt_gastosvarios.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_gastosvarios.setBackground(new java.awt.Color(36, 48, 60));
+        txt_gastosvarios.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        txt_gastosvarios.setForeground(new java.awt.Color(255, 204, 0));
+        txt_gastosvarios.setBorder(null);
+        pizarra.add(txt_gastosvarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 720, 190, -1));
 
-        btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnAtras.setBackground(new java.awt.Color(36, 48, 60));
+        btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
+        btnAtras.setForeground(new java.awt.Color(0, 153, 153));
         btnAtras.setText("<-");
+        btnAtras.setAutoscrolls(true);
+        btnAtras.setBorder(null);
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtrasActionPerformed(evt);
             }
         });
+        pizarra.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, -1));
 
-        javax.swing.GroupLayout pizarraLayout = new javax.swing.GroupLayout(pizarra);
-        pizarra.setLayout(pizarraLayout);
-        pizarraLayout.setHorizontalGroup(
-            pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pizarraLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addGap(38, 38, 38)
-                .addGroup(pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pizarraLayout.createSequentialGroup()
-                        .addGroup(pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_comida, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_transporte, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txt_gastosvarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                .addComponent(txt_servicios)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pizarraLayout.createSequentialGroup()
-                        .addComponent(txt_entretenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
-                        .addComponent(btn_g)
-                        .addGap(102, 102, 102))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pizarraLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(75, 75, 75)
-                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
-        );
-        pizarraLayout.setVerticalGroup(
-            pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pizarraLayout.createSequentialGroup()
-                .addGroup(pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pizarraLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(pizarraLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAtras)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 397, Short.MAX_VALUE)
-                .addGroup(pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_comida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(27, 27, 27)
-                .addGroup(pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txt_transporte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txt_entretenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_g))
-                .addGap(26, 26, 26)
-                .addGroup(pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txt_servicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(pizarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txt_gastosvarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pizarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pizarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(pizarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 790));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -288,27 +255,27 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
             double grados_servicios = double_servicios * 360 / suma_valores;
             double grados_gastosvarios = double_gastosvarios * 360 / suma_valores;
 
-            lapiz.setColor(Color.decode("#EE4266"));
+            lapiz.setColor(Color.decode("#e06666"));
             lapiz.fillArc(100, 80, 360, 360, 0, (int) grados_comida);
             lapiz.fillRect(550, 120, 20, 20);
             lapiz.drawString("Comida", 580, 135);
 
-            lapiz.setColor(Color.decode("#2A1E5C"));
+            lapiz.setColor(Color.decode("#6fa8dc"));
             lapiz.fillArc(100, 80, 360, 360, (int) grados_comida, (int) grados_transporte);
             lapiz.fillRect(550, 150, 20, 20);
             lapiz.drawString("Transporte", 580, 165);
 
-            lapiz.setColor(Color.decode("#4381C1"));
+            lapiz.setColor(Color.decode("#ffd966"));
             lapiz.fillArc(100, 80, 360, 360, (int) (grados_comida + grados_transporte), (int) grados_entretenimiento);
             lapiz.fillRect(550, 180, 20, 20);
             lapiz.drawString("Entretenimiento", 580, 195);
 
-            lapiz.setColor(Color.decode("#2D2D2A"));
+            lapiz.setColor(Color.decode("#93c47d"));
             lapiz.fillArc(100, 80, 360, 360, (int) (grados_comida + grados_transporte + grados_entretenimiento), (int) grados_servicios);
             lapiz.fillRect(550, 210, 20, 20);
             lapiz.drawString("Servicios", 580, 225);
 
-            lapiz.setColor(Color.decode("#3CBBB1"));
+            lapiz.setColor(Color.decode("#76a5af"));
             lapiz.fillArc(100, 80, 360, 360, (int) (grados_comida + grados_transporte + grados_entretenimiento + grados_servicios), (int) grados_gastosvarios);
             lapiz.fillRect(550, 240, 20, 20);
             lapiz.drawString("Gastos Varios", 580, 255);

@@ -39,63 +39,78 @@ public class Ventana_Opciones extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(36, 48, 60));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnIngreso.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnIngreso.setBackground(new java.awt.Color(0, 102, 102));
+        btnIngreso.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnIngreso.setForeground(new java.awt.Color(255, 255, 255));
         btnIngreso.setText("Ingreso");
         btnIngreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 162, 144));
+        jPanel1.add(btnIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 162, 144));
 
-        btnEgreso.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnEgreso.setBackground(new java.awt.Color(0, 102, 102));
+        btnEgreso.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnEgreso.setForeground(new java.awt.Color(255, 255, 255));
         btnEgreso.setText("Egreso");
         btnEgreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEgresoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 162, 144));
+        jPanel1.add(btnEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 162, 144));
 
-        btnSaldoActual.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnSaldoActual.setBackground(new java.awt.Color(0, 102, 102));
+        btnSaldoActual.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnSaldoActual.setForeground(new java.awt.Color(255, 255, 255));
         btnSaldoActual.setText("<html><center>Saldo<br> Actual<html>");
         btnSaldoActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaldoActualActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSaldoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 162, 144));
+        jPanel1.add(btnSaldoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 230, 162, 144));
 
-        btnReporte.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnReporte.setBackground(new java.awt.Color(0, 102, 102));
+        btnReporte.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnReporte.setForeground(new java.awt.Color(255, 255, 255));
         btnReporte.setText("Ver Estado de Cuenta");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReporteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, -1, -1));
+        jPanel1.add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 330, -1));
 
-        btnCambiarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnCambiarUsuario.setBackground(new java.awt.Color(0, 102, 102));
+        btnCambiarUsuario.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnCambiarUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnCambiarUsuario.setText("<- Cambiar Usuario");
         btnCambiarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCambiarUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCambiarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 15, -1, -1));
+        jPanel1.add(btnCambiarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
-        btnGestionar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnGestionar.setBackground(new java.awt.Color(0, 102, 102));
+        btnGestionar.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnGestionar.setForeground(new java.awt.Color(255, 255, 255));
         btnGestionar.setText("<html><center>Gestionar<br> Ingreso<html>");
         btnGestionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGestionarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 162, 145));
+        jPanel1.add(btnGestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 230, 145));
 
-        btnConfigurarPerfil.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnConfigurarPerfil.setBackground(new java.awt.Color(0, 102, 102));
+        btnConfigurarPerfil.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnConfigurarPerfil.setForeground(new java.awt.Color(255, 255, 255));
         btnConfigurarPerfil.setText("Configurar Perfil");
         btnConfigurarPerfil.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
@@ -107,18 +122,20 @@ public class Ventana_Opciones extends javax.swing.JFrame {
                 btnConfigurarPerfilActionPerformed(evt);
             }
         });
-        jPanel1.add(btnConfigurarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 260, -1));
+        jPanel1.add(btnConfigurarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 330, -1));
 
-        Recordatorios.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Recordatorios.setBackground(new java.awt.Color(0, 102, 102));
+        Recordatorios.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        Recordatorios.setForeground(new java.awt.Color(255, 255, 255));
         Recordatorios.setText("Recordatorios");
         Recordatorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RecordatoriosActionPerformed(evt);
             }
         });
-        jPanel1.add(Recordatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 190, 144));
+        jPanel1.add(Recordatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 410, 230, 144));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, 570, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 0, 930, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

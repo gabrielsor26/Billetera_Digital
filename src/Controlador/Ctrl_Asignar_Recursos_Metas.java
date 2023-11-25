@@ -60,7 +60,7 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
 
         //Botones
         this.vista.btnAtras.addActionListener(this);
-        this.vista.btnModificar.addActionListener(this);
+        //this.vista.btnModificar.addActionListener(this);
         this.vista.btnEliminar.addActionListener(this);
         this.vista.btnObtener.addActionListener(this);
         this.vista.btnAgregar.addActionListener(this);
@@ -125,7 +125,7 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
             ctrl_metas.iniciar();
             frm_metas.setVisible(true);
         }
-
+/*
         if (e.getSource() == vista.btnModificar) {
 
             if (vista.jtMetas.getSelectedRow() == -1) {
@@ -166,7 +166,7 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
             }
 
         }
-
+*/
         if (e.getSource() == vista.btnEliminar) {
 
             if (vista.jtMetas.getSelectedRow() == -1) {

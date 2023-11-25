@@ -22,82 +22,56 @@ public class Ventana_Egreso extends javax.swing.JFrame {
         btnCategorizarEgreso = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnRegistrarEgreso.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jPanel3.setBackground(new java.awt.Color(36, 48, 60));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnRegistrarEgreso.setBackground(new java.awt.Color(0, 102, 102));
+        btnRegistrarEgreso.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnRegistrarEgreso.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrarEgreso.setText("Registrar Egreso");
         btnRegistrarEgreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarEgresoActionPerformed(evt);
             }
         });
+        jPanel3.add(btnRegistrarEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 490, -1));
 
-        btnConsultarHistorial.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnConsultarHistorial.setBackground(new java.awt.Color(0, 102, 102));
+        btnConsultarHistorial.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnConsultarHistorial.setForeground(new java.awt.Color(255, 255, 255));
         btnConsultarHistorial.setText("Consultar Historial de Egreso");
         btnConsultarHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarHistorialActionPerformed(evt);
             }
         });
+        jPanel3.add(btnConsultarHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 490, -1));
 
-        btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnAtras.setBackground(new java.awt.Color(0, 102, 102));
+        btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtrasActionPerformed(evt);
             }
         });
+        jPanel3.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 300, -1));
 
-        btnCategorizarEgreso.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnCategorizarEgreso.setBackground(new java.awt.Color(0, 102, 102));
+        btnCategorizarEgreso.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnCategorizarEgreso.setForeground(new java.awt.Color(255, 255, 255));
         btnCategorizarEgreso.setText("Categorizar Egreso");
         btnCategorizarEgreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCategorizarEgresoActionPerformed(evt);
             }
         });
+        jPanel3.add(btnCategorizarEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 490, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnConsultarHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                            .addComponent(btnRegistrarEgreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCategorizarEgreso, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(122, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
-                .addComponent(btnRegistrarEgreso)
-                .addGap(18, 18, 18)
-                .addComponent(btnConsultarHistorial)
-                .addGap(18, 18, 18)
-                .addComponent(btnCategorizarEgreso)
-                .addGap(18, 18, 18)
-                .addComponent(btnAtras)
-                .addGap(86, 86, 86))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 578, 374));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -21,93 +21,80 @@ public class Ventana_Crear_Metas extends javax.swing.JFrame {
         txtFechaLimite = new javax.swing.JTextField();
         btnCrearMeta = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Nombre de la Meta");
+        jPanel1.setBackground(new java.awt.Color(36, 48, 60));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("CREAR META");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 460, -1));
+
+        jLabel2.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Coloque el monto de la Meta");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Fecha Límite de la Meta");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
 
+        txtNombreMeta.setBackground(new java.awt.Color(36, 48, 60));
         txtNombreMeta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtNombreMeta.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombreMeta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtNombreMeta.setCaretColor(new java.awt.Color(255, 255, 255));
         txtNombreMeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreMetaActionPerformed(evt);
             }
         });
+        jPanel1.add(txtNombreMeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 390, -1));
 
+        txtMontoMeta.setBackground(new java.awt.Color(36, 48, 60));
         txtMontoMeta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtMontoMeta.setForeground(new java.awt.Color(255, 255, 255));
+        txtMontoMeta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtMontoMeta.setCaretColor(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtMontoMeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 390, 40));
 
+        txtFechaLimite.setBackground(new java.awt.Color(36, 48, 60));
         txtFechaLimite.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtFechaLimite.setForeground(new java.awt.Color(255, 255, 255));
+        txtFechaLimite.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtFechaLimite.setCaretColor(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtFechaLimite, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 390, 39));
 
-        btnCrearMeta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnCrearMeta.setBackground(new java.awt.Color(0, 204, 102));
+        btnCrearMeta.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnCrearMeta.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearMeta.setText("Crear Meta");
         btnCrearMeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearMetaActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCrearMeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMontoMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNombreMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(txtFechaLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(90, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnCrearMeta)
-                .addGap(28, 28, 28))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombreMeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMontoMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFechaLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCrearMeta)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnAtras.setBackground(new java.awt.Color(36, 48, 60));
+        btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnAtras.setForeground(new java.awt.Color(0, 153, 153));
         btnAtras.setText("<-");
+        btnAtras.setBorder(null);
+        jPanel1.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 62, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnAtras)
-        );
+        jLabel4.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Nombre de la Meta");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -128,6 +115,7 @@ public class Ventana_Crear_Metas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JTextField txtFechaLimite;
     public javax.swing.JTextField txtMontoMeta;

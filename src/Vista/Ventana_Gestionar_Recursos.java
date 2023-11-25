@@ -46,81 +46,56 @@ public class Ventana_Gestionar_Recursos extends javax.swing.JFrame {
         btnInversion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnMetas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jPanel3.setBackground(new java.awt.Color(36, 48, 60));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnMetas.setBackground(new java.awt.Color(0, 102, 102));
+        btnMetas.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnMetas.setForeground(new java.awt.Color(255, 255, 255));
         btnMetas.setText("Metas");
         btnMetas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMetasActionPerformed(evt);
             }
         });
+        jPanel3.add(btnMetas, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 300, -1));
 
-        btnAhorro.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnAhorro.setBackground(new java.awt.Color(0, 102, 102));
+        btnAhorro.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnAhorro.setForeground(new java.awt.Color(255, 255, 255));
         btnAhorro.setText("Ahorro (Chanchito)");
         btnAhorro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAhorroActionPerformed(evt);
             }
         });
+        jPanel3.add(btnAhorro, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 300, -1));
 
-        btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnAtras.setBackground(new java.awt.Color(0, 102, 102));
+        btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtrasActionPerformed(evt);
             }
         });
+        jPanel3.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 162, -1));
 
-        btnInversion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnInversion.setBackground(new java.awt.Color(0, 102, 102));
+        btnInversion.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnInversion.setForeground(new java.awt.Color(255, 255, 255));
         btnInversion.setText("Inversión");
         btnInversion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInversionActionPerformed(evt);
             }
         });
+        jPanel3.add(btnInversion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 300, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnMetas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAhorro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnInversion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(100, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(132, 132, 132))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
-                .addComponent(btnMetas)
-                .addGap(18, 18, 18)
-                .addComponent(btnAhorro)
-                .addGap(18, 18, 18)
-                .addComponent(btnInversion)
-                .addGap(41, 41, 41)
-                .addComponent(btnAtras)
-                .addGap(69, 69, 69))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
