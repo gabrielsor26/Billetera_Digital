@@ -68,7 +68,7 @@ public class CtrlDatos_Egreso implements ActionListener {
 
         vista.cbxDestinoFamiliar.removeAllItems();
 
-        vista.cbxDestinoFamiliar.addItem(new Datos_Familia("Me"));
+        vista.cbxDestinoFamiliar.addItem(new Datos_Familia("Yo"));
 
         for (int i = 0; i < listaDatos_Familia.size(); i++) {
 
@@ -77,7 +77,7 @@ public class CtrlDatos_Egreso implements ActionListener {
 
         }
 
-        vista.cbxDestinoFamiliar.setSelectedItem("Me");
+        vista.cbxDestinoFamiliar.setSelectedItem("Yo");
 
     }
 

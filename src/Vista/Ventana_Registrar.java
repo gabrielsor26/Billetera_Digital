@@ -22,9 +22,9 @@ public class Ventana_Registrar extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Registrar Usuario");
         this.setLocationRelativeTo(null);
-        
+
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-        
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -157,42 +157,56 @@ public class Ventana_Registrar extends javax.swing.JFrame {
             if (tipousuario.equalsIgnoreCase("Seleccionar")) {
                 JOptionPane.showMessageDialog(null, "DEBE DE SELECCIONAR UN TIPO DE USUARIO");
             } else {
-                try {
-                    // Consulta para verificar si el correo electrónico ya está registrado
-                    String consultaEmailExistente = "SELECT COUNT(*) FROM usuarios WHERE email = ?";
-                    PreparedStatement psEmailExistente = cn.prepareStatement(consultaEmailExistente);
-                    psEmailExistente.setString(1, email);
-                    ResultSet rs = psEmailExistente.executeQuery();
-                    rs.next();
-                    int count = rs.getInt(1);
+                if (pass.length() < 7 || !containsNumber(pass)) {
+                    JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos 7 caracteres y contener al menos un número.");
+                } else {
+                    try {
+                        // Consulta para verificar si el correo electrónico ya está registrado
+                        String consultaEmailExistente = "SELECT COUNT(*) FROM usuarios WHERE email = ?";
+                        PreparedStatement psEmailExistente = cn.prepareStatement(consultaEmailExistente);
+                        psEmailExistente.setString(1, email);
+                        ResultSet rs = psEmailExistente.executeQuery();
+                        rs.next();
+                        int count = rs.getInt(1);
 
-                    if (count > 0) {
-                        JOptionPane.showMessageDialog(null, "El correo electrónico ya está registrado.");
-                    } else {
-                        // Si el correo electrónico no está registrado, realiza la inserción
-                        String consulta = "INSERT INTO usuarios (nombre, apellido, email, pass, tipo_nivel) VALUES (?, ?, ?, ?, ?)";
-                        PreparedStatement ps = cn.prepareStatement(consulta);
-                        ps.setString(1, nombre);
-                        ps.setString(2, apellido);
-                        ps.setString(3, email);
-                        ps.setString(4, pass);
-                        ps.setString(5, tipousuario);
-                        ps.executeUpdate();
-                        limpiar();
-                        JOptionPane.showMessageDialog(null, "DATOS GUARDADOS CON ÉXITO");
+                        if (count > 0) {
+                            JOptionPane.showMessageDialog(null, "El correo electrónico ya está registrado.");
+                        } else {
+                            // Si el correo electrónico no está registrado, realiza la inserción
+                            String consulta = "INSERT INTO usuarios (nombre, apellido, email, pass, tipo_nivel) VALUES (?, ?, ?, ?, ?)";
+                            PreparedStatement ps = cn.prepareStatement(consulta);
+                            ps.setString(1, nombre);
+                            ps.setString(2, apellido);
+                            ps.setString(3, email);
+                            ps.setString(4, pass);
+                            ps.setString(5, tipousuario);
+                            ps.executeUpdate();
+                            limpiar();
+                            JOptionPane.showMessageDialog(null, "DATOS GUARDADOS CON ÉXITO");
+                        }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "NO SE PUDO GUARDAR EL USUARIO" + e);
                     }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "NO SE PUDO GUARDAR EL USUARIO" + e);
                 }
             }
         }
 
         this.dispose();
 
-        // Restaura la visibilidad de la ventana de inicio de sesión
+// Restaura la visibilidad de la ventana de inicio de sesión
         ventanaLogin.setVisible(true);
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private boolean containsNumber(String str) {
+        for (char c : str.toCharArray()) {
+            if (Character.isDigit(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
         // TODO add your handling code here:

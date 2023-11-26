@@ -89,7 +89,7 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
         this.vista = vista;
         this.usuario_id = usuario_id;
         this.consultaNombre = consultaNombre;
-        
+
         //Botones
         this.vista.txtModificarUsuario.addMouseListener(this);
         this.vista.txtAgregar.addMouseListener(this);
@@ -98,10 +98,8 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
         this.vista.txtEliminarFamilia.addMouseListener(this);
         this.vista.txtAgregarServicio.addMouseListener(this);
         this.vista.txtEliminarServicio.addMouseListener(this);
-        
-    }
 
-    
+    }
 
     public void iniciar() {
         vista.setLocationRelativeTo(null);
@@ -225,9 +223,11 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
 
         if (e.getSource() == vista.txtAgregarFamilia) {
 
-            String miembro_familiar = JOptionPane.showInputDialog("Ingrese el miembro familiar para registrarlo");
+            String nombre_familiar = JOptionPane.showInputDialog("Ingrese el nombre del miembro familiar");
+            String parentesco_familiar = JOptionPane.showInputDialog("Ingrese la relacion de parentesco con el familiar");
 
-            modelofamilia.setRELACION_FAMILIAR(miembro_familiar);
+            String miembro = nombre_familiar + " - " + parentesco_familiar;
+            modelofamilia.setRELACION_FAMILIAR(miembro);
 
             if (consultafamilia.registrar(modelofamilia, usuario_id)) {
                 mostrarTablaFamilia();

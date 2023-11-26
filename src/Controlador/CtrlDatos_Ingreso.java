@@ -91,8 +91,8 @@ public class CtrlDatos_Ingreso implements MouseListener, ItemListener {
         if (e.getSource() == vista.txtRegistrarIngreso) {
             try {
                 double monto_ingreso = Double.parseDouble(vista.txtMONTO_INGRESO.getText());
-                if (monto_ingreso <= 0) {
-                    mostrarError("El monto debe ser mayor que cero.");
+                if (monto_ingreso <= 0 || monto_ingreso > 10000) {
+                    mostrarError("El monto debe ser mayor que cero y no debe ser mayor a 10000.");
                 } else {
                     modelo.setMONTO_INGRESO(monto_ingreso);
                 }
@@ -147,7 +147,7 @@ public class CtrlDatos_Ingreso implements MouseListener, ItemListener {
         String asunto = "INGRESO REGISTRADO";
         String cuerpo = "Buenas, acaba de registrarse un ingreso\n\n"
                 + "Con los siguientes datos\n"
-                + cuerpoDatosIngreso; 
+                + cuerpoDatosIngreso;
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
