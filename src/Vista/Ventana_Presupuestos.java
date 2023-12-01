@@ -89,7 +89,7 @@ public class Ventana_Presupuestos extends javax.swing.JFrame {
 
         jPanel1.add(headercrema, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 600));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1230, 690));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

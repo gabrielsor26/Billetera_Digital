@@ -235,6 +235,7 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
             } else {
                 JOptionPane.showMessageDialog(null, "Error al Guardar");
             }
+            
 
         }
 
@@ -310,7 +311,7 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
                     ps.setString(1, String.valueOf(codigo));
                     ps.execute();
 
-                    ((MyTableModel1) vista.jtTipoServicio.getModel()).removeRow(Fila);
+                    ((MyTableModel2) vista.jtTipoServicio.getModel()).removeRow(Fila);
                     JOptionPane.showMessageDialog(null, "Registro Eliminado");
 
                 } catch (SQLException ex) {
@@ -399,8 +400,8 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
         ResultSet rs2 = null;
 
         try {
-            MyTableModel1 modelotabla2 = new MyTableModel1(new Object[][]{}, new Object[]{"ID_FAMILIA", "RELACION_FAMILIAR", "usuario_id"});
-            this.vista.jtFamilia.setModel(modelotabla2);
+            MyTableModel1 modelotabla1 = new MyTableModel1(new Object[][]{}, new Object[]{"ID_FAMILIA", "RELACION_FAMILIAR", "usuario_id"});
+            this.vista.jtFamilia.setModel(modelotabla1);
             //PreparedStatement ps = null;
             //ResultSet rs = null;
             Conexion conn = new Conexion();
@@ -437,7 +438,7 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
                 }
 
                 System.out.println();
-                modelotabla2.addRow(filas);
+                modelotabla1.addRow(filas);
 
             }
 
@@ -469,8 +470,8 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
         ResultSet rs3 = null;
 
         try {
-            MyTableModel2 modelotabla = new MyTableModel2(new Object[][]{}, new Object[]{"ID_SERVICIO", "TIPO_SERVICIO", "usuario_id"});
-            this.vista.jtTipoServicio.setModel(modelotabla);
+            MyTableModel2 modelotabla2 = new MyTableModel2(new Object[][]{}, new Object[]{"ID_SERVICIO", "TIPO_SERVICIO", "usuario_id"});
+            this.vista.jtTipoServicio.setModel(modelotabla2);
             //PreparedStatement ps = null;
             //ResultSet rs = null;
             Conexion conn = new Conexion();
@@ -507,7 +508,7 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
                 }
 
                 System.out.println();
-                modelotabla.addRow(filas);
+                modelotabla2.addRow(filas);
 
             }
 
