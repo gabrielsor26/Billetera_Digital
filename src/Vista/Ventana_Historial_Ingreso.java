@@ -135,7 +135,7 @@ public class Ventana_Historial_Ingreso extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtIngresos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        jtIngresos.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
+        jtIngresos.setFont(new java.awt.Font("Roboto Mono", 0, 14)); // NOI18N
         jtIngresos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

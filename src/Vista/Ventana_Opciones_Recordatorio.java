@@ -7,8 +7,15 @@ package Vista;
 import Controlador.CtrlMenu_Opciones;
 import Controlador.Ctrl_Crear_Recordatorio;
 import Controlador.Ctrl_Ver_Recordatorios;
+import Modelo.Consulta_Datos_Egreso;
 import Modelo.Consulta_Datos_Recordatorio;
 import Modelo.Consulta_Email_Notificacion;
+import Modelo.Consulta_Obtener_Dinero_Ahorrado;
+import Modelo.Consulta_Obtener_Dinero_Inversion;
+import Modelo.Consulta_Obtener_Suma_Egresos;
+import Modelo.Consulta_Obtener_Suma_Ingresos;
+import Modelo.Consulta_Obtener_Suma_Recursos_Asignados_Metas;
+import Modelo.Datos_Egreso;
 import Modelo.Datos_Recordatorio;
 import static Vista.Ventana_Login.usuario_id;
 
@@ -102,14 +109,32 @@ public class Ventana_Opciones_Recordatorio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearRecordatorioActionPerformed
 
     private void btnVerRecordatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRecordatoriosActionPerformed
-        
+
         this.dispose();
+        Datos_Egreso mod_egreso = new Datos_Egreso();
+        Consulta_Obtener_Suma_Ingresos modC_sumaingreso = new Consulta_Obtener_Suma_Ingresos();
+        Consulta_Obtener_Suma_Egresos modC_sumaegreso = new Consulta_Obtener_Suma_Egresos();
+        Consulta_Datos_Egreso modC_egreso = new Consulta_Datos_Egreso();
+        Consulta_Obtener_Suma_Recursos_Asignados_Metas modC_consulta_suma_recursos_asignados = new Consulta_Obtener_Suma_Recursos_Asignados_Metas();
+        Consulta_Obtener_Dinero_Ahorrado consulta_obtener_dinero_ahorrado = new Consulta_Obtener_Dinero_Ahorrado();
+        Consulta_Obtener_Dinero_Inversion consulta_obtener_dinero_inversion = new Consulta_Obtener_Dinero_Inversion();
+        Consulta_Email_Notificacion email = new Consulta_Email_Notificacion();
         Ventana_Ver_Recordatorios vista = new Ventana_Ver_Recordatorios();
-        Ctrl_Ver_Recordatorios ctrl = new Ctrl_Ver_Recordatorios(vista, usuario_id);
-        
+        Ctrl_Ver_Recordatorios ctrl = new Ctrl_Ver_Recordatorios(
+                mod_egreso,
+                modC_sumaingreso,
+                modC_sumaegreso,
+                modC_consulta_suma_recursos_asignados,
+                consulta_obtener_dinero_ahorrado,
+                consulta_obtener_dinero_inversion,
+                modC_egreso,
+                email,
+                vista,
+                usuario_id);
+
         ctrl.iniciar();
         vista.setVisible(true);
-        
+
     }//GEN-LAST:event_btnVerRecordatoriosActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed

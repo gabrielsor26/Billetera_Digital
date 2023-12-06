@@ -289,7 +289,7 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel1;
     public javax.swing.JLabel txtBienvenida;
     public javax.swing.JTextField txtFECHA_INGRESO;
     public javax.swing.JTextField txtMONTO_INGRESO;

@@ -25,6 +25,7 @@ import Vista.Ventana_Login;
 import static Vista.Ventana_Login.usuario_id;
 import Vista.Ventana_Metas;
 import Vista.Ventana_Opciones;
+import Vista.Ventana_Opciones_Presupuesto;
 import Vista.Ventana_Opciones_Recordatorio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,6 +44,7 @@ public class CtrlMenu_Opciones implements ActionListener {
         this.vista.btnConfigurarPerfil.addActionListener(this);
         this.vista.btnReporte.addActionListener(this);
         this.vista.btnRecordatorios.addActionListener(this);
+        this.vista.btnPresupuestos.addActionListener(this);
 
     }
 
@@ -165,6 +167,14 @@ public class CtrlMenu_Opciones implements ActionListener {
             vista.dispose();
             Ventana_Opciones_Recordatorio opciones_Recordatorio = new Ventana_Opciones_Recordatorio();
             opciones_Recordatorio.setVisible(true);
+
+        }
+        
+        if (e.getSource() == vista.btnPresupuestos) {
+
+            vista.dispose();
+            Ventana_Opciones_Presupuesto opciones_presupuesto = new Ventana_Opciones_Presupuesto();
+            opciones_presupuesto.setVisible(true);
 
         }
 

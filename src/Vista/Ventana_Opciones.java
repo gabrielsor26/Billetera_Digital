@@ -35,6 +35,7 @@ public class Ventana_Opciones extends javax.swing.JFrame {
         btnGestionar = new javax.swing.JButton();
         btnConfigurarPerfil = new javax.swing.JButton();
         btnRecordatorios = new javax.swing.JButton();
+        btnPresupuestos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -45,51 +46,56 @@ public class Ventana_Opciones extends javax.swing.JFrame {
         btnIngreso.setBackground(new java.awt.Color(0, 102, 102));
         btnIngreso.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         btnIngreso.setForeground(new java.awt.Color(255, 255, 255));
-        btnIngreso.setText("Ingreso");
+        btnIngreso.setText("INGRESO");
+        btnIngreso.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         btnIngreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 162, 144));
+        jPanel1.add(btnIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 162, 144));
 
         btnEgreso.setBackground(new java.awt.Color(0, 102, 102));
         btnEgreso.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         btnEgreso.setForeground(new java.awt.Color(255, 255, 255));
-        btnEgreso.setText("Egreso");
+        btnEgreso.setText("EGRESO");
+        btnEgreso.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         btnEgreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEgresoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 162, 144));
+        jPanel1.add(btnEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, 162, 144));
 
         btnSaldoActual.setBackground(new java.awt.Color(0, 102, 102));
         btnSaldoActual.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         btnSaldoActual.setForeground(new java.awt.Color(255, 255, 255));
-        btnSaldoActual.setText("<html><center>Saldo<br> Actual<html>");
+        btnSaldoActual.setText("<html><center>SALDO<br> ACTUAL<html>");
+        btnSaldoActual.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         btnSaldoActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaldoActualActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSaldoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 230, 162, 144));
+        jPanel1.add(btnSaldoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 240, 162, 144));
 
         btnReporte.setBackground(new java.awt.Color(0, 102, 102));
         btnReporte.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(255, 255, 255));
         btnReporte.setText("Ver Estado de Cuenta");
+        btnReporte.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReporteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 330, -1));
+        jPanel1.add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 330, -1));
 
         btnCambiarUsuario.setBackground(new java.awt.Color(0, 102, 102));
         btnCambiarUsuario.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         btnCambiarUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnCambiarUsuario.setText("<- Cambiar Usuario");
+        btnCambiarUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         btnCambiarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCambiarUsuarioActionPerformed(evt);
@@ -100,18 +106,20 @@ public class Ventana_Opciones extends javax.swing.JFrame {
         btnGestionar.setBackground(new java.awt.Color(0, 102, 102));
         btnGestionar.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         btnGestionar.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionar.setText("<html><center>Gestionar<br> Ingreso<html>");
+        btnGestionar.setText("<html><center>GESTIONAR<br> INGRESO<html>");
+        btnGestionar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         btnGestionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGestionarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 230, 145));
+        jPanel1.add(btnGestionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 230, 145));
 
         btnConfigurarPerfil.setBackground(new java.awt.Color(0, 102, 102));
         btnConfigurarPerfil.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         btnConfigurarPerfil.setForeground(new java.awt.Color(255, 255, 255));
         btnConfigurarPerfil.setText("Configurar Perfil");
+        btnConfigurarPerfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         btnConfigurarPerfil.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
                 btnConfigurarPerfilComponentMoved(evt);
@@ -122,18 +130,31 @@ public class Ventana_Opciones extends javax.swing.JFrame {
                 btnConfigurarPerfilActionPerformed(evt);
             }
         });
-        jPanel1.add(btnConfigurarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 330, -1));
+        jPanel1.add(btnConfigurarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 330, -1));
 
         btnRecordatorios.setBackground(new java.awt.Color(0, 102, 102));
         btnRecordatorios.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         btnRecordatorios.setForeground(new java.awt.Color(255, 255, 255));
-        btnRecordatorios.setText("Recordatorios");
+        btnRecordatorios.setText("RECORDATORIOS");
+        btnRecordatorios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         btnRecordatorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecordatoriosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRecordatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 410, 230, 144));
+        jPanel1.add(btnRecordatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 420, 230, 144));
+
+        btnPresupuestos.setBackground(new java.awt.Color(0, 102, 102));
+        btnPresupuestos.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        btnPresupuestos.setForeground(new java.awt.Color(255, 255, 255));
+        btnPresupuestos.setText("PRESUPUESTOS");
+        btnPresupuestos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        btnPresupuestos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPresupuestosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPresupuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, 230, 144));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 0, 930, 590));
 
@@ -177,6 +198,10 @@ public class Ventana_Opciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRecordatoriosActionPerformed
 
+    private void btnPresupuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPresupuestosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -187,6 +212,7 @@ public class Ventana_Opciones extends javax.swing.JFrame {
     public javax.swing.JButton btnEgreso;
     public javax.swing.JButton btnGestionar;
     public javax.swing.JButton btnIngreso;
+    public javax.swing.JButton btnPresupuestos;
     public javax.swing.JButton btnRecordatorios;
     public javax.swing.JButton btnReporte;
     public javax.swing.JButton btnSaldoActual;

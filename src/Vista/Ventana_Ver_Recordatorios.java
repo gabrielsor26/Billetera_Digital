@@ -165,7 +165,6 @@ public class Ventana_Ver_Recordatorios extends javax.swing.JFrame {
         jScrollPane2.setViewportView(null);
         jScrollPane2.setWheelScrollingEnabled(false);
 
-        jtRecordatorios.setBackground(new java.awt.Color(206, 212, 218));
         jtRecordatorios.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
         jtRecordatorios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,7 +175,7 @@ public class Ventana_Ver_Recordatorios extends javax.swing.JFrame {
             }
         ));
         jtRecordatorios.setGridColor(new java.awt.Color(206, 212, 218));
-        jtRecordatorios.setSelectionBackground(new java.awt.Color(206, 212, 218));
+        jtRecordatorios.setSelectionBackground(new java.awt.Color(204, 204, 255));
         jtRecordatorios.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jtRecordatorios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -232,9 +231,8 @@ public class Ventana_Ver_Recordatorios extends javax.swing.JFrame {
         jLabel7.setText("MONTO");
         background.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
 
-        txtMonto.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        txtMonto.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
         txtMonto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        txtMonto.setCaretColor(new java.awt.Color(255, 255, 255));
         txtMonto.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtMonto.setSelectionColor(new java.awt.Color(0, 204, 153));
         background.add(txtMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 270, 190, 40));
@@ -297,7 +295,7 @@ public class Ventana_Ver_Recordatorios extends javax.swing.JFrame {
 
         background.add(btnPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 520, 260, 60));
 
-        cbxTipoServicio.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        cbxTipoServicio.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
         cbxTipoServicio.setBorder(null);
         background.add(cbxTipoServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 190, 190, 40));
 
@@ -306,13 +304,13 @@ public class Ventana_Ver_Recordatorios extends javax.swing.JFrame {
         jLabel14.setText("TIPO SERVICIO");
         background.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 160, -1, -1));
 
-        cbxPrioridad.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        cbxPrioridad.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
         cbxPrioridad.setBorder(null);
         background.add(cbxPrioridad, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 430, 190, 40));
 
         jDateChooser.setBackground(new java.awt.Color(36, 48, 60));
         jDateChooser.setDateFormatString("yyyy-MM-dd");
-        jDateChooser.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jDateChooser.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
         background.add(jDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 350, 190, 40));
 
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 610));
@@ -484,10 +482,10 @@ public class Ventana_Ver_Recordatorios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jtRecordatorios;
-    private javax.swing.JLabel txtEliminar;
-    private javax.swing.JLabel txtModificar;
+    public javax.swing.JLabel txtEliminar;
+    public javax.swing.JLabel txtModificar;
     public javax.swing.JTextField txtMonto;
-    private javax.swing.JLabel txtPagar;
+    public javax.swing.JLabel txtPagar;
     // End of variables declaration//GEN-END:variables
 
 }

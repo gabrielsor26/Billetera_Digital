@@ -1,7 +1,15 @@
 package Controlador;
 
 import Modelo.Conexion;
+import Modelo.Consulta_Datos_Egreso;
+import Modelo.Consulta_Email_Notificacion;
+import Modelo.Consulta_Obtener_Dinero_Ahorrado;
+import Modelo.Consulta_Obtener_Dinero_Inversion;
+import Modelo.Consulta_Obtener_Suma_Egresos;
+import Modelo.Consulta_Obtener_Suma_Ingresos;
+import Modelo.Consulta_Obtener_Suma_Recursos_Asignados_Metas;
 import Modelo.Consulta_Tipo_Servicio_Select;
+import Modelo.Datos_Egreso;
 import Modelo.Datos_Recordatorio;
 import Modelo.Datos_Tipo_Servicio;
 import Vista.Ventana_Ver_Recordatorios;
@@ -10,6 +18,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JTable;
@@ -19,12 +28,25 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Ctrl_Ver_Recordatorios implements MouseListener {
 
+    private final Datos_Egreso modelo;
+    private final Consulta_Obtener_Suma_Ingresos consultaSumaIngresos;
+    private final Consulta_Obtener_Suma_Egresos consultaSumaEgresos;
+    private final Consulta_Obtener_Suma_Recursos_Asignados_Metas consultaSumaRecursosAsignados;
+    private final Consulta_Obtener_Dinero_Ahorrado consultaDineroAhorrado;
+    private final Consulta_Obtener_Dinero_Inversion consultaDineroInversion;
+    private final Consulta_Datos_Egreso consultas;
+    private final Consulta_Email_Notificacion consultaEmail;
     private final Ventana_Ver_Recordatorios vista;
     private final int usuario_id;
-    DefaultTableModel modelo = new DefaultTableModel();
 
     public class MyTableModel extends DefaultTableModel {
 
@@ -35,13 +57,27 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
         @Override
         public boolean isCellEditable(int row, int column) {
             // Aquí puedes especificar las columnas que no quieres que sean editables
-            return column != 0; // La columna 0, 1, 5 (ID) no será editable
+            return !(column == 0 || column == 1 || column == 2 || column == 3 || column == 4 || column == 5); // La columna 0, 1, 5 (ID) no será editable
         }
     }
 
-    public Ctrl_Ver_Recordatorios(Ventana_Ver_Recordatorios vista, int usuario_id) {
+    public Ctrl_Ver_Recordatorios(Datos_Egreso modelo, Consulta_Obtener_Suma_Ingresos consultaSumaIngresos, Consulta_Obtener_Suma_Egresos consultaSumaEgresos, Consulta_Obtener_Suma_Recursos_Asignados_Metas consultaSumaRecursosAsignados, Consulta_Obtener_Dinero_Ahorrado consultaDineroAhorrado, Consulta_Obtener_Dinero_Inversion consultaDineroInversion, Consulta_Datos_Egreso consultas, Consulta_Email_Notificacion consultaEmail, Ventana_Ver_Recordatorios vista, int usuario_id) {
+        this.modelo = modelo;
+        this.consultaSumaIngresos = consultaSumaIngresos;
+        this.consultaSumaEgresos = consultaSumaEgresos;
+        this.consultaSumaRecursosAsignados = consultaSumaRecursosAsignados;
+        this.consultaDineroAhorrado = consultaDineroAhorrado;
+        this.consultaDineroInversion = consultaDineroInversion;
+        this.consultas = consultas;
+        this.consultaEmail = consultaEmail;
         this.vista = vista;
         this.usuario_id = usuario_id;
+
+        //MouseListener
+        this.vista.jtRecordatorios.addMouseListener(this);
+        this.vista.txtPagar.addMouseListener(this);
+        this.vista.txtModificar.addMouseListener(this);
+        this.vista.txtEliminar.addMouseListener(this);
     }
 
     public void iniciar() {
@@ -101,7 +137,7 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
             String sql = "SELECT * "
                     + "FROM recordatorios "
                     + "WHERE usuario_id = ? "
-                    + "ORDER BY PRIORIDAD DESC;";
+                    + "ORDER BY PRIORIDAD;";
             ps = con.prepareStatement(sql);
             ps.setInt(1, usuario_id);
             rs = ps.executeQuery();
@@ -133,7 +169,7 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
             this.vista.jtRecordatorios.setBorder(BorderFactory.createEmptyBorder());
             this.vista.jtRecordatorios.setIntercellSpacing(new java.awt.Dimension(0, 0));
 
-            this.vista.jScrollPane2.getViewport().setBackground(new Color(206, 212, 218));
+            this.vista.jScrollPane2.getViewport().setBackground(new Color(255, 255, 255));
 
             javax.swing.table.TableColumnModel columnModel = this.vista.jtRecordatorios.getColumnModel();
             javax.swing.table.TableColumn idColumn = columnModel.getColumn(0);
@@ -189,6 +225,218 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
+        if (e.getSource() == vista.txtPagar) {
+
+            double sumaIngresos = consultaSumaIngresos.obtenerSumaIngresos(usuario_id);
+            double sumaEgresos = consultaSumaEgresos.obtenerSumaEgresos(usuario_id);
+            double sumaRecursosAsignados = consultaSumaRecursosAsignados.obtenerRecursosAsignados(usuario_id);
+            double obtenerDineroAhorrado = consultaDineroAhorrado.obtenerDineroAhorrado(usuario_id);
+            double obtenerDineroInversion = consultaDineroInversion.obtenerDineroInversion(usuario_id);
+            double saldo_disponible = sumaIngresos - sumaEgresos - sumaRecursosAsignados - obtenerDineroAhorrado - obtenerDineroInversion;
+
+            //SELECCION
+            int Fila = this.vista.jtRecordatorios.getSelectedRow();
+            int ID_RECORDATORIO = (int) this.vista.jtRecordatorios.getValueAt(Fila, 0);
+            String TIPO_SERVICIO = (String) this.vista.jtRecordatorios.getValueAt(Fila, 1);
+            Double MONTO = (Double) this.vista.jtRecordatorios.getValueAt(Fila, 2);
+            String PRIORIDAD = (String) this.vista.jtRecordatorios.getValueAt(Fila, 4);
+            String ESTADO = (String) this.vista.jtRecordatorios.getValueAt(Fila, 5);
+            java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
+            System.out.println("ESTADOO: " + ESTADO);
+
+            if ("PENDIENTE".equals(ESTADO)) {
+
+                // Validar si el monto es mayor que el saldo disponible
+                if (MONTO > saldo_disponible) {
+                    JOptionPane.showMessageDialog(null, "El monto supera el saldo disponible. No es posible realizar el pago.");
+                    return; // Salir del método en caso de que el monto sea mayor que el saldo disponible
+                }
+
+                int respuesta = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas pagar la factura?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    modelo.setMONTO_EGRESO(MONTO);
+
+                    modelo.setFECHA_EGRESO((java.sql.Date) date);
+
+                    String cadenaAdicional = TIPO_SERVICIO;
+                    modelo.setTIPO_EGRESO("Servicios - " + cadenaAdicional + " - Yo");
+
+                    if (consultas.registrar(modelo, usuario_id)) {
+                        JOptionPane.showMessageDialog(null, "Factura pagada y registrada con exito");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al Guardar Registro");
+                    }
+
+                    PreparedStatement ps = null;
+
+                    try {
+                        int fila = this.vista.jtRecordatorios.getSelectedRow();
+                        String codigo = this.vista.jtRecordatorios.getValueAt(fila, 0).toString();
+                        Conexion objCon = new Conexion();
+                        Connection conn = objCon.getConexion();
+                        ps = conn.prepareStatement("UPDATE recordatorios SET ESTADO = 'PAGADA' WHERE ID_RECORDATORIO=?");
+                        ps.setString(1, codigo);
+                        ps.execute();
+                        llenar_tabla_recordatorios();
+
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Error updatear estado del recordatorio");
+                        System.out.println(ex.toString());
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Obtención Cancelada");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Esta factura ya esta pagada");
+            }
+
+        }
+
+        if (e.getSource() == vista.jtRecordatorios) {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            try {
+                Conexion objCon = new Conexion();
+                Connection conn = objCon.getConexion();
+
+                int Fila = vista.jtRecordatorios.getSelectedRow();
+
+                String codigo = vista.jtRecordatorios.getValueAt(Fila, 0).toString();
+
+                System.out.println("El valor de codigo es: " + codigo);
+
+                ps = conn.prepareStatement("SELECT TIPO_SERVICIO, MONTO, FECHA, PRIORIDAD FROM recordatorios WHERE ID_RECORDATORIO=?");
+                ps.setString(1, codigo);
+                rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    //TIPO_SERVICIO
+                    // Obtén el valor de TIPO_SERVICIO desde la base de datos
+                    String tipoServicio = rs.getString("TIPO_SERVICIO");
+
+                    // Itera a través de los elementos en el JComboBox
+                    for (int i = 0; i < vista.cbxTipoServicio.getItemCount(); i++) {
+                        Datos_Tipo_Servicio servicio = (Datos_Tipo_Servicio) vista.cbxTipoServicio.getItemAt(i);
+
+                        // Compara las cadenas de texto directamente
+                        if (servicio.getTIPO_SERVICIO().equals(tipoServicio)) {
+                            vista.cbxTipoServicio.setSelectedItem(servicio);
+                            break;
+                        }
+                    }
+                    //MONTO
+                    vista.txtMonto.setText(rs.getString("MONTO"));
+                    //FECHA
+                    String fechaString = rs.getString("FECHA");
+                    // Formatear la cadena de fecha a un objeto Date
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  // Ajusta el formato según tus necesidades
+                    Date fecha = sdf.parse(fechaString);
+                    // Establecer la fecha en el JDateChooser
+                    vista.jDateChooser.setDate(fecha);
+                    //PRIORIDAD
+                    String tipoprioridad = rs.getString("PRIORIDAD");
+                    for (int i = 0; i < vista.cbxPrioridad.getItemCount(); i++) {
+                        String prioridad = (String) vista.cbxPrioridad.getItemAt(i);
+
+                        // Compara las cadenas de texto directamente
+                        if (prioridad.equals(tipoprioridad)) {
+                            vista.cbxPrioridad.setSelectedItem(prioridad);
+                            break;
+                        }
+                    }
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+            } catch (ParseException ex) {
+                Logger.getLogger(Ctrl_Ver_Recordatorios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (e.getSource() == vista.txtModificar) {
+            
+            if (vista.jtRecordatorios.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila de la tabla antes de modificar algun registro.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del manejador de eventos si no se selecciona una fila
+            }
+            
+            PreparedStatement ps = null;
+            try {
+                Conexion objCon = new Conexion();
+                Connection conn = objCon.getConexion();
+                ps = conn.prepareStatement("UPDATE recordatorios SET TIPO_SERVICIO=?, MONTO=?, FECHA=?, PRIORIDAD=? WHERE ID_RECORDATORIO=?");
+
+                Datos_Tipo_Servicio tipo_servicio_seleccionado = (Datos_Tipo_Servicio) vista.cbxTipoServicio.getSelectedItem();
+
+                double monto = Double.parseDouble(vista.txtMonto.getText());
+
+                Date fechaSeleccionada = vista.jDateChooser.getDate();
+                java.sql.Date fechaIngreso = new java.sql.Date(fechaSeleccionada.getTime());
+
+                String prioridad_seleccionada = (String) vista.cbxPrioridad.getSelectedItem();
+
+                int fila = this.vista.jtRecordatorios.getSelectedRow();
+                String codigo = this.vista.jtRecordatorios.getValueAt(fila, 0).toString();
+
+                ps.setString(1, tipo_servicio_seleccionado.getTIPO_SERVICIO());
+                ps.setDouble(2, monto);
+                ps.setDate(3, fechaIngreso);
+                ps.setString(4, prioridad_seleccionada);
+                ps.setString(5, codigo);
+                ps.execute();
+
+                JOptionPane.showMessageDialog(null, "Recordatorio Modificado");
+                //jtUsuarios.setValueAt(txtCodigo.getText(), Fila, 0);
+                llenar_tabla_recordatorios();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al Modificar Recordatorio");
+                System.out.println(ex);
+            }
+
+        }
+        
+        if (e.getSource() == vista.txtEliminar) {
+            
+            if (vista.jtRecordatorios.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila de la tabla antes de eliminar algun registro.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del manejador de eventos si no se selecciona una fila
+            }
+
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar este registro?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                // El usuario confirmó la eliminación
+                PreparedStatement ps = null;
+
+                try {
+                    Conexion objCon = new Conexion();
+                    Connection conn = objCon.getConexion();
+
+                    int fila = this.vista.jtRecordatorios.getSelectedRow();
+                    String codigo = this.vista.jtRecordatorios.getValueAt(fila, 0).toString();
+
+                    ps = conn.prepareStatement("DELETE FROM recordatorios WHERE ID_RECORDATORIO=?");
+                    ps.setString(1, codigo);
+                    ps.execute();
+
+                    JOptionPane.showMessageDialog(null, "Recordatorio Eliminado");
+                    llenar_tabla_recordatorios();
+                    
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al Eliminar Recordatorio");
+                    System.out.println(ex.toString());
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Eliminación Cancelada");
+            }
+            
+            
+        
+        }
+        
     }
 
     @Override

@@ -396,7 +396,7 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
                     datos.setFECHA_EGRESO((java.sql.Date) date);
 
                     String cadenaAdicional = NOMBRE_META;
-                    datos.setTIPO_EGRESO("Meta - " + cadenaAdicional);
+                    datos.setTIPO_EGRESO("Gastos Varios - Meta - " + cadenaAdicional);
 
                     if (consultas.registrar(datos, usuario_id)) {
                         JOptionPane.showMessageDialog(null, "Meta Cumplida y registrada con existo");

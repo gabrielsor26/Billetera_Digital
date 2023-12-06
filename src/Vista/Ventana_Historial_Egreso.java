@@ -121,7 +121,7 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(36, 48, 60));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtEgresos.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
+        jtEgresos.setFont(new java.awt.Font("Roboto Mono", 0, 14)); // NOI18N
         jtEgresos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

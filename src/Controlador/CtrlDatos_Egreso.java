@@ -27,8 +27,8 @@ import javax.swing.JOptionPane;
 
 public class CtrlDatos_Egreso implements ActionListener {
 
-    private final Datos_Egreso modelo;
     private final int usuario_id;
+    private final Datos_Egreso modelo;
     private final Consulta_Obtener_Suma_Ingresos consultaSumaIngresos;
     private final Consulta_Obtener_Suma_Egresos consultaSumaEgresos;
     private final Consulta_Obtener_Suma_Recursos_Asignados_Metas consultaSumaRecursosAsignados;
