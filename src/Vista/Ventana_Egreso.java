@@ -47,7 +47,7 @@ public class Ventana_Egreso extends javax.swing.JFrame {
                 btnConsultarHistorialActionPerformed(evt);
             }
         });
-        jPanel3.add(btnConsultarHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 490, -1));
+        jPanel3.add(btnConsultarHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 490, -1));
 
         btnAtras.setBackground(new java.awt.Color(0, 102, 102));
         btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
@@ -69,7 +69,7 @@ public class Ventana_Egreso extends javax.swing.JFrame {
                 btnCategorizarEgresoActionPerformed(evt);
             }
         });
-        jPanel3.add(btnCategorizarEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 490, -1));
+        jPanel3.add(btnCategorizarEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 490, -1));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 578, 374));
 

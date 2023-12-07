@@ -33,13 +33,13 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtMONTO_EGRESO = new javax.swing.JTextField();
-        txtFECHA_EGRESO = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         ComboBoxTIPO_EGRESO = new javax.swing.JComboBox<>();
         btnAtras = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cbxDestinoFamiliar = new javax.swing.JComboBox<>();
         txtBienvenida = new javax.swing.JLabel();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,27 +62,14 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         jLabel3.setText("TIPO DEL EGRESO");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
 
-        txtMONTO_EGRESO.setBackground(new java.awt.Color(36, 48, 60));
-        txtMONTO_EGRESO.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txtMONTO_EGRESO.setForeground(new java.awt.Color(255, 255, 255));
+        txtMONTO_EGRESO.setFont(new java.awt.Font("Roboto Mono", 0, 24)); // NOI18N
         txtMONTO_EGRESO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtMONTO_EGRESO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMONTO_EGRESOActionPerformed(evt);
             }
         });
-        jPanel1.add(txtMONTO_EGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 290, 36));
-
-        txtFECHA_EGRESO.setBackground(new java.awt.Color(36, 48, 60));
-        txtFECHA_EGRESO.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txtFECHA_EGRESO.setForeground(new java.awt.Color(255, 255, 255));
-        txtFECHA_EGRESO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        txtFECHA_EGRESO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFECHA_EGRESOActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtFECHA_EGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 290, 36));
+        jPanel1.add(txtMONTO_EGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 290, 40));
 
         btnRegistrar.setBackground(new java.awt.Color(26, 177, 136));
         btnRegistrar.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
@@ -95,10 +82,8 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         });
         jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 530, -1, -1));
 
-        ComboBoxTIPO_EGRESO.setBackground(new java.awt.Color(36, 48, 60));
-        ComboBoxTIPO_EGRESO.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        ComboBoxTIPO_EGRESO.setForeground(new java.awt.Color(255, 255, 255));
-        ComboBoxTIPO_EGRESO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione . . .", "Comida", "Transporte", "Entretenimiento", "Servicios", "Gastos Varios" }));
+        ComboBoxTIPO_EGRESO.setFont(new java.awt.Font("Roboto Mono", 0, 24)); // NOI18N
+        ComboBoxTIPO_EGRESO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comida", "Transporte", "Entretenimiento", "Servicios", "Gastos Varios" }));
         ComboBoxTIPO_EGRESO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         ComboBoxTIPO_EGRESO.setInheritsPopupMenu(true);
         ComboBoxTIPO_EGRESO.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +91,7 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
                 ComboBoxTIPO_EGRESOActionPerformed(evt);
             }
         });
-        jPanel1.add(ComboBoxTIPO_EGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 300, -1));
+        jPanel1.add(ComboBoxTIPO_EGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 290, -1));
 
         btnAtras.setBackground(new java.awt.Color(36, 48, 60));
         btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
@@ -125,9 +110,7 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         jLabel4.setText("MONTO DEL EGRESO");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
-        cbxDestinoFamiliar.setBackground(new java.awt.Color(36, 48, 60));
-        cbxDestinoFamiliar.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        cbxDestinoFamiliar.setForeground(new java.awt.Color(255, 255, 255));
+        cbxDestinoFamiliar.setFont(new java.awt.Font("Roboto Mono", 0, 24)); // NOI18N
         cbxDestinoFamiliar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         cbxDestinoFamiliar.setInheritsPopupMenu(true);
         cbxDestinoFamiliar.addActionListener(new java.awt.event.ActionListener() {
@@ -144,6 +127,11 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         txtBienvenida.setText("REGISTRAR EGRESO");
         jPanel1.add(txtBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 400, 50));
 
+        jDateChooser.setBackground(new java.awt.Color(36, 48, 60));
+        jDateChooser.setDateFormatString("yyyy-MM-dd");
+        jDateChooser.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
+        jPanel1.add(jDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 290, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 390, 600));
 
         pack();
@@ -156,10 +144,6 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
-    private void txtFECHA_EGRESOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFECHA_EGRESOActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFECHA_EGRESOActionPerformed
 
     private void ComboBoxTIPO_EGRESOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxTIPO_EGRESOActionPerformed
         // TODO add your handling code here:
@@ -183,13 +167,13 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
     public javax.swing.JButton btnAtras;
     public javax.swing.JButton btnRegistrar;
     public javax.swing.JComboBox<Datos_Familia> cbxDestinoFamiliar;
+    public com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel txtBienvenida;
-    public javax.swing.JTextField txtFECHA_EGRESO;
     public javax.swing.JTextField txtMONTO_EGRESO;
     // End of variables declaration//GEN-END:variables
 }
