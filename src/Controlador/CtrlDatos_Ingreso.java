@@ -16,6 +16,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -49,8 +50,7 @@ public class CtrlDatos_Ingreso implements MouseListener, ItemListener {
         llenarDatos_Categoria_Ingreso();
 
         java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
-        vista.txtFECHA_INGRESO.setForeground(new Color(255, 113, 17));
-        vista.txtFECHA_INGRESO.setText(String.valueOf(date));
+        vista.jDateChooser.setDate(date);
 
     }
 
@@ -80,7 +80,6 @@ public class CtrlDatos_Ingreso implements MouseListener, ItemListener {
 
     public void limpiar() {
         vista.txtMONTO_INGRESO.setText(null);
-        vista.txtFECHA_INGRESO.setText(null);
         vista.cbxTipoIngreso.setSelectedItem(null);
 
     }
@@ -96,10 +95,12 @@ public class CtrlDatos_Ingreso implements MouseListener, ItemListener {
                 } else {
                     modelo.setMONTO_INGRESO(monto_ingreso);
                 }
-
-                String fechaTexto = vista.txtFECHA_INGRESO.getText();
-                java.sql.Date fechaIngreso = java.sql.Date.valueOf(fechaTexto);
-                modelo.setFECHA_INGRESO(fechaIngreso);
+                //Settear Fecha
+                Date fechaSeleccionada = vista.jDateChooser.getDate();
+                java.sql.Date fechaEgreso = new java.sql.Date(fechaSeleccionada.getTime());
+                
+                
+                modelo.setFECHA_INGRESO(fechaEgreso);
 
                 Datos_Categoria_Ingreso categoriaSeleccionada = (Datos_Categoria_Ingreso) vista.cbxTipoIngreso.getSelectedItem();
                 if ("Seleccione ...".equals(categoriaSeleccionada.getTIPO_INGRESO())) {
@@ -115,22 +116,27 @@ public class CtrlDatos_Ingreso implements MouseListener, ItemListener {
                     modelo.setDESCRIPCION_INGRESO(categoriaSeleccionada.getTIPO_INGRESO());
                 }
 
+                // ...
                 if (consultas.registrar(modelo, usuario_id)) {
-                    JOptionPane.showMessageDialog(null, "Registro Guardado");
+                    int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas enviar la información del INGRESO a su correo?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
-                    System.out.println(modelo);
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        JOptionPane.showMessageDialog(null, "Registro Guardado");
+                        System.out.println(modelo);
+                        Datos_Ingreso cuerpoDatosIngreso = modelo;
+                        enviarmail(cuerpoDatosIngreso);
+                        limpiar();
 
-                    Datos_Ingreso cuerpoDatosIngreso = modelo;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Registro Guardado sin enviar el correo");
+                        limpiar();
 
-                    enviarmail(cuerpoDatosIngreso);
-
-                    limpiar();
-                    java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
-                    vista.txtFECHA_INGRESO.setForeground(new Color(255, 113, 17));
-                    vista.txtFECHA_INGRESO.setText(String.valueOf(date));
+                    }
                 } else {
                     mostrarError("Error al Guardar");
                 }
+
+// ...
             } catch (NumberFormatException ex) {
                 mostrarError("Error en el formato de monto.");
             } catch (IllegalArgumentException ex) {

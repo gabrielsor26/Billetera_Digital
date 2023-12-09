@@ -11,6 +11,7 @@ import Modelo.Consulta_Obtener_Suma_Egresos;
 import Modelo.Consulta_Obtener_Suma_Ingresos;
 import Modelo.Consulta_Obtener_Suma_Recursos_Asignados_Metas;
 import Vista.Ventana_Ahorros;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
@@ -19,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Objects;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -32,7 +34,6 @@ public class CtrlVentana_Ahorros implements MouseListener {
     private final Consulta_Obtener_Dinero_Ahorrado consultaDineroAhorrado;
     private final Consulta_Obtener_Dinero_Inversion consultaDineroInversion;
     private final int usuario_id;
-    DefaultTableModel modelo = new DefaultTableModel();
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -45,8 +46,8 @@ public class CtrlVentana_Ahorros implements MouseListener {
             double obtenerDineroInversion = consultaDineroInversion.obtenerDineroInversion(usuario_id);
             double saldo_disponible = sumaIngresos - sumaEgresos - sumaRecursosAsignados - obtenerDineroAhorrado - obtenerDineroInversion;
 
-            int ID_AHORRO = (int) this.vista.jtAhorros.getValueAt(0, 0);
-            Double DINERO_AHORRADO = (Double) this.vista.jtAhorros.getValueAt(0, 1);
+            int ID_AHORRO = (int) this.vista.jtAhorro.getValueAt(0, 0);
+            Double DINERO_AHORRADO = (Double) this.vista.jtAhorro.getValueAt(0, 1);
             Double RECURSO = 0.0;
 
             String input = JOptionPane.showInputDialog("Indique el monto que desea agregar a dinero ahorrado");
@@ -71,7 +72,7 @@ public class CtrlVentana_Ahorros implements MouseListener {
                                 ps.execute();
 
                                 JOptionPane.showMessageDialog(null, "Ahorro Modificado");
-                                this.vista.jtAhorros.setValueAt(DINERO_AHORRADO, 0, 1);
+                                this.vista.jtAhorro.setValueAt(DINERO_AHORRADO, 0, 1);
 
                             } catch (SQLException ex) {
                                 JOptionPane.showMessageDialog(null, "Error al Modificar Ahorro");
@@ -104,8 +105,8 @@ public class CtrlVentana_Ahorros implements MouseListener {
             double obtenerDineroAhorrado = consultaDineroAhorrado.obtenerDineroAhorrado(usuario_id);
             double saldo_disponible = sumaIngresos - sumaEgresos - sumaRecursosAsignados - obtenerDineroAhorrado;
 
-            int ID_AHORRO = (int) this.vista.jtAhorros.getValueAt(0, 0);
-            Double DINERO_AHORRADO = (Double) this.vista.jtAhorros.getValueAt(0, 1);
+            int ID_AHORRO = (int) this.vista.jtAhorro.getValueAt(0, 0);
+            Double DINERO_AHORRADO = (Double) this.vista.jtAhorro.getValueAt(0, 1);
             Double RECURSO = 0.0;
 
             String input = JOptionPane.showInputDialog("Indique el monto que desea retirar a dinero ahorrado");
@@ -130,7 +131,7 @@ public class CtrlVentana_Ahorros implements MouseListener {
                                 ps.execute();
 
                                 JOptionPane.showMessageDialog(null, "Ahorro Modificado");
-                                this.vista.jtAhorros.setValueAt(DINERO_AHORRADO, 0, 1);
+                                this.vista.jtAhorro.setValueAt(DINERO_AHORRADO, 0, 1);
 
                             } catch (SQLException ex) {
                                 JOptionPane.showMessageDialog(null, "Error al Modificar Ahorro");
@@ -211,12 +212,21 @@ public class CtrlVentana_Ahorros implements MouseListener {
 
     public void iniciar() {
         vista.setLocationRelativeTo(null);
+        mostrarTablaAhorros();
+
+    }
+    
+    
+    public void mostrarTablaAhorros() {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
-            MyTableModel modelo = new MyTableModel(new Object[][]{}, new Object[]{"ID_AHORROS", "DINERO_AHORRADO"});
-            this.vista.jtAhorros.setModel(modelo);
-            PreparedStatement ps = null;
-            ResultSet rs = null;
+            MyTableModel modelotabla = new MyTableModel(new Object[][]{}, new Object[]{"ID_AHORROS", "DINERO_AHORRADO", "usuario_id"});
+            this.vista.jtAhorro.setModel(modelotabla);
+            //PreparedStatement ps = null;
+            //ResultSet rs = null;
             Conexion conn = new Conexion();
             java.sql.Connection con = conn.getConexion();
 
@@ -225,22 +235,22 @@ public class CtrlVentana_Ahorros implements MouseListener {
             ps.setInt(1, usuario_id);
             rs = ps.executeQuery();
 
-            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
-            int cantidadColumnas = rsMd.getColumnCount();
+            ResultSetMetaData rsMd3 = (ResultSetMetaData) rs.getMetaData();
+            int cantidadColumnas = rsMd3.getColumnCount();
 
-            int altoFila = 20;
+            int altoFila = 90;
             int[] anchos = {50, 50, 50};
-            this.vista.jtAhorros.setRowHeight(altoFila);
+            this.vista.jtAhorro.setRowHeight(altoFila);
 
-            for (int i = 0; i < this.vista.jtAhorros.getColumnCount(); i++) {
-                this.vista.jtAhorros.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            for (int i = 0; i < this.vista.jtAhorro.getColumnCount(); i++) {
+                this.vista.jtAhorro.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
             }
 
+            //Centrar Texto
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-
-            for (int i = 0; i < this.vista.jtAhorros.getColumnCount(); i++) {
-                this.vista.jtAhorros.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            for (int i = 0; i < this.vista.jtAhorro.getColumnCount(); i++) {
+                this.vista.jtAhorro.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }
 
             while (rs.next()) {
@@ -251,21 +261,31 @@ public class CtrlVentana_Ahorros implements MouseListener {
                 }
 
                 System.out.println();
-                modelo.addRow(filas);
-
-                javax.swing.table.TableColumnModel columnModel = this.vista.jtAhorros.getColumnModel();
-                javax.swing.table.TableColumn idColumn = columnModel.getColumn(0);
-                idColumn.setMinWidth(0);
-                idColumn.setMaxWidth(0);
-                idColumn.setPreferredWidth(0);
-                idColumn.setResizable(false);
+                modelotabla.addRow(filas);
 
             }
+
+            javax.swing.table.TableColumnModel columnModel = this.vista.jtAhorro.getColumnModel();
+            javax.swing.table.TableColumn idColumn = columnModel.getColumn(0);
+            javax.swing.table.TableColumn idColumn1 = columnModel.getColumn(2);
+            idColumn.setMinWidth(0);
+            idColumn.setMaxWidth(0);
+            idColumn.setPreferredWidth(0);
+            idColumn.setResizable(false);
+            idColumn1.setMinWidth(0);
+            idColumn1.setMaxWidth(0);
+            idColumn1.setPreferredWidth(0);
+            idColumn1.setResizable(false);
 
         } catch (SQLException ex) {
             System.err.println(ex.toString());
         }
 
+        this.vista.jtAhorro.getTableHeader().setVisible(false);
+        this.vista.jtAhorro.setBorder(BorderFactory.createEmptyBorder());
+        this.vista.jtAhorro.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        this.vista.jScrollPane1.getViewport().setBackground(new Color(36,48,60));
     }
+    
 
 }

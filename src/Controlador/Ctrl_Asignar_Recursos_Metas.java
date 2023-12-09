@@ -10,6 +10,7 @@ import Modelo.Consulta_Obtener_Suma_Recursos_Asignados_Metas;
 import Modelo.Datos_Egreso;
 import Vista.Ventana_Asignar_Recursos;
 import Vista.Ventana_Metas;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -17,8 +18,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
@@ -67,49 +78,240 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
         this.vista.btnQuitar.addActionListener(this);
     }
 
-    public void iniciar() {
-        vista.setTitle("Asignar Recursos");
-        vista.setLocationRelativeTo(null);
+    public void mostrarTablaMetas() {
+
+        PreparedStatement ps2 = null;
+        ResultSet rs2 = null;
 
         try {
-            MyTableModel modelo = new MyTableModel(new Object[][]{}, new Object[]{"ID_META", "NOMBRE_META", "MONTO_META", "FECHA_LIMITE_META", "RECURSOS_ASIGNADOS", "ESTADO_META"});
-            this.vista.jtMetas.setModel(modelo);
-            PreparedStatement ps = null;
-            ResultSet rs = null;
+            MyTableModel modelotabla = new MyTableModel(new Object[][]{}, new Object[]{"ID_META", "NOMBRE_META", "MONTO_META", "FECHA_LIMITE_META", "RECURSOS_ASIGNADOS", "ESTADO_META", "usuario_id"});
+            this.vista.jtMetas.setModel(modelotabla);
+            //PreparedStatement ps = null;
+            //ResultSet rs = null;
             Conexion conn = new Conexion();
             java.sql.Connection con = conn.getConexion();
 
             String sql = "SELECT ID_META, NOMBRE_META, MONTO_META, FECHA_LIMITE_META, RECURSOS_ASIGNADOS, ESTADO_META, usuario_id FROM meta WHERE usuario_id = ?";
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, usuario_id);
-            rs = ps.executeQuery();
+            ps2 = con.prepareStatement(sql);
+            ps2.setInt(1, usuario_id);
+            rs2 = ps2.executeQuery();
 
-            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
-            int cantidadColumnas = rsMd.getColumnCount();
+            ResultSetMetaData rsMd2 = (ResultSetMetaData) rs2.getMetaData();
+            int cantidadColumnas = rsMd2.getColumnCount();
 
-            int altoFila = 20;
-            int[] anchos = {50, 50, 50, 50, 50, 50, 50};
+            int altoFila = 30;
+            int[] anchos = {50, 200, 50, 50, 50, 50, 50};
             this.vista.jtMetas.setRowHeight(altoFila);
 
             for (int i = 0; i < this.vista.jtMetas.getColumnCount(); i++) {
                 this.vista.jtMetas.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
             }
 
-            while (rs.next()) {
+            //Centrar Texto
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+            for (int i = 0; i < vista.jtMetas.getColumnCount(); i++) {
+                vista.jtMetas.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            }
+
+            while (rs2.next()) {
                 Object[] filas = new Object[cantidadColumnas];
                 for (int i = 0; i < cantidadColumnas; i++) {
-                    filas[i] = rs.getObject(i + 1);
-                    System.out.print(rs.getObject(i + 1) + " ");
+                    filas[i] = rs2.getObject(i + 1);
+                    System.out.print(rs2.getObject(i + 1) + " ");
                 }
-
                 System.out.println();
-                modelo.addRow(filas);
+                modelotabla.addRow(filas);
 
             }
+
+            javax.swing.table.TableColumnModel columnModel = vista.jtMetas.getColumnModel();
+            javax.swing.table.TableColumn idColumn = columnModel.getColumn(0);
+            javax.swing.table.TableColumn idColumn6 = columnModel.getColumn(6);
+            idColumn.setMinWidth(0);
+            idColumn.setMaxWidth(0);
+            idColumn.setPreferredWidth(0);
+            idColumn.setResizable(false);
+            idColumn6.setMinWidth(0);
+            idColumn6.setMaxWidth(0);
+            idColumn6.setPreferredWidth(0);
+            idColumn6.setResizable(false);
 
         } catch (SQLException ex) {
             System.err.println(ex.toString());
         }
+
+        this.vista.jtMetas.getTableHeader().setVisible(false);
+        this.vista.jtMetas.setBorder(BorderFactory.createEmptyBorder());
+        this.vista.jtMetas.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        this.vista.jScrollPane1.getViewport().setBackground(new Color(255, 255, 255));
+    }
+
+    public void iniciar() {
+        vista.setTitle("Asignar Recursos");
+        vista.setLocationRelativeTo(null);
+        mostrarTablaMetas();
+
+    }
+
+    public double obtenerTotalMensualCategoria() {
+        //Categoria
+        String categoria = "Gastos Varios";
+        System.out.println("HOLA2:" + categoria);
+        //Fecha
+        // Fecha actual
+        LocalDate fechaActual = LocalDate.now();
+        ZoneId zonaHoraria = ZoneId.systemDefault();
+        ZonedDateTime inicioMes = fechaActual.withDayOfMonth(1).atStartOfDay(zonaHoraria);
+        ZonedDateTime finMes = fechaActual.withDayOfMonth(fechaActual.lengthOfMonth()).atTime(LocalTime.MAX).atZone(zonaHoraria);
+
+        // Convierte a java.sql.Date si es necesario
+        java.sql.Date fechaLimiteInferior = java.sql.Date.valueOf(inicioMes.toLocalDate());
+        java.sql.Date fechaLimiteSuperior = java.sql.Date.valueOf(finMes.toLocalDate());
+
+        System.out.println("Limite Inferior: " + fechaLimiteInferior);
+        System.out.println("Limite Superior: " + fechaLimiteSuperior);
+
+        double resultado = 0.0;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "SELECT\n"
+                    + "    ? AS CATEGORIA,\n"
+                    + "    SUM(MONTO_EGRESO) AS MONTO_TOTAL\n"
+                    + "FROM egreso\n"
+                    + "WHERE usuario_id = ?\n"
+                    + "  AND FECHA_EGRESO BETWEEN ? AND ?\n"
+                    + "  AND TIPO_EGRESO LIKE ?;";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoria);
+            ps.setInt(2, usuario_id);
+            ps.setDate(3, fechaLimiteInferior);
+            ps.setDate(4, fechaLimiteSuperior);
+            ps.setString(5, categoria + "%");
+
+            rs = ps.executeQuery();
+            rs.next();
+            resultado = rs.getDouble("MONTO_TOTAL");
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+            System.out.println("ERRORCITO NO SE IMPRIME NADA");
+        } finally {
+            // Asegúrate de cerrar el PreparedStatement y ResultSet en el bloque finally
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return resultado;
+    }
+
+    public Integer obtenerIDFecha() {
+
+        int resultado = 0;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            Conexion objCon = new Conexion();
+            Connection conn = objCon.getConexion();
+
+            // Obtén la fecha actual
+            LocalDate fechaActual = LocalDate.now();
+
+            // Define el formato deseado en inglés
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH);
+
+            // Formatea la fecha actual según el formato
+            String formattedDate = fechaActual.format(formatter);
+
+            // Imprime en pantalla
+            System.out.println(formattedDate);
+
+            String sql = "SELECT ID_FECHA FROM fechas WHERE MES_ANO = ?";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, formattedDate);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                resultado = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+            System.out.println("ERRORCITO NO SE IMPRIME NADA");
+        } finally {
+            // Asegúrate de cerrar el PreparedStatement y ResultSet en el bloque finally
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return resultado;
+    }
+
+    public Double obtenerPresupuestoMensualCategoria() {
+        Double resultado = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        //Categoria
+        String categoria = "Gastos Varios";
+        //ID_FECHA
+        int id_fecha = obtenerIDFecha();
+
+        try {
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "SELECT MONTO_PRESUPUESTO FROM presupuestos WHERE usuario_id = ? AND CATEGORIA = ? AND ID_FECHA = ?;";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario_id);
+            ps.setString(2, categoria);
+            ps.setInt(3, id_fecha);
+
+            rs = ps.executeQuery();
+            rs.next();
+            resultado = rs.getDouble("MONTO_PRESUPUESTO");
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+            System.out.println("ERRORCITO NO SE IMPRIME NADA");
+        } finally {
+            // Asegúrate de cerrar el PreparedStatement y ResultSet en el bloque finally
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return resultado;
 
     }
 
@@ -125,48 +327,7 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
             ctrl_metas.iniciar();
             frm_metas.setVisible(true);
         }
-/*
-        if (e.getSource() == vista.btnModificar) {
 
-            if (vista.jtMetas.getSelectedRow() == -1) {
-                JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila de la tabla antes de modificar alguna meta.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salir del manejador de eventos si no se selecciona una fila
-            }
-
-            int Fila = this.vista.jtMetas.getSelectedRow();
-            int ID_META = (int) this.vista.jtMetas.getValueAt(Fila, 0);
-            String NOMBRE_META = (String) this.vista.jtMetas.getValueAt(Fila, 1);
-            Double MONTO_META = (Double) this.vista.jtMetas.getValueAt(Fila, 2);
-            java.sql.Date FECHA_LIMITE_META = (java.sql.Date) this.vista.jtMetas.getValueAt(Fila, 3);
-
-            System.out.println(Fila);
-
-            PreparedStatement ps = null;
-            try {
-                Conexion objCon = new Conexion();
-                Connection conn = objCon.getConexion();
-                ps = conn.prepareStatement("UPDATE meta SET NOMBRE_META=?, MONTO_META=?, FECHA_LIMITE_META=? WHERE ID_META=?");
-
-                ps.setString(1, NOMBRE_META);
-                ps.setDouble(2, MONTO_META);
-                ps.setDate(3, FECHA_LIMITE_META);
-                ps.setInt(4, ID_META);
-
-                ps.execute();
-
-                JOptionPane.showMessageDialog(null, "Meta Modificado");
-                //jtIngresos.setValueAt(txtCodigo.getText(), Fila, 0);
-                this.vista.jtMetas.setValueAt(NOMBRE_META, Fila, 1);
-                this.vista.jtMetas.setValueAt(MONTO_META, Fila, 2);
-                this.vista.jtMetas.setValueAt(FECHA_LIMITE_META, Fila, 3);
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al Modificar Meta");
-                System.out.println(ex);
-            }
-
-        }
-*/
         if (e.getSource() == vista.btnEliminar) {
 
             if (vista.jtMetas.getSelectedRow() == -1) {
@@ -378,6 +539,11 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
 
         if (e.getSource() == vista.btnObtener) {
 
+            if (vista.jtMetas.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila de la tabla antes de obtener alguna meta.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del manejador de eventos si no se selecciona una fila
+            }
+
             int Fila = this.vista.jtMetas.getSelectedRow();
             int ID_META = (int) this.vista.jtMetas.getValueAt(Fila, 0);
             String NOMBRE_META = (String) this.vista.jtMetas.getValueAt(Fila, 1);
@@ -386,11 +552,33 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
             String ESTADO_META = (String) this.vista.jtMetas.getValueAt(Fila, 5);
             java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
 
+            //CONTROL DEL PRESUPUESTO
+            int IDFecha = obtenerIDFecha();
+            Double TotalMensualCategoria = obtenerTotalMensualCategoria();
+            Double PresupuestoMensualCategoria = obtenerPresupuestoMensualCategoria();
+
+            System.out.println("obtenerTotalMensualCategoria:" + TotalMensualCategoria);
+            System.out.println("obtenerIDFecha:" + IDFecha);
+            System.out.println("obtenerPresupuestoMensualCategoria:" + PresupuestoMensualCategoria);
+
             if (ESTADO_META == "LOGRADO") {
 
                 int respuesta = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas obtener esta meta?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
                 if (respuesta == JOptionPane.YES_OPTION) {
+
+                    // Verificar si PresupuestoMensualCategoria es nulo o si monto_egreso + TotalMensualCategoria supera el PresupuestoMensualCategoria
+                    if (PresupuestoMensualCategoria == null || MONTO_META + TotalMensualCategoria > PresupuestoMensualCategoria) {
+                        // Pregunta al usuario si desea continuar
+                        int respuesta1 = JOptionPane.showConfirmDialog(null, "El monto de egreso haria que se supere el presupuesto mensual en SERVICIOS o el presupuesto no está definido. ¿Desea continuar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                        if (respuesta1 == JOptionPane.NO_OPTION) {
+
+                            return; // Salir del método actionPerformed
+                        }
+                        // Si la respuesta es YES, continúa con la ejecución
+                    }
+
                     datos.setMONTO_EGRESO(RECURSOS_ASIGNADOS);
 
                     datos.setFECHA_EGRESO((java.sql.Date) date);

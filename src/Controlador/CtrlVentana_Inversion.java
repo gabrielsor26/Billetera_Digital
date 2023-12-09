@@ -7,6 +7,7 @@ import Modelo.Consulta_Obtener_Suma_Egresos;
 import Modelo.Consulta_Obtener_Suma_Ingresos;
 import Modelo.Consulta_Obtener_Suma_Recursos_Asignados_Metas;
 import Vista.Ventana_Inversion;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
@@ -14,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -38,7 +40,7 @@ public class CtrlVentana_Inversion implements MouseListener {
         @Override
         public boolean isCellEditable(int row, int column) {
             // Aquí puedes especificar las columnas que no quieres que sean editables
-            return column != 1; // La columna 0, 1, 5 (ID) no será editable
+            return false; // La columna 0, 1, 5 (ID) no será editable
         }
 
     }
@@ -205,12 +207,21 @@ public class CtrlVentana_Inversion implements MouseListener {
 
     public void iniciar() {
         vista.setLocationRelativeTo(null);
+        mostrarTablaInversion();
+        
+
+    }
+
+    public void mostrarTablaInversion() {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
-            MyTableModel modelo = new MyTableModel(new Object[][]{}, new Object[]{"ID_INVERSION", "DINERO_INVERSION"});
-            this.vista.jtInversion.setModel(modelo);
-            PreparedStatement ps = null;
-            ResultSet rs = null;
+            MyTableModel modelotabla = new MyTableModel(new Object[][]{}, new Object[]{"ID_INVERSION", "DINERO_INVERSION", "usuario_id"});
+            this.vista.jtInversion.setModel(modelotabla);
+            //PreparedStatement ps = null;
+            //ResultSet rs = null;
             Conexion conn = new Conexion();
             java.sql.Connection con = conn.getConexion();
 
@@ -219,10 +230,10 @@ public class CtrlVentana_Inversion implements MouseListener {
             ps.setInt(1, usuario_id);
             rs = ps.executeQuery();
 
-            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
-            int cantidadColumnas = rsMd.getColumnCount();
+            ResultSetMetaData rsMd3 = (ResultSetMetaData) rs.getMetaData();
+            int cantidadColumnas = rsMd3.getColumnCount();
 
-            int altoFila = 20;
+            int altoFila = 90;
             int[] anchos = {50, 50, 50};
             this.vista.jtInversion.setRowHeight(altoFila);
 
@@ -230,9 +241,9 @@ public class CtrlVentana_Inversion implements MouseListener {
                 this.vista.jtInversion.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
             }
 
+            //Centrar Texto
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-
             for (int i = 0; i < this.vista.jtInversion.getColumnCount(); i++) {
                 this.vista.jtInversion.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }
@@ -245,21 +256,33 @@ public class CtrlVentana_Inversion implements MouseListener {
                 }
 
                 System.out.println();
-                modelo.addRow(filas);
-
-                javax.swing.table.TableColumnModel columnModel = this.vista.jtInversion.getColumnModel();
-                javax.swing.table.TableColumn idColumn = columnModel.getColumn(0);
-                idColumn.setMinWidth(0);
-                idColumn.setMaxWidth(0);
-                idColumn.setPreferredWidth(0);
-                idColumn.setResizable(false);
+                modelotabla.addRow(filas);
 
             }
+
+            javax.swing.table.TableColumnModel columnModel = this.vista.jtInversion.getColumnModel();
+            javax.swing.table.TableColumn idColumn = columnModel.getColumn(0);
+            javax.swing.table.TableColumn idColumn1 = columnModel.getColumn(2);
+            idColumn.setMinWidth(0);
+            idColumn.setMaxWidth(0);
+            idColumn.setPreferredWidth(0);
+            idColumn.setResizable(false);
+            idColumn1.setMinWidth(0);
+            idColumn1.setMaxWidth(0);
+            idColumn1.setPreferredWidth(0);
+            idColumn1.setResizable(false);
 
         } catch (SQLException ex) {
             System.err.println(ex.toString());
         }
 
+        this.vista.jtInversion.getTableHeader().setVisible(false);
+        this.vista.jtInversion.setBorder(BorderFactory.createEmptyBorder());
+        this.vista.jtInversion.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        this.vista.jScrollPane1.getViewport().setBackground(new Color(36,48,60));
     }
-
+    
+    
+    
+    
 }

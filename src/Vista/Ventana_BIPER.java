@@ -28,34 +28,33 @@ public class Ventana_BIPER extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtBIPER = new javax.swing.JLabel();
+        BIPER = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(9, 163, 111));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtBIPER.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoBiper.jpeg"))); // NOI18N
-        txtBIPER.addMouseListener(new java.awt.event.MouseAdapter() {
+        BIPER.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo_BIPER.jpeg"))); // NOI18N
+        BIPER.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtBIPERMouseClicked(evt);
+                BIPERMouseClicked(evt);
             }
         });
-        jPanel1.add(txtBIPER, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, -1));
+        jPanel1.add(BIPER, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 770));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtBIPERMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBIPERMouseClicked
-        
-        this.dispose();
+    private void BIPERMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BIPERMouseClicked
+       this.dispose();
         Ventana_Login frm_login = new Ventana_Login();
         frm_login.setVisible(true);
-    }//GEN-LAST:event_txtBIPERMouseClicked
+    }//GEN-LAST:event_BIPERMouseClicked
 
     /**
      * @param args the command line arguments
@@ -93,7 +92,7 @@ public class Ventana_BIPER extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel BIPER;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel txtBIPER;
     // End of variables declaration//GEN-END:variables
 }

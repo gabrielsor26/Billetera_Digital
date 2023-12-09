@@ -37,19 +37,17 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
         exitTxt = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
         cbxTipoIngreso = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
         txtBienvenida = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtMONTO_INGRESO = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtFECHA_INGRESO = new javax.swing.JTextField();
         btnRegistrarIngreso = new javax.swing.JPanel();
         txtRegistrarIngreso = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 48, 60));
@@ -106,17 +104,9 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
 
         jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 40));
 
-        cbxTipoIngreso.setBackground(new java.awt.Color(36, 48, 60));
-        cbxTipoIngreso.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        cbxTipoIngreso.setForeground(new java.awt.Color(255, 255, 255));
+        cbxTipoIngreso.setFont(new java.awt.Font("Roboto Mono", 0, 24)); // NOI18N
         cbxTipoIngreso.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         jPanel1.add(cbxTipoIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 270, 40));
-
-        jLabel7.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(26, 177, 136));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("('AÑO'-'MES'-'DIA')");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 290, 30));
 
         txtBienvenida.setBackground(new java.awt.Color(255, 255, 255));
         txtBienvenida.setFont(new java.awt.Font("Roboto Mono", 1, 30)); // NOI18N
@@ -131,11 +121,8 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
         jLabel8.setText("TIPO");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 70, 30));
 
-        txtMONTO_INGRESO.setBackground(new java.awt.Color(36, 48, 60));
-        txtMONTO_INGRESO.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txtMONTO_INGRESO.setForeground(new java.awt.Color(255, 255, 255));
+        txtMONTO_INGRESO.setFont(new java.awt.Font("Roboto Mono", 0, 24)); // NOI18N
         txtMONTO_INGRESO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        txtMONTO_INGRESO.setCaretColor(new java.awt.Color(255, 255, 255));
         txtMONTO_INGRESO.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txtMONTO_INGRESOMousePressed(evt);
@@ -154,18 +141,6 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
         jLabel9.setText("MONTO");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 80, 30));
 
-        txtFECHA_INGRESO.setBackground(new java.awt.Color(36, 48, 60));
-        txtFECHA_INGRESO.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txtFECHA_INGRESO.setForeground(new java.awt.Color(255, 255, 255));
-        txtFECHA_INGRESO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        txtFECHA_INGRESO.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtFECHA_INGRESO.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtFECHA_INGRESOMousePressed(evt);
-            }
-        });
-        jPanel1.add(txtFECHA_INGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 270, 40));
-
         btnRegistrarIngreso.setBackground(new java.awt.Color(26, 177, 136));
         btnRegistrarIngreso.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -175,7 +150,7 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
         txtRegistrarIngreso.setText("<html><center>Registrar<br>Ingreso<html>");
         btnRegistrarIngreso.add(txtRegistrarIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 60));
 
-        jPanel1.add(btnRegistrarIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 180, 60));
+        jPanel1.add(btnRegistrarIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, 180, 60));
 
         jLabel10.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,7 +158,12 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
         jLabel10.setText("FECHA");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 80, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 590));
+        jDateChooser.setBackground(new java.awt.Color(36, 48, 60));
+        jDateChooser.setDateFormatString("yyyy-MM-dd");
+        jDateChooser.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
+        jPanel1.add(jDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 270, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -236,12 +216,8 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMONTO_INGRESOActionPerformed
 
     private void txtMONTO_INGRESOMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMONTO_INGRESOMousePressed
-        txtMONTO_INGRESO.setForeground(Color.white);
+        
     }//GEN-LAST:event_txtMONTO_INGRESOMousePressed
-
-    private void txtFECHA_INGRESOMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFECHA_INGRESOMousePressed
-        txtFECHA_INGRESO.setForeground(Color.white);
-    }//GEN-LAST:event_txtFECHA_INGRESOMousePressed
 
     /**
      * @param args the command line arguments
@@ -285,13 +261,12 @@ public class Ventana_Registrar_Ingreso extends javax.swing.JFrame {
     public javax.swing.JComboBox<Datos_Categoria_Ingreso> cbxTipoIngreso;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
+    public com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JLabel txtBienvenida;
-    public javax.swing.JTextField txtFECHA_INGRESO;
     public javax.swing.JTextField txtMONTO_INGRESO;
     public javax.swing.JLabel txtRegistrarIngreso;
     // End of variables declaration//GEN-END:variables

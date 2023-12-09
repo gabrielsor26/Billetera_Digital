@@ -87,7 +87,7 @@ public class CtrlVentana_Saldo implements ActionListener {
         vista.jLabelMontoSaldoDestinadoAhorros.setText("Saldo Destinado para Ahorros: S/. " + saldodestinadoahorros);
         
         //Saldo destinado para Inversion        
-        saldodestinadoahorros = obtenerDineroAhorrado;
+        saldodestinadoinversion = obtenerDineroInversion;
         vista.jLabelMontoSaldoDestinadoInversion.setText("Saldo Destinado para Inversion: S/. " + saldodestinadoinversion);
         
         

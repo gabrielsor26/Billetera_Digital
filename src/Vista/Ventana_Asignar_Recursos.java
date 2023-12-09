@@ -25,26 +25,26 @@ public class Ventana_Asignar_Recursos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtMetas = new javax.swing.JTable();
         btnEliminar = new javax.swing.JButton();
         btnObtener = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnQuitar = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        bgTabla = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtMetas = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 48, 60));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jtMetas.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        jtMetas.setToolTipText("");
-        jScrollPane1.setViewportView(jtMetas);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 83, 867, 356));
 
         btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
         btnEliminar.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
@@ -96,6 +96,65 @@ public class Ventana_Asignar_Recursos extends javax.swing.JFrame {
         jLabel1.setText("ASIGNAR RECURSOS A UNA META");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
+        bgTabla.setBackground(new java.awt.Color(255, 255, 255));
+        bgTabla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jtMetas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jtMetas.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jtMetas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtMetas.setGridColor(new java.awt.Color(0, 92, 75));
+        jtMetas.setMaximumSize(new java.awt.Dimension(0, 0));
+        jtMetas.setMinimumSize(new java.awt.Dimension(0, 0));
+        jtMetas.setSelectionBackground(new java.awt.Color(255, 204, 0));
+        jtMetas.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(jtMetas);
+
+        bgTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 880, 340));
+
+        jPanel1.add(bgTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 880, 310));
+
+        jLabel11.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("NOMBRE");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 180, 30));
+
+        jLabel12.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("MONTO");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 140, 30));
+
+        jLabel13.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("ESTADO");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 90, 120, 30));
+
+        jLabel14.setFont(new java.awt.Font("Roboto Mono", 1, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("RECURSOS ASIGNADOS");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 90, 140, 30));
+
+        jLabel15.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("FECHA");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 120, 30));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 630));
 
         pack();
@@ -111,14 +170,20 @@ public class Ventana_Asignar_Recursos extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JPanel bgTabla;
     public javax.swing.JButton btnAgregar;
     public javax.swing.JButton btnAtras;
     public javax.swing.JButton btnEliminar;
     public javax.swing.JButton btnObtener;
     public javax.swing.JButton btnQuitar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jtMetas;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,6 +10,7 @@ import Vista.Ventana_Crear_Metas;
 import Vista.Ventana_Metas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,7 +41,8 @@ public class Ctrl_Crear_Metas implements ActionListener {
     public void iniciar() {
         vista.setTitle("Crear Metas");
         vista.setLocationRelativeTo(null);
-        
+        java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
+        vista.jDateChooser.setDate(date);
     }
 
     @Override
@@ -53,16 +55,13 @@ public class Ctrl_Crear_Metas implements ActionListener {
 
             //Settear Monto
             modelo.setMONTO_META(Double.valueOf(vista.txtMontoMeta.getText()));
-            //Settear Fecha
-            try {
-                String fechaTexto = vista.txtFechaLimite.getText();
-                java.sql.Date fechaEgreso = java.sql.Date.valueOf(fechaTexto);
+            
+            //Setter Fecha
+            // FECHA
+                Date fechaSeleccionada = vista.jDateChooser.getDate();
+                java.sql.Date fechaEgreso = new java.sql.Date(fechaSeleccionada.getTime());
+
                 modelo.setFECHA_LIMITE_META(fechaEgreso);
-            } catch (IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(null, "Error en el formato de fecha");
-                limpiar();
-                return; // Salir del método actionPerformed si hay un error de formato de fecha.
-            }
 
             //Registrar
             if (consultas.registrar(modelo, usuario_id)) {
@@ -90,7 +89,6 @@ public class Ctrl_Crear_Metas implements ActionListener {
     public void limpiar() {
         vista.txtNombreMeta.setText(null);
         vista.txtMontoMeta.setText(null);
-        vista.txtFechaLimite.setText(null);
 
     }
 

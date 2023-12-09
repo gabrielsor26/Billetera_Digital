@@ -152,7 +152,7 @@ public class Ventana_Crear_Recordatorio extends javax.swing.JFrame {
 
         jDateChooser.setBackground(new java.awt.Color(36, 48, 60));
         jDateChooser.setDateFormatString("yyyy-MM-dd");
-        jDateChooser.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        jDateChooser.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
         jPanel1.add(jDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 260, 40));
 
         jLabel11.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N

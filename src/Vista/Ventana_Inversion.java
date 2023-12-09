@@ -33,12 +33,14 @@ public class Ventana_Inversion extends javax.swing.JFrame {
         exitTxt = new javax.swing.JLabel();
         btnAtras = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtInversion = new javax.swing.JTable();
         btnAgregar = new javax.swing.JPanel();
         txtAgregar = new javax.swing.JLabel();
         btnQuitar = new javax.swing.JPanel();
         txtQuitar = new javax.swing.JLabel();
+        bgTabla = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtInversion = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -105,6 +107,39 @@ public class Ventana_Inversion extends javax.swing.JFrame {
         jLabel1.setText("CUENTA INVERSION");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 540, 40));
 
+        btnAgregar.setBackground(new java.awt.Color(0, 153, 153));
+        btnAgregar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtAgregar.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        txtAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        txtAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtAgregar.setText("Agregar");
+        txtAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregar.add(txtAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 50));
+
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 140, 50));
+
+        btnQuitar.setBackground(new java.awt.Color(255, 0, 0));
+        btnQuitar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtQuitar.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
+        txtQuitar.setForeground(new java.awt.Color(255, 255, 255));
+        txtQuitar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtQuitar.setText("Quitar");
+        txtQuitar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnQuitar.add(txtQuitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 50));
+
+        jPanel1.add(btnQuitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 140, 50));
+
+        bgTabla.setBackground(new java.awt.Color(255, 255, 255));
+        bgTabla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jtInversion.setBackground(new java.awt.Color(36, 48, 60));
+        jtInversion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jtInversion.setFont(new java.awt.Font("Roboto Mono", 0, 48)); // NOI18N
+        jtInversion.setForeground(new java.awt.Color(255, 255, 255));
         jtInversion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -116,29 +151,27 @@ public class Ventana_Inversion extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtInversion.setGridColor(new java.awt.Color(0, 0, 0));
+        jtInversion.setMaximumSize(new java.awt.Dimension(0, 0));
+        jtInversion.setMinimumSize(new java.awt.Dimension(0, 0));
+        jtInversion.setSelectionBackground(new java.awt.Color(36, 48, 60));
+        jtInversion.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jtInversion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtInversionMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtInversion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 460, 120));
+        bgTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 360, 120));
 
-        btnAgregar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(bgTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 360, 100));
 
-        txtAgregar.setFont(new java.awt.Font("Roboto Mono", 0, 24)); // NOI18N
-        txtAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtAgregar.setText("Agregar");
-        txtAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgregar.add(txtAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 50));
-
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 140, 50));
-
-        btnQuitar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        txtQuitar.setFont(new java.awt.Font("Roboto Mono", 0, 24)); // NOI18N
-        txtQuitar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtQuitar.setText("Quitar");
-        txtQuitar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnQuitar.add(txtQuitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 50));
-
-        jPanel1.add(btnQuitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 140, 50));
+        jLabel12.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("DINERO DESTINADO PARA INVERSION");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 380, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 360));
 
@@ -185,6 +218,10 @@ public class Ventana_Inversion extends javax.swing.JFrame {
         yMouseCrema = evt.getYOnScreen() - this.getY();
     }//GEN-LAST:event_headerMousePressed
 
+    private void jtInversionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtInversionMouseClicked
+
+    }//GEN-LAST:event_jtInversionMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -222,14 +259,16 @@ public class Ventana_Inversion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JPanel bgTabla;
     public javax.swing.JPanel btnAgregar;
     private javax.swing.JLabel btnAtras;
     public javax.swing.JPanel btnQuitar;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     public javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jtInversion;
     public javax.swing.JLabel txtAgregar;
     public javax.swing.JLabel txtQuitar;

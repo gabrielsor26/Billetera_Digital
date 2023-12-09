@@ -31,77 +31,8 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
 
-        try {
-            PreparedStatement ps1 = null;  // Primer PreparedStatement
-            PreparedStatement ps2 = null;  // Segundo PreparedStatement
-            PreparedStatement ps3 = null;
-            PreparedStatement ps4 = null;
-            PreparedStatement ps5 = null;
-            ResultSet rs1 = null;         // Primer ResultSet
-            ResultSet rs2 = null;         // Segundo ResultSet
-            ResultSet rs3 = null;
-            ResultSet rs4 = null;
-            ResultSet rs5 = null;
-            Conexion conn = new Conexion();
-            java.sql.Connection con = conn.getConexion();
-
-            String sql1 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosComida FROM egreso WHERE TIPO_EGRESO LIKE 'Comida%' AND usuario_id = ?";
-            ps1 = con.prepareStatement(sql1);
-            ps1.setInt(1, usuario_id);
-            rs1 = ps1.executeQuery();
-
-            String sql2 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosTrasporte FROM egreso WHERE TIPO_EGRESO LIKE 'Transporte%' AND usuario_id = ?";
-            ps2 = con.prepareStatement(sql2);
-            ps2.setInt(1, usuario_id);
-            rs2 = ps2.executeQuery();
-
-            String sql3 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosEntretenimiento FROM egreso WHERE TIPO_EGRESO LIKE 'Entretenimiento%' AND usuario_id = ?";
-            ps3 = con.prepareStatement(sql3);
-            ps3.setInt(1, usuario_id);
-            rs3 = ps3.executeQuery();
-
-            String sql4 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosServicios FROM egreso WHERE TIPO_EGRESO LIKE 'Servicios%' AND usuario_id = ?";
-            ps4 = con.prepareStatement(sql4);
-            ps4.setInt(1, usuario_id);
-            rs4 = ps4.executeQuery();
-
-            String sql5 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosGastosVarios FROM egreso WHERE TIPO_EGRESO LIKE 'Gastos Varios%' AND usuario_id = ?";
-            ps5 = con.prepareStatement(sql5);
-            ps5.setInt(1, usuario_id);
-            rs5 = ps5.executeQuery();
-
-            TotalEgresosComida = 0.0;
-            TotalEgresosTrasporte = 0.0;
-            TotalEgresosEntretenimiento = 0.0;
-            TotalEgresosServicios = 0.0;
-            TotalEgresosGastosVarios = 0.0;
-
-            if (rs1.next() && rs2.next() && rs3.next() && rs4.next() && rs5.next()) {
-                TotalEgresosComida = rs1.getDouble("TotalEgresosComida");
-                System.out.println("TotalEgresosComida: " + TotalEgresosComida);
-
-                TotalEgresosTrasporte = rs2.getDouble("TotalEgresosTrasporte");
-                System.out.println("TotalEgresosTrasporte: " + TotalEgresosTrasporte);
-
-                TotalEgresosEntretenimiento = rs3.getDouble("TotalEgresosEntretenimiento");
-                System.out.println("TotalEgresosEntretenimiento: " + TotalEgresosEntretenimiento);
-
-                TotalEgresosServicios = rs4.getDouble("TotalEgresosServicios");
-                System.out.println("TotalEgresosServicios: " + TotalEgresosServicios);
-
-                TotalEgresosGastosVarios = rs5.getDouble("TotalEgresosGastosVarios");
-                System.out.println("TotalEgresosGastosVarios: " + TotalEgresosGastosVarios);
-            }
-            txt_comida.setText(String.valueOf(TotalEgresosComida));
-            txt_transporte.setText(String.valueOf(TotalEgresosTrasporte));
-            txt_entretenimiento.setText(String.valueOf(TotalEgresosEntretenimiento));
-            txt_servicios.setText(String.valueOf(TotalEgresosServicios));
-            txt_gastosvarios.setText(String.valueOf(TotalEgresosGastosVarios));
-
-        } catch (SQLException ex) {
-            System.err.println(ex.toString());
-        }
-
+        llenar_datos();
+        obtenergrafico();
     }
 
     /**
@@ -237,6 +168,88 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btn_gActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_gActionPerformed
+       
+        obtenergrafico();
+
+    }//GEN-LAST:event_btn_gActionPerformed
+
+    
+    public void llenar_datos(){
+        try {
+            PreparedStatement ps1 = null;  // Primer PreparedStatement
+            PreparedStatement ps2 = null;  // Segundo PreparedStatement
+            PreparedStatement ps3 = null;
+            PreparedStatement ps4 = null;
+            PreparedStatement ps5 = null;
+            ResultSet rs1 = null;         // Primer ResultSet
+            ResultSet rs2 = null;         // Segundo ResultSet
+            ResultSet rs3 = null;
+            ResultSet rs4 = null;
+            ResultSet rs5 = null;
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql1 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosComida FROM egreso WHERE TIPO_EGRESO LIKE 'Comida%' AND usuario_id = ?";
+            ps1 = con.prepareStatement(sql1);
+            ps1.setInt(1, usuario_id);
+            rs1 = ps1.executeQuery();
+
+            String sql2 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosTrasporte FROM egreso WHERE TIPO_EGRESO LIKE 'Transporte%' AND usuario_id = ?";
+            ps2 = con.prepareStatement(sql2);
+            ps2.setInt(1, usuario_id);
+            rs2 = ps2.executeQuery();
+
+            String sql3 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosEntretenimiento FROM egreso WHERE TIPO_EGRESO LIKE 'Entretenimiento%' AND usuario_id = ?";
+            ps3 = con.prepareStatement(sql3);
+            ps3.setInt(1, usuario_id);
+            rs3 = ps3.executeQuery();
+
+            String sql4 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosServicios FROM egreso WHERE TIPO_EGRESO LIKE 'Servicios%' AND usuario_id = ?";
+            ps4 = con.prepareStatement(sql4);
+            ps4.setInt(1, usuario_id);
+            rs4 = ps4.executeQuery();
+
+            String sql5 = "SELECT SUM(MONTO_EGRESO) AS TotalEgresosGastosVarios FROM egreso WHERE TIPO_EGRESO LIKE 'Gastos Varios%' AND usuario_id = ?";
+            ps5 = con.prepareStatement(sql5);
+            ps5.setInt(1, usuario_id);
+            rs5 = ps5.executeQuery();
+
+            TotalEgresosComida = 0.0;
+            TotalEgresosTrasporte = 0.0;
+            TotalEgresosEntretenimiento = 0.0;
+            TotalEgresosServicios = 0.0;
+            TotalEgresosGastosVarios = 0.0;
+
+            if (rs1.next() && rs2.next() && rs3.next() && rs4.next() && rs5.next()) {
+                TotalEgresosComida = rs1.getDouble("TotalEgresosComida");
+                System.out.println("TotalEgresosComida: " + TotalEgresosComida);
+
+                TotalEgresosTrasporte = rs2.getDouble("TotalEgresosTrasporte");
+                System.out.println("TotalEgresosTrasporte: " + TotalEgresosTrasporte);
+
+                TotalEgresosEntretenimiento = rs3.getDouble("TotalEgresosEntretenimiento");
+                System.out.println("TotalEgresosEntretenimiento: " + TotalEgresosEntretenimiento);
+
+                TotalEgresosServicios = rs4.getDouble("TotalEgresosServicios");
+                System.out.println("TotalEgresosServicios: " + TotalEgresosServicios);
+
+                TotalEgresosGastosVarios = rs5.getDouble("TotalEgresosGastosVarios");
+                System.out.println("TotalEgresosGastosVarios: " + TotalEgresosGastosVarios);
+            }
+            txt_comida.setText(String.valueOf(TotalEgresosComida));
+            txt_transporte.setText(String.valueOf(TotalEgresosTrasporte));
+            txt_entretenimiento.setText(String.valueOf(TotalEgresosEntretenimiento));
+            txt_servicios.setText(String.valueOf(TotalEgresosServicios));
+            txt_gastosvarios.setText(String.valueOf(TotalEgresosGastosVarios));
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        
+        
+    }
+    
+    public void obtenergrafico() {
 
         try {
             Graphics lapiz = pizarra.getGraphics();
@@ -277,57 +290,6 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
 
             lapiz.setColor(Color.decode("#76a5af"));
             lapiz.fillArc(100, 80, 360, 360, (int) (grados_comida + grados_transporte + grados_entretenimiento + grados_servicios), (int) grados_gastosvarios);
-            lapiz.fillRect(550, 240, 20, 20);
-            lapiz.drawString("Gastos Varios", 580, 255);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: Verifique su información ingresada");
-        }
-
-    }//GEN-LAST:event_btn_gActionPerformed
-
-    public void obtenergrafico() {
-
-        try {
-
-            Graphics lapiz = pizarra.getGraphics();
-
-            int int_comida = (int) TotalEgresosComida;
-            int int_transporte = (int) TotalEgresosTrasporte;
-            int int_entretenimiento = (int) TotalEgresosEntretenimiento;
-            int int_servicios = (int) TotalEgresosServicios;
-            int int_gastosvarios = (int) TotalEgresosGastosVarios;
-
-            int suma_valores = int_comida + int_transporte + int_entretenimiento + int_servicios + int_gastosvarios;
-
-            int grados_comida = int_comida * 360 / suma_valores;
-            int grados_transporte = int_transporte * 360 / suma_valores;
-            int grados_entretenimiento = int_entretenimiento * 360 / suma_valores;
-            int grados_servicios = int_servicios * 360 / suma_valores;
-            int grados_gastosvarios = int_gastosvarios * 360 / suma_valores;
-
-            lapiz.setColor(Color.decode("#EE4266"));
-            lapiz.fillArc(100, 80, 360, 360, 0, grados_comida);
-            lapiz.fillRect(550, 120, 20, 20);
-            lapiz.drawString("Comida", 580, 135);
-
-            lapiz.setColor(Color.decode("#2A1E5C"));
-            lapiz.fillArc(100, 80, 360, 360, grados_comida, grados_transporte);
-            lapiz.fillRect(550, 150, 20, 20);
-            lapiz.drawString("Transporte", 580, 165);
-
-            lapiz.setColor(Color.decode("#4381C1"));
-            lapiz.fillArc(100, 80, 360, 360, grados_comida + grados_transporte, grados_entretenimiento);
-            lapiz.fillRect(550, 180, 20, 20);
-            lapiz.drawString("Entretenimiento", 580, 195);
-
-            lapiz.setColor(Color.decode("#2D2D2A"));
-            lapiz.fillArc(100, 80, 360, 360, grados_comida + grados_transporte + grados_entretenimiento, grados_servicios);
-            lapiz.fillRect(550, 210, 20, 20);
-            lapiz.drawString("Servicios", 580, 225);
-
-            lapiz.setColor(Color.decode("#3CBBB1"));
-            lapiz.fillArc(100, 80, 360, 360, grados_comida + grados_transporte + grados_entretenimiento + grados_servicios, grados_gastosvarios);
             lapiz.fillRect(550, 240, 20, 20);
             lapiz.drawString("Gastos Varios", 580, 255);
 

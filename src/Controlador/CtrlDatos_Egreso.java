@@ -317,9 +317,9 @@ public class CtrlDatos_Egreso implements ActionListener {
                 }
                 // FECHA
                 Date fechaSeleccionada = vista.jDateChooser.getDate();
-                java.sql.Date fechaIngreso = new java.sql.Date(fechaSeleccionada.getTime());
+                java.sql.Date fechaEgreso = new java.sql.Date(fechaSeleccionada.getTime());
 
-                modelo.setFECHA_EGRESO(fechaIngreso);
+                modelo.setFECHA_EGRESO(fechaEgreso);
 
                 //TIPO DE EGRESO
                 String tipoEgresoSeleccionado = (String) vista.ComboBoxTIPO_EGRESO.getSelectedItem();
@@ -345,12 +345,20 @@ public class CtrlDatos_Egreso implements ActionListener {
                 }
 
                 if (consultas.registrar(modelo, usuario_id)) {
-                    JOptionPane.showMessageDialog(null, "Registro Guardado");
+                    int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas enviar la información del EGRESO a su correo", "Confirmación", JOptionPane.YES_NO_OPTION);
 
-                    Datos_Egreso cuerpoDatosEgreso = modelo;
-                    enviarmail(cuerpoDatosEgreso);
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        JOptionPane.showMessageDialog(null, "Registro Guardado");
 
-                    limpiar();
+                        Datos_Egreso cuerpoDatosEgreso = modelo;
+
+                        enviarmail(cuerpoDatosEgreso);
+
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Registro Guardado sin enviar el correo");
+                        limpiar();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Guardar");
                     limpiar();

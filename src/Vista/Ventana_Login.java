@@ -44,7 +44,6 @@ public class Ventana_Login extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         exitBtn = new javax.swing.JPanel();
         fondogris = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -57,10 +56,12 @@ public class Ventana_Login extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         btnRegistrar = new javax.swing.JPanel();
         txtRegistrar = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         fondocrema = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         headercrema = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -101,12 +102,6 @@ public class Ventana_Login extends javax.swing.JFrame {
 
         fondogris.setBackground(new java.awt.Color(36, 48, 60));
         fondogris.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Roboto Mono", 1, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Billetera Digital");
-        fondogris.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 330, 50));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Billetera.png"))); // NOI18N
         fondogris.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
@@ -242,6 +237,12 @@ public class Ventana_Login extends javax.swing.JFrame {
 
         fondogris.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 120, 30));
 
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Roboto Mono", 1, 30)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Billetera Digital");
+        fondogris.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 330, 50));
+
         bg.add(fondogris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 500));
 
         fondocrema.setBackground(new java.awt.Color(255, 255, 204));
@@ -249,7 +250,7 @@ public class Ventana_Login extends javax.swing.JFrame {
         fondocrema.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DINERO 1.png"))); // NOI18N
-        fondocrema.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 230, 310));
+        fondocrema.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 230, 290));
 
         headercrema.setBackground(new java.awt.Color(255, 255, 204));
         headercrema.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -283,6 +284,12 @@ public class Ventana_Login extends javax.swing.JFrame {
         headercrema.add(exitTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, -10, 40, 50));
 
         fondocrema.add(headercrema, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 40));
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("\"Ahorra y cumple tus metas\"");
+        fondocrema.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 330, 50));
 
         bg.add(fondocrema, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 330, 500));
 
@@ -458,6 +465,7 @@ public class Ventana_Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

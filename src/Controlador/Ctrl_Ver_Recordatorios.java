@@ -30,7 +30,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -137,7 +144,7 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
             String sql = "SELECT * "
                     + "FROM recordatorios "
                     + "WHERE usuario_id = ? "
-                    + "ORDER BY PRIORIDAD;";
+                    + "ORDER BY FECHA DESC;";
             ps = con.prepareStatement(sql);
             ps.setInt(1, usuario_id);
             rs = ps.executeQuery();
@@ -223,6 +230,167 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
         }
     }
 
+    public double obtenerTotalMensualCategoria() {
+        //Categoria
+        String categoria = "Servicios";
+        System.out.println("HOLA2:" + categoria);
+        //Fecha
+        // Fecha actual
+        LocalDate fechaActual = LocalDate.now();
+        ZoneId zonaHoraria = ZoneId.systemDefault();
+        ZonedDateTime inicioMes = fechaActual.withDayOfMonth(1).atStartOfDay(zonaHoraria);
+        ZonedDateTime finMes = fechaActual.withDayOfMonth(fechaActual.lengthOfMonth()).atTime(LocalTime.MAX).atZone(zonaHoraria);
+
+// Convierte a java.sql.Date si es necesario
+        java.sql.Date fechaLimiteInferior = java.sql.Date.valueOf(inicioMes.toLocalDate());
+        java.sql.Date fechaLimiteSuperior = java.sql.Date.valueOf(finMes.toLocalDate());
+
+        System.out.println("Limite Inferior: " + fechaLimiteInferior);
+        System.out.println("Limite Superior: " + fechaLimiteSuperior);
+
+        double resultado = 0.0;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "SELECT\n"
+                    + "    ? AS CATEGORIA,\n"
+                    + "    SUM(MONTO_EGRESO) AS MONTO_TOTAL\n"
+                    + "FROM egreso\n"
+                    + "WHERE usuario_id = ?\n"
+                    + "  AND FECHA_EGRESO BETWEEN ? AND ?\n"
+                    + "  AND TIPO_EGRESO LIKE ?;";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoria);
+            ps.setInt(2, usuario_id);
+            ps.setDate(3, fechaLimiteInferior);
+            ps.setDate(4, fechaLimiteSuperior);
+            ps.setString(5, categoria + "%");
+
+            rs = ps.executeQuery();
+            rs.next();
+            resultado = rs.getDouble("MONTO_TOTAL");
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+            System.out.println("ERRORCITO NO SE IMPRIME NADA");
+        } finally {
+            // Asegúrate de cerrar el PreparedStatement y ResultSet en el bloque finally
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return resultado;
+    }
+
+    public Integer obtenerIDFecha() {
+
+        int resultado = 0;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            Conexion objCon = new Conexion();
+            Connection conn = objCon.getConexion();
+
+            // Obtén la fecha actual
+            LocalDate fechaActual = LocalDate.now();
+
+            // Define el formato deseado en inglés
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH);
+
+            // Formatea la fecha actual según el formato
+            String formattedDate = fechaActual.format(formatter);
+
+            // Imprime en pantalla
+            System.out.println(formattedDate);
+
+            String sql = "SELECT ID_FECHA FROM fechas WHERE MES_ANO = ?";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, formattedDate);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                resultado = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+            System.out.println("ERRORCITO NO SE IMPRIME NADA");
+        } finally {
+            // Asegúrate de cerrar el PreparedStatement y ResultSet en el bloque finally
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return resultado;
+    }
+
+    public Double obtenerPresupuestoMensualCategoria() {
+        Double resultado = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        //Categoria
+        String categoria = "Servicios";
+        //ID_FECHA
+        int id_fecha = obtenerIDFecha();
+
+        try {
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "SELECT MONTO_PRESUPUESTO FROM presupuestos WHERE usuario_id = ? AND CATEGORIA = ? AND ID_FECHA = ?;";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario_id);
+            ps.setString(2, categoria);
+            ps.setInt(3, id_fecha);
+
+            rs = ps.executeQuery();
+            rs.next();
+            resultado = rs.getDouble("MONTO_PRESUPUESTO");
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+            System.out.println("ERRORCITO NO SE IMPRIME NADA");
+        } finally {
+            // Asegúrate de cerrar el PreparedStatement y ResultSet en el bloque finally
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return resultado;
+
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -235,11 +403,21 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
             double obtenerDineroInversion = consultaDineroInversion.obtenerDineroInversion(usuario_id);
             double saldo_disponible = sumaIngresos - sumaEgresos - sumaRecursosAsignados - obtenerDineroAhorrado - obtenerDineroInversion;
 
+            //CONTROL DEL PRESUPUESTO
+            int IDFecha = obtenerIDFecha();
+            Double TotalMensualCategoria = obtenerTotalMensualCategoria();
+            Double PresupuestoMensualCategoria = obtenerPresupuestoMensualCategoria();
+
+            System.out.println("obtenerTotalMensualCategoria:" + TotalMensualCategoria);
+            System.out.println("obtenerIDFecha:" + IDFecha);
+            System.out.println("obtenerPresupuestoMensualCategoria:" + PresupuestoMensualCategoria);
+
             //SELECCION
             int Fila = this.vista.jtRecordatorios.getSelectedRow();
             int ID_RECORDATORIO = (int) this.vista.jtRecordatorios.getValueAt(Fila, 0);
             String TIPO_SERVICIO = (String) this.vista.jtRecordatorios.getValueAt(Fila, 1);
             Double MONTO = (Double) this.vista.jtRecordatorios.getValueAt(Fila, 2);
+            Date FECHA = (Date) this.vista.jtRecordatorios.getValueAt(Fila, 3);
             String PRIORIDAD = (String) this.vista.jtRecordatorios.getValueAt(Fila, 4);
             String ESTADO = (String) this.vista.jtRecordatorios.getValueAt(Fila, 5);
             java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
@@ -256,6 +434,19 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
                 int respuesta = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas pagar la factura?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
                 if (respuesta == JOptionPane.YES_OPTION) {
+
+                    // Verificar si PresupuestoMensualCategoria es nulo o si monto_egreso + TotalMensualCategoria supera el PresupuestoMensualCategoria
+                    if (PresupuestoMensualCategoria == null || MONTO + TotalMensualCategoria > PresupuestoMensualCategoria) {
+                        // Pregunta al usuario si desea continuar
+                        int respuesta1 = JOptionPane.showConfirmDialog(null, "El monto de egreso haria que se supere el presupuesto mensual en SERVICIOS o el presupuesto no está definido. ¿Desea continuar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                        if (respuesta1 == JOptionPane.NO_OPTION) {
+
+                            return; // Salir del método actionPerformed
+                        }
+                        // Si la respuesta es YES, continúa con la ejecución
+                    }
+
                     modelo.setMONTO_EGRESO(MONTO);
 
                     modelo.setFECHA_EGRESO((java.sql.Date) date);
@@ -357,12 +548,12 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
         }
 
         if (e.getSource() == vista.txtModificar) {
-            
+
             if (vista.jtRecordatorios.getSelectedRow() == -1) {
                 JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila de la tabla antes de modificar algun registro.", "Error", JOptionPane.ERROR_MESSAGE);
                 return; // Salir del manejador de eventos si no se selecciona una fila
             }
-            
+
             PreparedStatement ps = null;
             try {
                 Conexion objCon = new Conexion();
@@ -397,9 +588,9 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
             }
 
         }
-        
+
         if (e.getSource() == vista.txtEliminar) {
-            
+
             if (vista.jtRecordatorios.getSelectedRow() == -1) {
                 JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila de la tabla antes de eliminar algun registro.", "Error", JOptionPane.ERROR_MESSAGE);
                 return; // Salir del manejador de eventos si no se selecciona una fila
@@ -424,7 +615,7 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
 
                     JOptionPane.showMessageDialog(null, "Recordatorio Eliminado");
                     llenar_tabla_recordatorios();
-                    
+
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Error al Eliminar Recordatorio");
                     System.out.println(ex.toString());
@@ -432,11 +623,9 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
             } else {
                 JOptionPane.showMessageDialog(null, "Eliminación Cancelada");
             }
-            
-            
-        
+
         }
-        
+
     }
 
     @Override

@@ -119,18 +119,26 @@ public class Ctrl_Crear_Recordatorio implements MouseListener {
                 modelo.setESTADO(estado_seleccionado);
 
                 if (consulta.registrar(modelo, usuario_id)) {
-                    JOptionPane.showMessageDialog(null, "Registro Guardado");
+                    int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas enviar la información del RECORDATORIO a su correo?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
-                    String tipo_servicio = tipo_servicio_seleccionado.getTIPO_SERVICIO();
-                    Date fecha = vista.jDateChooser.getDate();
-                    java.sql.Date fechita = new java.sql.Date(fechaSeleccionada.getTime());
-                    Double montorecordatorio = Double.valueOf(vista.txtMonto.getText());
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        JOptionPane.showMessageDialog(null, "Registro Guardado");
 
-                    enviarmail(tipo_servicio, fechita, montorecordatorio);
-                    java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
-                    vista.jDateChooser.setForeground(new Color(255, 113, 17));
-                    vista.jDateChooser.setDate(date);
+                        String tipo_servicio = tipo_servicio_seleccionado.getTIPO_SERVICIO();
+                        Date fecha = vista.jDateChooser.getDate();
+                        java.sql.Date fechita = new java.sql.Date(fechaSeleccionada.getTime());
+                        Double montorecordatorio = Double.valueOf(vista.txtMonto.getText());
 
+                        enviarmail(tipo_servicio, fechita, montorecordatorio);
+                        java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
+                        vista.jDateChooser.setForeground(new Color(255, 113, 17));
+                        vista.jDateChooser.setDate(date);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Registro Guardado sin enviar el correo");
+                        java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
+                        vista.jDateChooser.setForeground(new Color(255, 113, 17));
+                        vista.jDateChooser.setDate(date);
+                    }
                 } else {
                     mostrarError("Error al Guardar");
                 }
