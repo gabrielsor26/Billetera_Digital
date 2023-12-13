@@ -35,7 +35,6 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         txtBienvenida8 = new javax.swing.JLabel();
         btnRegistrarIngreso = new javax.swing.JPanel();
         txtFiltrar = new javax.swing.JLabel();
-        txtBienvenida2 = new javax.swing.JLabel();
         bgTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtPresupuestoIngreso = new javax.swing.JTable();
@@ -48,7 +47,6 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         bgTabla3 = new javax.swing.JPanel();
         txtBienvenida4 = new javax.swing.JLabel();
         txtBienvenida10 = new javax.swing.JLabel();
-        txtBienvenida3 = new javax.swing.JLabel();
         bgTabla4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtIngresoReal = new javax.swing.JTable();
@@ -61,8 +59,8 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         bgTabla7 = new javax.swing.JPanel();
         txtBienvenida6 = new javax.swing.JLabel();
         txtBienvenida12 = new javax.swing.JLabel();
-        txtBienvenida7 = new javax.swing.JLabel();
-        txtBienvenida13 = new javax.swing.JLabel();
+        panelEgreso = new javax.swing.JPanel();
+        panelIngreso = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -101,7 +99,7 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
                 exitTxtMouseExited(evt);
             }
         });
-        headercrema.add(exitTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, -10, 40, 50));
+        headercrema.add(exitTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, -10, 40, 50));
 
         btnAtras.setFont(new java.awt.Font("FG Virgil", 1, 30)); // NOI18N
         btnAtras.setForeground(new java.awt.Color(204, 204, 0));
@@ -121,7 +119,7 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         });
         headercrema.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 40));
 
-        jPanel1.add(headercrema, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 40));
+        jPanel1.add(headercrema, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1480, 40));
 
         cbxFecha.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
         cbxFecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -150,12 +148,6 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
 
         jPanel1.add(btnRegistrarIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 140, 40));
 
-        txtBienvenida2.setBackground(new java.awt.Color(255, 255, 255));
-        txtBienvenida2.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txtBienvenida2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtBienvenida2.setText("REAL");
-        jPanel1.add(txtBienvenida2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 70, 50));
-
         bgTabla.setBackground(new java.awt.Color(255, 255, 255));
         bgTabla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -176,15 +168,15 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         jtPresupuestoIngreso.setGridColor(new java.awt.Color(255, 255, 255));
         jtPresupuestoIngreso.setMaximumSize(new java.awt.Dimension(0, 0));
         jtPresupuestoIngreso.setMinimumSize(new java.awt.Dimension(0, 0));
-        jtPresupuestoIngreso.setSelectionBackground(new java.awt.Color(0, 153, 255));
+        jtPresupuestoIngreso.setSelectionBackground(new java.awt.Color(25, 113, 194));
         jtPresupuestoIngreso.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jtPresupuestoIngreso);
 
-        bgTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 340, 170));
+        bgTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 340, 180));
 
-        jPanel1.add(bgTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 320, 140));
+        jPanel1.add(bgTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 320, 150));
 
-        bgTabla1.setBackground(new java.awt.Color(25, 113, 194));
+        bgTabla1.setBackground(new java.awt.Color(15, 67, 115));
         bgTabla1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -201,7 +193,7 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         txtBienvenida9.setText("CATEGORIA");
         bgTabla1.add(txtBienvenida9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 40));
 
-        jPanel1.add(bgTabla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 320, 40));
+        jPanel1.add(bgTabla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, 320, 40));
 
         bgTabla2.setBackground(new java.awt.Color(255, 255, 255));
         bgTabla2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -223,15 +215,15 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         jtPresupuestoEgreso.setGridColor(new java.awt.Color(255, 255, 255));
         jtPresupuestoEgreso.setMaximumSize(new java.awt.Dimension(0, 0));
         jtPresupuestoEgreso.setMinimumSize(new java.awt.Dimension(0, 0));
-        jtPresupuestoEgreso.setSelectionBackground(new java.awt.Color(0, 153, 255));
+        jtPresupuestoEgreso.setSelectionBackground(new java.awt.Color(47, 158, 68));
         jtPresupuestoEgreso.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(jtPresupuestoEgreso);
 
-        bgTabla2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 350, 190));
+        bgTabla2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 350, 180));
 
-        jPanel1.add(bgTabla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, 320, 160));
+        jPanel1.add(bgTabla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 230, 320, 150));
 
-        bgTabla3.setBackground(new java.awt.Color(47, 158, 68));
+        bgTabla3.setBackground(new java.awt.Color(38, 128, 56));
         bgTabla3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBienvenida4.setBackground(new java.awt.Color(255, 255, 255));
@@ -248,13 +240,7 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         txtBienvenida10.setText("CATEGORIA");
         bgTabla3.add(txtBienvenida10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 40));
 
-        jPanel1.add(bgTabla3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 320, 40));
-
-        txtBienvenida3.setBackground(new java.awt.Color(255, 255, 255));
-        txtBienvenida3.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
-        txtBienvenida3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtBienvenida3.setText("EGRESO");
-        jPanel1.add(txtBienvenida3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 100, 50));
+        jPanel1.add(bgTabla3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 190, 320, 40));
 
         bgTabla4.setBackground(new java.awt.Color(255, 255, 255));
         bgTabla4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -276,15 +262,15 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         jtIngresoReal.setGridColor(new java.awt.Color(255, 255, 255));
         jtIngresoReal.setMaximumSize(new java.awt.Dimension(0, 0));
         jtIngresoReal.setMinimumSize(new java.awt.Dimension(0, 0));
-        jtIngresoReal.setSelectionBackground(new java.awt.Color(0, 153, 255));
+        jtIngresoReal.setSelectionBackground(new java.awt.Color(108, 175, 236));
         jtIngresoReal.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane3.setViewportView(jtIngresoReal);
 
-        bgTabla4.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 340, 170));
+        bgTabla4.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 340, 180));
 
-        jPanel1.add(bgTabla4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, 320, 140));
+        jPanel1.add(bgTabla4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 320, 150));
 
-        bgTabla5.setBackground(new java.awt.Color(25, 113, 194));
+        bgTabla5.setBackground(new java.awt.Color(33, 135, 226));
         bgTabla5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBienvenida5.setBackground(new java.awt.Color(255, 255, 255));
@@ -301,7 +287,7 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         txtBienvenida11.setText("CATEGORIA");
         bgTabla5.add(txtBienvenida11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 40));
 
-        jPanel1.add(bgTabla5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, 320, 40));
+        jPanel1.add(bgTabla5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 320, 40));
 
         bgTabla6.setBackground(new java.awt.Color(255, 255, 255));
         bgTabla6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -323,15 +309,15 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         jtEgresoReal.setGridColor(new java.awt.Color(255, 255, 255));
         jtEgresoReal.setMaximumSize(new java.awt.Dimension(0, 0));
         jtEgresoReal.setMinimumSize(new java.awt.Dimension(0, 0));
-        jtEgresoReal.setSelectionBackground(new java.awt.Color(0, 153, 255));
+        jtEgresoReal.setSelectionBackground(new java.awt.Color(92, 207, 116));
         jtEgresoReal.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane4.setViewportView(jtEgresoReal);
 
-        bgTabla6.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 350, 190));
+        bgTabla6.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 350, 180));
 
-        jPanel1.add(bgTabla6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 490, 320, 160));
+        jPanel1.add(bgTabla6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 230, 320, 150));
 
-        bgTabla7.setBackground(new java.awt.Color(47, 158, 68));
+        bgTabla7.setBackground(new java.awt.Color(55, 185, 81));
         bgTabla7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBienvenida6.setBackground(new java.awt.Color(255, 255, 255));
@@ -348,21 +334,17 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
         txtBienvenida12.setText("CATEGORIA");
         bgTabla7.add(txtBienvenida12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 40));
 
-        jPanel1.add(bgTabla7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 450, 320, 40));
+        jPanel1.add(bgTabla7, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 190, 320, 40));
 
-        txtBienvenida7.setBackground(new java.awt.Color(255, 255, 255));
-        txtBienvenida7.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txtBienvenida7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtBienvenida7.setText("PROYECTADO");
-        jPanel1.add(txtBienvenida7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 160, 50));
+        panelEgreso.setBackground(new java.awt.Color(51, 204, 0));
+        panelEgreso.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(panelEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 410, 680, 350));
 
-        txtBienvenida13.setBackground(new java.awt.Color(255, 255, 255));
-        txtBienvenida13.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
-        txtBienvenida13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtBienvenida13.setText("INGRESO");
-        jPanel1.add(txtBienvenida13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 100, 50));
+        panelIngreso.setBackground(new java.awt.Color(0, 204, 255));
+        panelIngreso.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(panelIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 680, 350));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 690));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1480, 800));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -404,7 +386,7 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasMouseEntered
 
     private void btnAtrasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseExited
-        btnAtras.setForeground(new Color(62, 82, 102));
+        btnAtras.setForeground(new Color(204,204,0));
     }//GEN-LAST:event_btnAtrasMouseExited
 
     /**
@@ -466,18 +448,16 @@ public class Ventana_Ver_Presupuestos extends javax.swing.JFrame {
     public javax.swing.JTable jtIngresoReal;
     public javax.swing.JTable jtPresupuestoEgreso;
     public javax.swing.JTable jtPresupuestoIngreso;
+    public javax.swing.JPanel panelEgreso;
+    public javax.swing.JPanel panelIngreso;
     public javax.swing.JLabel txtBienvenida;
     public javax.swing.JLabel txtBienvenida1;
     public javax.swing.JLabel txtBienvenida10;
     public javax.swing.JLabel txtBienvenida11;
     public javax.swing.JLabel txtBienvenida12;
-    public javax.swing.JLabel txtBienvenida13;
-    public javax.swing.JLabel txtBienvenida2;
-    public javax.swing.JLabel txtBienvenida3;
     public javax.swing.JLabel txtBienvenida4;
     public javax.swing.JLabel txtBienvenida5;
     public javax.swing.JLabel txtBienvenida6;
-    public javax.swing.JLabel txtBienvenida7;
     public javax.swing.JLabel txtBienvenida8;
     public javax.swing.JLabel txtBienvenida9;
     public javax.swing.JLabel txtFiltrar;

@@ -171,7 +171,7 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
 
         jtCategoriaIngreso.setBackground(new java.awt.Color(0, 92, 75));
         jtCategoriaIngreso.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jtCategoriaIngreso.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jtCategoriaIngreso.setFont(new java.awt.Font("Roboto Mono", 0, 16)); // NOI18N
         jtCategoriaIngreso.setForeground(new java.awt.Color(255, 255, 255));
         jtCategoriaIngreso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -191,7 +191,7 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
         jtCategoriaIngreso.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jtCategoriaIngreso);
 
-        bgTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 280, 170));
+        bgTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 280, 160));
 
         jPanel1.add(bgTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 280, 140));
 

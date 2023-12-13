@@ -6,7 +6,11 @@ import Modelo.Datos_Fechas;
 import static Vista.Ventana_Login.usuario_id;
 import Vista.Ventana_Ver_Presupuestos;
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -23,6 +27,18 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoField;
 import java.util.Locale;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.legend.LegendTitle;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Ctrl_Ver_Presupuestos implements MouseListener {
 
@@ -44,6 +60,8 @@ public class Ctrl_Ver_Presupuestos implements MouseListener {
         mostrarPresupuestoEgreso();
         mostrarIngresoReal();
         mostrarEgresoReal();
+        generarGraficoEgreso();
+        generarGraficoIngreso();
 
     }
 
@@ -432,10 +450,29 @@ public class Ctrl_Ver_Presupuestos implements MouseListener {
                     + "        ELSE 'Otros'\n"
                     + "    END AS CATEGORIA,\n"
                     + "    SUM(MONTO_EGRESO) AS MONTO_TOTAL\n"
-                    + "FROM egreso\n"
-                    + "WHERE usuario_id = ?\n"
-                    + "  AND FECHA_EGRESO BETWEEN ? AND ?\n"
-                    + "GROUP BY CATEGORIA;";
+                    + "FROM\n"
+                    + "    egreso\n"
+                    + "WHERE\n"
+                    + "    usuario_id = ?\n"
+                    + "    AND FECHA_EGRESO BETWEEN ? AND ?\n"
+                    + "GROUP BY\n"
+                    + "    CASE\n"
+                    + "        WHEN TIPO_EGRESO LIKE 'Comida%' THEN 'Comida'\n"
+                    + "        WHEN TIPO_EGRESO LIKE 'Transporte%' THEN 'Transporte'\n"
+                    + "        WHEN TIPO_EGRESO LIKE 'Entretenimiento%' THEN 'Entretenimiento'\n"
+                    + "        WHEN TIPO_EGRESO LIKE 'Servicios%' THEN 'Servicios'\n"
+                    + "        WHEN TIPO_EGRESO LIKE 'Gastos Varios%' THEN 'Gastos Varios'\n"
+                    + "        ELSE 'Otros'\n"
+                    + "    END\n"
+                    + "ORDER BY\n"
+                    + "    CASE\n"
+                    + "        WHEN TIPO_EGRESO LIKE 'Comida%' THEN 1\n"
+                    + "        WHEN TIPO_EGRESO LIKE 'Transporte%' THEN 2\n"
+                    + "        WHEN TIPO_EGRESO LIKE 'Entretenimiento%' THEN 3\n"
+                    + "        WHEN TIPO_EGRESO LIKE 'Servicios%' THEN 4\n"
+                    + "        WHEN TIPO_EGRESO LIKE 'Gastos Varios%' THEN 5\n"
+                    + "        ELSE 6  -- Ajusta según sea necesario\n"
+                    + "    END;";
             ps = con.prepareStatement(sql);
             ps.setInt(1, usuario_id);
             ps.setDate(2, fecha.getLIMITE_INFERIOR());
@@ -472,27 +509,584 @@ public class Ctrl_Ver_Presupuestos implements MouseListener {
                 modelotabla.addRow(filas);
 
             }
-            /*
-            javax.swing.table.TableColumnModel columnModel = vista.jtIngresoReal.getColumnModel();
-            javax.swing.table.TableColumn idColumn = columnModel.getColumn(0);
-            javax.swing.table.TableColumn idColumn3 = columnModel.getColumn(3);
-            idColumn.setMinWidth(0);
-            idColumn.setMaxWidth(0);
-            idColumn.setPreferredWidth(0);
-            idColumn.setResizable(false);
-            idColumn3.setMinWidth(0);
-            idColumn3.setMaxWidth(0);
-            idColumn3.setPreferredWidth(0);
-            idColumn3.setResizable(false);
-             */
+
         } catch (SQLException ex) {
             System.err.println(ex.toString());
         }
 
-        this.vista.jtIngresoReal.getTableHeader().setVisible(false);
-        this.vista.jtIngresoReal.setBorder(BorderFactory.createEmptyBorder());
-        this.vista.jtIngresoReal.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        this.vista.jtEgresoReal.getTableHeader().setVisible(false);
+        this.vista.jtEgresoReal.setBorder(BorderFactory.createEmptyBorder());
+        this.vista.jtEgresoReal.setIntercellSpacing(new java.awt.Dimension(0, 0));
         this.vista.jScrollPane4.getViewport().setBackground(new Color(255, 255, 255));
+    }
+
+    //GRAFICO Y DATOS INGRESO
+    //Datos Ingreso
+    public ArrayList<String> getCategoriasIngreso() {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<String> listaCategoriasIngreso = new ArrayList<>();
+
+        try {
+
+            Datos_Fechas fecha = (Datos_Fechas) vista.cbxFecha.getSelectedItem();
+
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "SELECT \n"
+                    + "    COALESCE(combined_result.DESCRIPCION_INGRESO, 'Otros') AS DESCRIPCION_INGRESO,\n"
+                    + "    COALESCE(presupuestos.MONTO_PRESUPUESTO, 0) AS MONTO_PRESUPUESTO,\n"
+                    + "    COALESCE(combined_result.MONTO_TOTAL, 0) AS MONTO_TOTAL\n"
+                    + "FROM (\n"
+                    + "    SELECT\n"
+                    + "        i.DESCRIPCION_INGRESO,\n"
+                    + "        COALESCE(SUM(i.MONTO_INGRESO), 0) AS MONTO_TOTAL\n"
+                    + "    FROM ingreso i\n"
+                    + "    INNER JOIN categoria_ingreso ci ON i.DESCRIPCION_INGRESO = ci.TIPO_INGRESO\n"
+                    + "    WHERE i.usuario_id = ?\n"
+                    + "      AND i.FECHA_INGRESO BETWEEN ? AND ?\n"
+                    + "    GROUP BY i.DESCRIPCION_INGRESO\n"
+                    + "\n"
+                    + "    UNION\n"
+                    + "\n"
+                    + "    SELECT\n"
+                    + "        'Otros' AS DESCRIPCION_INGRESO,\n"
+                    + "        COALESCE(SUM(i.MONTO_INGRESO), 0) AS MONTO_TOTAL\n"
+                    + "    FROM ingreso i\n"
+                    + "    WHERE i.usuario_id = ?\n"
+                    + "      AND i.FECHA_INGRESO BETWEEN ? AND ?\n"
+                    + "      AND NOT EXISTS (\n"
+                    + "        SELECT 1\n"
+                    + "        FROM categoria_ingreso ci\n"
+                    + "        WHERE i.DESCRIPCION_INGRESO = ci.TIPO_INGRESO\n"
+                    + "      )\n"
+                    + ") AS combined_result\n"
+                    + "LEFT JOIN presupuestos ON combined_result.DESCRIPCION_INGRESO = presupuestos.CATEGORIA\n"
+                    + "                      AND presupuestos.TIPO = 'Ingreso'\n"
+                    + "                      AND presupuestos.ID_FECHA = ?\n"
+                    + "                      AND presupuestos.usuario_id = ?;";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario_id);
+            ps.setDate(2, fecha.getLIMITE_INFERIOR());
+            ps.setDate(3, fecha.getLIMITE_SUPERIOR());
+            ps.setInt(4, usuario_id);
+            ps.setDate(5, fecha.getLIMITE_INFERIOR());
+            ps.setDate(6, fecha.getLIMITE_SUPERIOR());
+            ps.setInt(7, fecha.getID_FECHA());
+            ps.setInt(8, usuario_id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String categoriasingreso = rs.getString("DESCRIPCION_INGRESO");
+                listaCategoriasIngreso.add(categoriasingreso);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        return listaCategoriasIngreso;
+
+    }
+
+    public ArrayList<Double> getPresupuestoIngreso() {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Double> listaPresupuestoIngreso = new ArrayList<>();
+
+        try {
+
+            Datos_Fechas fecha = (Datos_Fechas) vista.cbxFecha.getSelectedItem();
+
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "SELECT \n"
+                    + "    COALESCE(combined_result.DESCRIPCION_INGRESO, 'Otros') AS DESCRIPCION_INGRESO,\n"
+                    + "    COALESCE(presupuestos.MONTO_PRESUPUESTO, 0) AS MONTO_PRESUPUESTO,\n"
+                    + "    COALESCE(combined_result.MONTO_TOTAL, 0) AS MONTO_TOTAL\n"
+                    + "FROM (\n"
+                    + "    SELECT\n"
+                    + "        i.DESCRIPCION_INGRESO,\n"
+                    + "        COALESCE(SUM(i.MONTO_INGRESO), 0) AS MONTO_TOTAL\n"
+                    + "    FROM ingreso i\n"
+                    + "    INNER JOIN categoria_ingreso ci ON i.DESCRIPCION_INGRESO = ci.TIPO_INGRESO\n"
+                    + "    WHERE i.usuario_id = ?\n"
+                    + "      AND i.FECHA_INGRESO BETWEEN ? AND ?\n"
+                    + "    GROUP BY i.DESCRIPCION_INGRESO\n"
+                    + "\n"
+                    + "    UNION\n"
+                    + "\n"
+                    + "    SELECT\n"
+                    + "        'Otros' AS DESCRIPCION_INGRESO,\n"
+                    + "        COALESCE(SUM(i.MONTO_INGRESO), 0) AS MONTO_TOTAL\n"
+                    + "    FROM ingreso i\n"
+                    + "    WHERE i.usuario_id = ?\n"
+                    + "      AND i.FECHA_INGRESO BETWEEN ? AND ?\n"
+                    + "      AND NOT EXISTS (\n"
+                    + "        SELECT 1\n"
+                    + "        FROM categoria_ingreso ci\n"
+                    + "        WHERE i.DESCRIPCION_INGRESO = ci.TIPO_INGRESO\n"
+                    + "      )\n"
+                    + ") AS combined_result\n"
+                    + "LEFT JOIN presupuestos ON combined_result.DESCRIPCION_INGRESO = presupuestos.CATEGORIA\n"
+                    + "                      AND presupuestos.TIPO = 'Ingreso'\n"
+                    + "                      AND presupuestos.ID_FECHA = ?\n"
+                    + "                      AND presupuestos.usuario_id = ?;";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario_id);
+            ps.setDate(2, fecha.getLIMITE_INFERIOR());
+            ps.setDate(3, fecha.getLIMITE_SUPERIOR());
+            ps.setInt(4, usuario_id);
+            ps.setDate(5, fecha.getLIMITE_INFERIOR());
+            ps.setDate(6, fecha.getLIMITE_SUPERIOR());
+            ps.setInt(7, fecha.getID_FECHA());
+            ps.setInt(8, usuario_id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Double presupuestoingreso = rs.getDouble("MONTO_PRESUPUESTO");
+                listaPresupuestoIngreso.add(presupuestoingreso);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        return listaPresupuestoIngreso;
+
+    }
+
+    public ArrayList<Double> getMontoMensualIngreso() {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Double> listaMontoMensualIngreso = new ArrayList<>();
+
+        try {
+
+            Datos_Fechas fecha = (Datos_Fechas) vista.cbxFecha.getSelectedItem();
+
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "SELECT \n"
+                    + "    COALESCE(combined_result.DESCRIPCION_INGRESO, 'Otros') AS DESCRIPCION_INGRESO,\n"
+                    + "    COALESCE(presupuestos.MONTO_PRESUPUESTO, 0) AS MONTO_PRESUPUESTO,\n"
+                    + "    COALESCE(combined_result.MONTO_TOTAL, 0) AS MONTO_TOTAL\n"
+                    + "FROM (\n"
+                    + "    SELECT\n"
+                    + "        i.DESCRIPCION_INGRESO,\n"
+                    + "        COALESCE(SUM(i.MONTO_INGRESO), 0) AS MONTO_TOTAL\n"
+                    + "    FROM ingreso i\n"
+                    + "    INNER JOIN categoria_ingreso ci ON i.DESCRIPCION_INGRESO = ci.TIPO_INGRESO\n"
+                    + "    WHERE i.usuario_id = ?\n"
+                    + "      AND i.FECHA_INGRESO BETWEEN ? AND ?\n"
+                    + "    GROUP BY i.DESCRIPCION_INGRESO\n"
+                    + "\n"
+                    + "    UNION\n"
+                    + "\n"
+                    + "    SELECT\n"
+                    + "        'Otros' AS DESCRIPCION_INGRESO,\n"
+                    + "        COALESCE(SUM(i.MONTO_INGRESO), 0) AS MONTO_TOTAL\n"
+                    + "    FROM ingreso i\n"
+                    + "    WHERE i.usuario_id = ?\n"
+                    + "      AND i.FECHA_INGRESO BETWEEN ? AND ?\n"
+                    + "      AND NOT EXISTS (\n"
+                    + "        SELECT 1\n"
+                    + "        FROM categoria_ingreso ci\n"
+                    + "        WHERE i.DESCRIPCION_INGRESO = ci.TIPO_INGRESO\n"
+                    + "      )\n"
+                    + ") AS combined_result\n"
+                    + "LEFT JOIN presupuestos ON combined_result.DESCRIPCION_INGRESO = presupuestos.CATEGORIA\n"
+                    + "                      AND presupuestos.TIPO = 'Ingreso'\n"
+                    + "                      AND presupuestos.ID_FECHA = ?\n"
+                    + "                      AND presupuestos.usuario_id = ?;";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario_id);
+            ps.setDate(2, fecha.getLIMITE_INFERIOR());
+            ps.setDate(3, fecha.getLIMITE_SUPERIOR());
+            ps.setInt(4, usuario_id);
+            ps.setDate(5, fecha.getLIMITE_INFERIOR());
+            ps.setDate(6, fecha.getLIMITE_SUPERIOR());
+            ps.setInt(7, fecha.getID_FECHA());
+            ps.setInt(8, usuario_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Double montomensualingreso = rs.getDouble("MONTO_TOTAL");
+                listaMontoMensualIngreso.add(montomensualingreso);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        return listaMontoMensualIngreso;
+    }
+
+    //Graficos Ingreso
+    private void generarGraficoIngreso() {
+        // Limpiar el contenido anterior
+        vista.panelIngreso.removeAll();
+        vista.panelIngreso.revalidate();
+        vista.panelIngreso.repaint();
+
+        // Obtener el conjunto de datos actualizado
+        DefaultCategoryDataset datos = obtenerDatosIngreso();
+
+        // Crear y configurar el gráfico con el conjunto de datos actualizado
+        JFreeChart grafico_barras = crearGraficoIngreso(datos);
+        configurarRendererIngreso(grafico_barras);
+
+        // Crear el panel del gráfico y agregarlo al contenedor
+        ChartPanel panel = new ChartPanel(grafico_barras);
+        panel.setMouseWheelEnabled(true);
+        panel.setPreferredSize(new Dimension(400, 350));
+
+        vista.panelIngreso.setLayout(new BorderLayout());
+        vista.panelIngreso.add(panel, BorderLayout.NORTH);
+
+        vista.pack();
+        vista.repaint();
+    }
+
+    private DefaultCategoryDataset obtenerDatosIngreso() {
+
+        ArrayList<String> listaCategoriasIngreso = getCategoriasIngreso();
+        ArrayList<Double> listaPresupuestoIngreso = getPresupuestoIngreso();
+        ArrayList<Double> listaMontoMensualIngreso = getMontoMensualIngreso();
+
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+
+        // Agregar datos de la serie "Real"
+        for (int i = 0; i < listaMontoMensualIngreso.size(); i++) {
+            String categoriaingreso = listaCategoriasIngreso.get(i);
+            double valor = listaMontoMensualIngreso.get(i);
+            datos.addValue(valor, "Real", categoriaingreso);
+        }
+
+        // Agregar datos de la serie "Presupuesto"
+        for (int i = 0; i < listaPresupuestoIngreso.size(); i++) {
+            String categoriaingreso = listaCategoriasIngreso.get(i);
+            double valor = listaPresupuestoIngreso.get(i);
+            datos.addValue(valor, "Proyectado", categoriaingreso);
+        }
+
+        return datos;
+    }
+
+    private JFreeChart crearGraficoIngreso(DefaultCategoryDataset datos) {
+
+        Datos_Fechas fecha = (Datos_Fechas) vista.cbxFecha.getSelectedItem();
+
+        return ChartFactory.createBarChart(
+                "Comparación de Ingresos Reales y Proyectados en el periodo " + fecha.getMES_ANO(),
+                "Categoria",
+                "Monto",
+                datos,
+                PlotOrientation.VERTICAL,
+                true,
+                false,
+                false);
+    }
+
+    private void configurarRendererIngreso(JFreeChart chart) {
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+        // Cambiar el color de las barras
+        renderer.setSeriesPaint(0, new Color(33, 135, 226));
+        renderer.setSeriesPaint(1, new Color(15, 67, 115));
+
+        // Desactivar el efecto de iluminado 3D
+        renderer.setBarPainter(new StandardBarPainter());
+
+        // Desactivar cualquier efecto de sombra
+        renderer.setShadowVisible(false);
+
+        // Desactivar el borde de las barras
+        renderer.setDrawBarOutline(false);
+
+        // Dejar el color y el trazo del contorno en blanco
+        renderer.setSeriesOutlinePaint(0, Color.BLACK);
+        renderer.setSeriesOutlineStroke(0, new BasicStroke(0.0f));
+
+        // Ajustar otras propiedades si es necesario
+        renderer.setMaximumBarWidth(0.1); // Ancho máximo de las barras (ajusta según sea necesario)
+        renderer.setItemMargin(0.1);      // Margen entre las barras
+
+        // Establecer el color de fondo del área de los ejes
+        plot.setBackgroundPaint(Color.WHITE);
+
+        // Establecer el color de fondo del panel
+        ChartPanel panel = new ChartPanel(chart);
+        panel.setBackground(Color.BLACK);
+
+        // Cambiar la fuente del texto en el eje X
+        Font font = new Font("Roboto Mono", Font.PLAIN, 12);
+        Font font1 = new Font("Roboto Mono", Font.PLAIN, 10);
+        Font titleFont = new Font("Roboto Mono", Font.BOLD, 18);
+        Font legendFont = new Font("Roboto Mono", Font.PLAIN, 16);
+
+        // Establecer el color de fondo de los ejes
+        plot.getDomainAxis().setAxisLinePaint(Color.BLACK);
+        plot.getRangeAxis().setAxisLinePaint(Color.BLACK);
+
+        // Establecer el color de fondo de las etiquetas del eje X
+        plot.getDomainAxis().setLabelPaint(Color.BLACK);
+        plot.getDomainAxis().setTickLabelPaint(Color.BLACK);
+
+        // Establecer el color de fondo de las etiquetas del eje Y
+        plot.getRangeAxis().setLabelPaint(Color.BLACK);
+        plot.getRangeAxis().setTickLabelPaint(Color.BLACK);
+
+        // Obtener el título del gráfico
+        TextTitle chartTitle = chart.getTitle();
+        // Cambiar la fuente del título
+        chartTitle.setFont(titleFont);
+
+        // Cambiar la fuente de la leyenda
+        LegendTitle legend = chart.getLegend();
+        legend.setItemFont(legendFont);
+
+        // Configurar la fuente y color del texto en los ejes y la leyenda
+        plot.getDomainAxis().setLabelFont(font1);
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setTickLabelFont(font1);
+        plot.getRangeAxis().setLabelFont(font);
+        ValueAxis rangeAxis = plot.getRangeAxis();
+        rangeAxis.setTickLabelFont(font);
+
+    }
+
+    //GRAFICO Y DATOS EGRESO
+    //Datos
+    public ArrayList<Double> getDatosPresupuestoEgreso() {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Double> listaDatosPresupuestoEgreso = new ArrayList<>();
+
+        try {
+
+            Datos_Fechas fecha = (Datos_Fechas) vista.cbxFecha.getSelectedItem();
+
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "SELECT CATEGORIA, MONTO_PRESUPUESTO \n"
+                    + "FROM presupuestos \n"
+                    + "WHERE usuario_id = ? AND TIPO = 'Egreso' AND ID_FECHA = ?;";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario_id);
+            ps.setInt(2, fecha.getID_FECHA());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                double montoPresupuesto = rs.getDouble("MONTO_PRESUPUESTO");
+                listaDatosPresupuestoEgreso.add(montoPresupuesto);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        return listaDatosPresupuestoEgreso;
+    }
+
+    public ArrayList<Double> getDatosRealEgreso() {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Double> listaDatosRealEgreso = new ArrayList<>();
+
+        try {
+
+            Datos_Fechas fecha = (Datos_Fechas) vista.cbxFecha.getSelectedItem();
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "SELECT\n"
+                    + "    categorias.CATEGORIA,\n"
+                    + "    COALESCE(SUM(COALESCE(egreso.MONTO_EGRESO, 0)), 0.00) AS MONTO_TOTAL\n"
+                    + "FROM\n"
+                    + "    (\n"
+                    + "        SELECT 'Comida' AS CATEGORIA\n"
+                    + "        UNION SELECT 'Transporte'\n"
+                    + "        UNION SELECT 'Entretenimiento'\n"
+                    + "        UNION SELECT 'Servicios'\n"
+                    + "        UNION SELECT 'Gastos Varios'\n"
+                    + "    ) categorias\n"
+                    + "LEFT JOIN\n"
+                    + "    egreso ON\n"
+                    + "    categorias.CATEGORIA =\n"
+                    + "        CASE\n"
+                    + "            WHEN egreso.TIPO_EGRESO LIKE 'Comida%' THEN 'Comida'\n"
+                    + "            WHEN egreso.TIPO_EGRESO LIKE 'Transporte%' THEN 'Transporte'\n"
+                    + "            WHEN egreso.TIPO_EGRESO LIKE 'Entretenimiento%' THEN 'Entretenimiento'\n"
+                    + "            WHEN egreso.TIPO_EGRESO LIKE 'Servicios%' THEN 'Servicios'\n"
+                    + "            WHEN egreso.TIPO_EGRESO LIKE 'Gastos Varios%' THEN 'Gastos Varios'\n"
+                    + "        END\n"
+                    + "    AND egreso.usuario_id = ?\n"
+                    + "    AND egreso.FECHA_EGRESO BETWEEN ? AND ?\n"
+                    + "GROUP BY categorias.CATEGORIA\n"
+                    + "ORDER BY\n"
+                    + "    CASE categorias.CATEGORIA\n"
+                    + "        WHEN 'Comida' THEN 1\n"
+                    + "        WHEN 'Transporte' THEN 2\n"
+                    + "        WHEN 'Entretenimiento' THEN 3\n"
+                    + "        WHEN 'Servicios' THEN 4\n"
+                    + "        WHEN 'Gastos Varios' THEN 5\n"
+                    + "    END;";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario_id);
+            ps.setDate(2, fecha.getLIMITE_INFERIOR());
+            ps.setDate(3, fecha.getLIMITE_SUPERIOR());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                double montoReal = rs.getDouble("MONTO_TOTAL");
+                listaDatosRealEgreso.add(montoReal);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        return listaDatosRealEgreso;
+    }
+
+    //Grafico
+    private void generarGraficoEgreso() {
+        // Limpiar el contenido anterior
+        vista.panelEgreso.removeAll();
+        vista.panelEgreso.revalidate();
+        vista.panelEgreso.repaint();
+
+        // Obtener el conjunto de datos actualizado
+        DefaultCategoryDataset datos = obtenerDatosEgreso();
+
+        // Crear y configurar el gráfico con el conjunto de datos actualizado
+        JFreeChart grafico_barras = crearGraficoEgreso(datos);
+        configurarRendererEgreso(grafico_barras);
+
+        // Crear el panel del gráfico y agregarlo al contenedor
+        ChartPanel panel = new ChartPanel(grafico_barras);
+        panel.setMouseWheelEnabled(true);
+        panel.setPreferredSize(new Dimension(400, 350));
+
+        vista.panelEgreso.setLayout(new BorderLayout());
+        vista.panelEgreso.add(panel, BorderLayout.NORTH);
+
+        vista.pack();
+        vista.repaint();
+    }
+
+    private DefaultCategoryDataset obtenerDatosEgreso() {
+        ArrayList<Double> listaDatosPresupuestoEgreso = getDatosPresupuestoEgreso();
+        ArrayList<Double> listaDatosRealEgreso = getDatosRealEgreso();
+
+        String[] categorias = {"Comida", "Transporte", "Entrenimiento", "Servicios", "Gastos Varios"};
+
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+
+        // Agregar datos de la serie "Real"
+        for (int i = 0; i < listaDatosRealEgreso.size(); i++) {
+            String categoria = categorias[i];
+            double valor = listaDatosRealEgreso.get(i);
+            datos.addValue(valor, "Real", categoria);
+        }
+
+        // Agregar datos de la serie "Presupuesto"
+        for (int i = 0; i < listaDatosPresupuestoEgreso.size(); i++) {
+            String categoria = categorias[i];
+            double valor = listaDatosPresupuestoEgreso.get(i);
+            datos.addValue(valor, "Proyectado", categoria);
+        }
+
+        return datos;
+    }
+
+    private JFreeChart crearGraficoEgreso(DefaultCategoryDataset datos) {
+
+        Datos_Fechas fecha = (Datos_Fechas) vista.cbxFecha.getSelectedItem();
+
+        return ChartFactory.createBarChart(
+                "Comparación de Gastos Reales y Proyectados en el periodo " + fecha.getMES_ANO(),
+                "Categoria",
+                "Monto",
+                datos,
+                PlotOrientation.VERTICAL,
+                true,
+                false,
+                false);
+    }
+
+    //new Color(26,177,136)
+    private void configurarRendererEgreso(JFreeChart chart) {
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+        // Cambiar el color de las barras
+        renderer.setSeriesPaint(0, new Color(55, 185, 81));
+        renderer.setSeriesPaint(1, new Color(38, 128, 56));
+
+        // Desactivar el efecto de iluminado 3D
+        renderer.setBarPainter(new StandardBarPainter());
+
+        // Desactivar cualquier efecto de sombra
+        renderer.setShadowVisible(false);
+
+        // Desactivar el borde de las barras
+        renderer.setDrawBarOutline(false);
+
+        // Dejar el color y el trazo del contorno en blanco
+        renderer.setSeriesOutlinePaint(0, Color.BLACK);
+        renderer.setSeriesOutlineStroke(0, new BasicStroke(0.0f));
+
+        // Ajustar otras propiedades si es necesario
+        renderer.setMaximumBarWidth(0.1); // Ancho máximo de las barras (ajusta según sea necesario)
+        renderer.setItemMargin(0.1);      // Margen entre las barras
+
+        // Establecer el color de fondo del área de los ejes
+        plot.setBackgroundPaint(Color.WHITE);
+
+        // Establecer el color de fondo del panel
+        ChartPanel panel = new ChartPanel(chart);
+        panel.setBackground(Color.BLACK);
+
+        // Cambiar la fuente del texto en el eje X
+        Font font = new Font("Roboto Mono", Font.PLAIN, 12);
+        Font font1 = new Font("Roboto Mono", Font.PLAIN, 10);
+        Font titleFont = new Font("Roboto Mono", Font.BOLD, 18);
+        Font legendFont = new Font("Roboto Mono", Font.PLAIN, 16);
+
+        // Establecer el color de fondo de los ejes
+        plot.getDomainAxis().setAxisLinePaint(Color.BLACK);
+        plot.getRangeAxis().setAxisLinePaint(Color.BLACK);
+
+        // Establecer el color de fondo de las etiquetas del eje X
+        plot.getDomainAxis().setLabelPaint(Color.BLACK);
+        plot.getDomainAxis().setTickLabelPaint(Color.BLACK);
+
+        // Establecer el color de fondo de las etiquetas del eje Y
+        plot.getRangeAxis().setLabelPaint(Color.BLACK);
+        plot.getRangeAxis().setTickLabelPaint(Color.BLACK);
+
+        // Obtener el título del gráfico
+        TextTitle chartTitle = chart.getTitle();
+        // Cambiar la fuente del título
+        chartTitle.setFont(titleFont);
+
+        // Cambiar la fuente de la leyenda
+        LegendTitle legend = chart.getLegend();
+        legend.setItemFont(legendFont);
+
+        // Configurar la fuente y color del texto en los ejes y la leyenda
+        plot.getDomainAxis().setLabelFont(font1);
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setTickLabelFont(font1);
+        plot.getRangeAxis().setLabelFont(font);
+        ValueAxis rangeAxis = plot.getRangeAxis();
+        rangeAxis.setTickLabelFont(font);
+
     }
 
     @Override
@@ -504,7 +1098,8 @@ public class Ctrl_Ver_Presupuestos implements MouseListener {
             mostrarPresupuestoEgreso();
             mostrarIngresoReal();
             mostrarEgresoReal();
-
+            generarGraficoEgreso();
+            generarGraficoIngreso();
         }
 
     }

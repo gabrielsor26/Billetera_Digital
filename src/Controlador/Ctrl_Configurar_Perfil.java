@@ -346,7 +346,7 @@ public class Ctrl_Configurar_Perfil implements MouseListener {
             int cantidadColumnas = rsMd1.getColumnCount();
 
             int altoFila = 30;
-            int[] anchos = {50, 50, 50, 50};
+            int[] anchos = {50, 150, 50, 50};
             this.vista.jtCategoriaIngreso.setRowHeight(altoFila);
 
             for (int i = 0; i < this.vista.jtCategoriaIngreso.getColumnCount(); i++) {

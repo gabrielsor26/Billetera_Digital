@@ -132,7 +132,7 @@ public class Ctrl_Ver_Recordatorios implements MouseListener {
 
     }
 
-    private void llenar_tabla_recordatorios() {
+    public void llenar_tabla_recordatorios() {
         try {
             MyTableModel modelo = new MyTableModel(new Object[][]{}, new Object[]{"ID_RECORDATORIO", "TIPO_SERVICIO", "MONTO", "FECHA", "PRIORIDAD", "ESTADO"});
             this.vista.jtRecordatorios.setModel(modelo);

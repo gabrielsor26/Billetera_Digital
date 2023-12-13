@@ -90,6 +90,7 @@ public class Ventana_Registrar extends javax.swing.JFrame {
         txtnombre.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         txtnombre.setForeground(new java.awt.Color(255, 255, 255));
         txtnombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtnombre.setCaretColor(new java.awt.Color(255, 255, 255));
         txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtnombreActionPerformed(evt);
@@ -101,18 +102,21 @@ public class Ventana_Registrar extends javax.swing.JFrame {
         txtapellido.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         txtapellido.setForeground(new java.awt.Color(255, 255, 255));
         txtapellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtapellido.setCaretColor(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 384, -1));
 
         txtemail.setBackground(new java.awt.Color(36, 48, 60));
         txtemail.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         txtemail.setForeground(new java.awt.Color(255, 255, 255));
         txtemail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtemail.setCaretColor(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 384, -1));
 
         txtpassword.setBackground(new java.awt.Color(36, 48, 60));
         txtpassword.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         txtpassword.setForeground(new java.awt.Color(255, 255, 255));
         txtpassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtpassword.setCaretColor(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 384, -1));
 
         jLabel6.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
@@ -191,10 +195,10 @@ public class Ventana_Registrar extends javax.swing.JFrame {
             }
         }
 
-        this.dispose();
+        //this.dispose();
 
 // Restaura la visibilidad de la ventana de inicio de sesión
-        ventanaLogin.setVisible(true);
+        //ventanaLogin.setVisible(true);
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

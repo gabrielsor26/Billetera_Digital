@@ -249,7 +249,7 @@ public class Ctrl_Fijar_Egreso implements MouseListener {
         JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    private void crearpresupuestoingreso() {
+    private void crearpresupuestoegreso() {
         //CATEGORIA            
         String categoria = (String) vista.cbxCategoria.getSelectedItem();
         datos.setCATEGORIA(categoria);
@@ -341,10 +341,11 @@ public class Ctrl_Fijar_Egreso implements MouseListener {
                 // Consulta para verificar si existe un registro con ese categoria - fecha
                 String sql = "SELECT COUNT(*) \n"
                         + "FROM presupuestos \n"
-                        + "WHERE CATEGORIA = ? AND ID_FECHA = ? AND TIPO = 'Egreso';";
+                        + "WHERE CATEGORIA = ? AND ID_FECHA = ? AND TIPO = 'Egreso' AND usuario_id = ?;";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, categoria);
                 ps.setInt(2, fecha.getID_FECHA());
+                ps.setInt(3, usuario_id);
                 rs = ps.executeQuery();
                 rs.next();
 
@@ -356,7 +357,7 @@ public class Ctrl_Fijar_Egreso implements MouseListener {
                     vista.cbxFecha2.setSelectedIndex(fecha.getID_FECHA() - 1);
 
                 } else {
-                    crearpresupuestoingreso();
+                    crearpresupuestoegreso();
                 }
             } catch (SQLException ex) {
                 System.out.println(ex.toString());
