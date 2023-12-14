@@ -67,7 +67,6 @@ public class CtrlDatos_Egreso implements ActionListener {
 
         //Botones
         this.vista.btnRegistrar.addActionListener(this);
-        this.vista.btnAtras.addActionListener(this);
     }
 
     public void iniciar() {

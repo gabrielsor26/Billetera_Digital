@@ -6,12 +6,22 @@ package Vista;
 
 import Controlador.CtrlMenu_Egreso;
 import Modelo.Conexion;
+import Modelo.Consulta_Fechas_Select;
+import Modelo.Datos_Fechas;
 import static Vista.Ventana_Login.usuario_id;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoField;
+import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,12 +37,16 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
     private double TotalEgresosServicios;
     private double TotalEgresosGastosVarios;
 
+    int xMouse, yMouse;
+    int xMouseCrema, yMouseCrema;
+
     public Ventana_Categorizar_Egreso() {
         initComponents();
         this.setLocationRelativeTo(null);
 
-        llenar_datos();
-        obtenergrafico();
+        llenarDatos_Fechas();
+        seleccionarMesAnoActualCbx();
+
     }
 
     /**
@@ -44,6 +58,10 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        header = new javax.swing.JPanel();
+        exitTxt = new javax.swing.JLabel();
+        btnAtras1 = new javax.swing.JLabel();
         pizarra = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -57,124 +75,292 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txt_servicios = new javax.swing.JTextField();
         txt_gastosvarios = new javax.swing.JTextField();
-        btnAtras = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        cbxFecha = new javax.swing.JComboBox<>();
+        btn_filtrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(36, 48, 60));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        header.setBackground(new java.awt.Color(36, 48, 60));
+        header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                headerMouseDragged(evt);
+            }
+        });
+        header.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                headerMousePressed(evt);
+            }
+        });
+        header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        exitTxt.setFont(new java.awt.Font("FG Virgil", 1, 48)); // NOI18N
+        exitTxt.setForeground(new java.awt.Color(62, 82, 102));
+        exitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        exitTxt.setText("x");
+        exitTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exitTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exitTxtMouseExited(evt);
+            }
+        });
+        header.add(exitTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, -10, 50, 50));
+
+        btnAtras1.setFont(new java.awt.Font("FG Virgil", 1, 30)); // NOI18N
+        btnAtras1.setForeground(new java.awt.Color(62, 82, 102));
+        btnAtras1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAtras1.setText("<---");
+        btnAtras1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAtras1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAtras1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAtras1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAtras1MouseExited(evt);
+            }
+        });
+        header.add(btnAtras1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 40));
+
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 40));
+
         pizarra.setBackground(new java.awt.Color(36, 48, 60));
-        pizarra.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pizarra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(pizarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 730, 520));
 
         jLabel1.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CATEGORIZACION EGRESO");
-        pizarra.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 840, -1));
 
-        jLabel2.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(224, 102, 102));
         jLabel2.setText("Comida:");
-        pizarra.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 450, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 280, -1, -1));
 
         txt_comida.setBackground(new java.awt.Color(36, 48, 60));
-        txt_comida.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txt_comida.setForeground(new java.awt.Color(255, 204, 0));
+        txt_comida.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        txt_comida.setForeground(new java.awt.Color(224, 102, 102));
         txt_comida.setBorder(null);
-        pizarra.add(txt_comida, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 450, 190, -1));
+        jPanel1.add(txt_comida, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 280, 140, -1));
 
-        jLabel3.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(111, 168, 220));
         jLabel3.setText("Transporte:");
-        pizarra.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 520, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 320, -1, -1));
 
         txt_transporte.setBackground(new java.awt.Color(36, 48, 60));
-        txt_transporte.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txt_transporte.setForeground(new java.awt.Color(255, 204, 0));
+        txt_transporte.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        txt_transporte.setForeground(new java.awt.Color(111, 168, 220));
         txt_transporte.setBorder(null);
-        pizarra.add(txt_transporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 190, -1));
+        jPanel1.add(txt_transporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 320, 140, -1));
 
-        btn_g.setBackground(new java.awt.Color(0, 153, 153));
-        btn_g.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btn_g.setBackground(new java.awt.Color(255, 153, 0));
+        btn_g.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
         btn_g.setForeground(new java.awt.Color(255, 255, 255));
-        btn_g.setText("GRAFICAR");
+        btn_g.setText("MOSTRAR TODO");
         btn_g.setBorder(null);
         btn_g.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_gActionPerformed(evt);
             }
         });
-        pizarra.add(btn_g, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 560, 140, 40));
+        jPanel1.add(btn_g, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 160, 150, 40));
 
-        jLabel4.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 217, 102));
         jLabel4.setText("Entretenimiento:");
-        pizarra.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 360, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(147, 196, 125));
         jLabel5.setText("Servicios:");
-        pizarra.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 650, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 400, -1, -1));
 
         txt_entretenimiento.setBackground(new java.awt.Color(36, 48, 60));
-        txt_entretenimiento.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txt_entretenimiento.setForeground(new java.awt.Color(255, 204, 0));
+        txt_entretenimiento.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        txt_entretenimiento.setForeground(new java.awt.Color(255, 217, 102));
         txt_entretenimiento.setBorder(null);
-        pizarra.add(txt_entretenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 590, 190, -1));
+        jPanel1.add(txt_entretenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 360, 140, -1));
 
-        jLabel6.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(118, 165, 175));
         jLabel6.setText("Gastos Varios:");
-        pizarra.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 720, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 440, -1, -1));
 
         txt_servicios.setBackground(new java.awt.Color(36, 48, 60));
-        txt_servicios.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txt_servicios.setForeground(new java.awt.Color(255, 204, 0));
+        txt_servicios.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        txt_servicios.setForeground(new java.awt.Color(147, 196, 125));
         txt_servicios.setBorder(null);
-        pizarra.add(txt_servicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 650, 190, -1));
+        jPanel1.add(txt_servicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 400, 140, -1));
 
         txt_gastosvarios.setBackground(new java.awt.Color(36, 48, 60));
-        txt_gastosvarios.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        txt_gastosvarios.setForeground(new java.awt.Color(255, 204, 0));
+        txt_gastosvarios.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        txt_gastosvarios.setForeground(new java.awt.Color(118, 165, 175));
         txt_gastosvarios.setBorder(null);
-        pizarra.add(txt_gastosvarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 720, 190, -1));
+        jPanel1.add(txt_gastosvarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 440, 140, -1));
 
-        btnAtras.setBackground(new java.awt.Color(36, 48, 60));
-        btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
-        btnAtras.setForeground(new java.awt.Color(0, 153, 153));
-        btnAtras.setText("<-");
-        btnAtras.setAutoscrolls(true);
-        btnAtras.setBorder(null);
-        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+        jLabel8.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Filtrar por mes");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 100, -1, -1));
+
+        cbxFecha.setBackground(new java.awt.Color(36, 48, 60));
+        cbxFecha.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        cbxFecha.setForeground(new java.awt.Color(255, 255, 255));
+        cbxFecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        jPanel1.add(cbxFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 140, 200, 40));
+
+        btn_filtrar.setBackground(new java.awt.Color(0, 153, 255));
+        btn_filtrar.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        btn_filtrar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_filtrar.setText("FILTRAR");
+        btn_filtrar.setBorder(null);
+        btn_filtrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtrasActionPerformed(evt);
+                btn_filtrarActionPerformed(evt);
             }
         });
-        pizarra.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, -1));
+        jPanel1.add(btn_filtrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 100, 150, 40));
 
-        getContentPane().add(pizarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 790));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 660));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+    private void btn_gActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_gActionPerformed
 
+        limpiar();
+        llenar_datos();
+        obtenergrafico();
+
+    }//GEN-LAST:event_btn_gActionPerformed
+
+    private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_exitTxtMouseClicked
+
+    private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
+        //exitBtn.setBackground(Color.red);
+        exitTxt.setForeground(Color.red);
+    }//GEN-LAST:event_exitTxtMouseEntered
+
+    private void exitTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseExited
+        //exitBtn.setBackground(new Color(36, 48, 60));
+        exitTxt.setForeground(new Color(62, 82, 102));
+    }//GEN-LAST:event_exitTxtMouseExited
+
+    private void btnAtras1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtras1MouseClicked
         this.dispose();
         Ventana_Egreso frm_egreso = new Ventana_Egreso();
         CtrlMenu_Egreso ctrlmenu_egreso = new CtrlMenu_Egreso(frm_egreso);
         ctrlmenu_egreso.iniciar();
         frm_egreso.setVisible(true);
+    }//GEN-LAST:event_btnAtras1MouseClicked
 
+    private void btnAtras1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtras1MouseEntered
+        btnAtras1.setForeground(new Color(12, 133, 153));
+    }//GEN-LAST:event_btnAtras1MouseEntered
 
-    }//GEN-LAST:event_btnAtrasActionPerformed
+    private void btnAtras1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtras1MouseExited
+        btnAtras1.setForeground(new Color(62, 82, 102));
+    }//GEN-LAST:event_btnAtras1MouseExited
 
-    private void btn_gActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_gActionPerformed
-       
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        int x1 = evt.getXOnScreen() - xMouseCrema;
+        int y1 = evt.getYOnScreen() - yMouseCrema;
+        this.setLocation(x1, y1);
+    }//GEN-LAST:event_headerMouseDragged
+
+    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+        xMouseCrema = evt.getXOnScreen() - this.getX();
+        yMouseCrema = evt.getYOnScreen() - this.getY();
+    }//GEN-LAST:event_headerMousePressed
+
+    private void btn_filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarActionPerformed
+
+        limpiar();
+        llenarDatosPorMes();
         obtenergrafico();
 
-    }//GEN-LAST:event_btn_gActionPerformed
+    }//GEN-LAST:event_btn_filtrarActionPerformed
 
+    private void seleccionarMesAnoActualCbx() {
+
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Conexion objCon = new Conexion();
+            Connection conn = objCon.getConexion();
+
+            // Obtén la fecha actual
+            LocalDate currentDate = LocalDate.now();
+
+            // Define el formato deseado con la primera letra del mes en mayúscula
+            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                    .appendText(ChronoField.MONTH_OF_YEAR, TextStyle.FULL_STANDALONE)
+                    .appendLiteral(' ')
+                    .appendValue(ChronoField.YEAR, 4)
+                    .toFormatter(Locale.ENGLISH);
+
+            // Formatea la fecha según el formato
+            String formattedDate = currentDate.format(formatter);
+
+            // Imprime en pantalla
+            System.out.println(formattedDate);
+
+            String sql = "SELECT ID_FECHA FROM fechas WHERE MES_ANO = ?";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, formattedDate);
+            rs = ps.executeQuery();
+            rs.next();
+
+            int id_fecha = rs.getInt(1);
+            System.out.println("ID_FECHA_ACTUAL: " + id_fecha);
+
+            cbxFecha.setSelectedIndex(id_fecha - 1);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+
+    }
     
-    public void llenar_datos(){
+    public void limpiar() {
+
+        txt_comida.setText("");
+        txt_transporte.setText("");
+        txt_entretenimiento.setText("");
+        txt_servicios.setText("");
+        txt_gastosvarios.setText("");
+
+    }
+
+    public void llenarDatos_Fechas() {
+        Consulta_Fechas_Select consulta_fechas_select = new Consulta_Fechas_Select();
+        ArrayList<Datos_Fechas> listaDatos_Fechas = consulta_fechas_select.getDatos_Fechas();
+        cbxFecha.removeAllItems();
+        for (int i = 0; i < listaDatos_Fechas.size(); i++) {
+            cbxFecha.addItem(new Datos_Fechas(listaDatos_Fechas.get(i).getID_FECHA(), listaDatos_Fechas.get(i).getLIMITE_INFERIOR(), listaDatos_Fechas.get(i).getLIMITE_SUPERIOR(), listaDatos_Fechas.get(i).getMES_ANO()));
+        }
+    }
+
+    public void llenar_datos() {
         try {
             PreparedStatement ps1 = null;  // Primer PreparedStatement
             PreparedStatement ps2 = null;  // Segundo PreparedStatement
@@ -245,20 +431,97 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.err.println(ex.toString());
         }
-        
-        
+
     }
-    
+
+    public void llenarDatosPorMes() {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Double> listaDatosPorMes = new ArrayList<>();
+
+        try {
+
+            Datos_Fechas fecha = (Datos_Fechas) cbxFecha.getSelectedItem();
+            Conexion conn = new Conexion();
+            java.sql.Connection con = conn.getConexion();
+
+            String sql = "WITH Categorias AS (\n"
+                    + "    SELECT 'Comida' AS Categoria\n"
+                    + "    UNION ALL\n"
+                    + "    SELECT 'Transporte'\n"
+                    + "    UNION ALL\n"
+                    + "    SELECT 'Entretenimiento'\n"
+                    + "    UNION ALL\n"
+                    + "    SELECT 'Servicios'\n"
+                    + "    UNION ALL\n"
+                    + "    SELECT 'Gastos Varios'\n"
+                    + ")\n"
+                    + "SELECT\n"
+                    + "    c.Categoria,\n"
+                    + "    COALESCE(SUM(e.MONTO_EGRESO), 0) AS MONTO_TOTAL\n"
+                    + "FROM\n"
+                    + "    Categorias c\n"
+                    + "LEFT JOIN\n"
+                    + "    egreso e ON c.Categoria = \n"
+                    + "        CASE\n"
+                    + "            WHEN e.TIPO_EGRESO LIKE 'Comida%' THEN 'Comida'\n"
+                    + "            WHEN e.TIPO_EGRESO LIKE 'Transporte%' THEN 'Transporte'\n"
+                    + "            WHEN e.TIPO_EGRESO LIKE 'Entretenimiento%' THEN 'Entretenimiento'\n"
+                    + "            WHEN e.TIPO_EGRESO LIKE 'Servicios%' THEN 'Servicios'\n"
+                    + "            WHEN e.TIPO_EGRESO LIKE 'Gastos Varios%' THEN 'Gastos Varios'\n"
+                    + "            ELSE 'Otros'\n"
+                    + "        END\n"
+                    + "    AND e.usuario_id = ?\n"
+                    + "    AND e.FECHA_EGRESO BETWEEN ? AND ?\n"
+                    + "GROUP BY\n"
+                    + "    c.Categoria\n"
+                    + "ORDER BY\n"
+                    + "    CASE\n"
+                    + "        WHEN c.Categoria = 'Comida' THEN 1\n"
+                    + "        WHEN c.Categoria = 'Transporte' THEN 2\n"
+                    + "        WHEN c.Categoria = 'Entretenimiento' THEN 3\n"
+                    + "        WHEN c.Categoria = 'Servicios' THEN 4\n"
+                    + "        WHEN c.Categoria = 'Gastos Varios' THEN 5\n"
+                    + "        ELSE 6  -- Ajusta según sea necesario\n"
+                    + "    END;";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario_id);
+            ps.setDate(2, fecha.getLIMITE_INFERIOR());
+            ps.setDate(3, fecha.getLIMITE_SUPERIOR());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Double DatosPorMes = rs.getDouble("MONTO_TOTAL");
+                listaDatosPorMes.add(DatosPorMes);
+            }
+
+            txt_comida.setText(String.valueOf(listaDatosPorMes.get(0)));
+            txt_transporte.setText(String.valueOf(listaDatosPorMes.get(1)));
+            txt_entretenimiento.setText(String.valueOf(listaDatosPorMes.get(2)));
+            txt_servicios.setText(String.valueOf(listaDatosPorMes.get(3)));
+            txt_gastosvarios.setText(String.valueOf(listaDatosPorMes.get(4)));
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+
+    }
+
     public void obtenergrafico() {
 
         try {
             Graphics lapiz = pizarra.getGraphics();
 
-            double double_comida = TotalEgresosComida;
-            double double_transporte = TotalEgresosTrasporte;
-            double double_entretenimiento = TotalEgresosEntretenimiento;
-            double double_servicios = TotalEgresosServicios;
-            double double_gastosvarios = TotalEgresosGastosVarios;
+            // Limpiar la pizarra
+            lapiz.setColor(pizarra.getBackground());
+            lapiz.fillRect(0, 0, pizarra.getWidth(), pizarra.getHeight());
+
+            double double_comida = Double.parseDouble(txt_comida.getText());
+            double double_transporte = Double.parseDouble(txt_transporte.getText());
+            double double_entretenimiento = Double.parseDouble(txt_entretenimiento.getText());
+            double double_servicios = Double.parseDouble(txt_servicios.getText());
+            double double_gastosvarios = Double.parseDouble(txt_gastosvarios.getText());
 
             double suma_valores = double_comida + double_transporte + double_entretenimiento + double_servicios + double_gastosvarios;
 
@@ -296,19 +559,27 @@ public class Ventana_Categorizar_Egreso extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: Verifique su información ingresada");
         }
+
+        //pizarra.repaint(); 
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnAtras;
+    public javax.swing.JLabel btnAtras1;
+    public javax.swing.JButton btn_filtrar;
     private javax.swing.JButton btn_g;
+    public javax.swing.JComboBox<Datos_Fechas> cbxFecha;
+    private javax.swing.JLabel exitTxt;
+    private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel pizarra;
+    private javax.swing.JLabel jLabel8;
+    public javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel pizarra;
     private javax.swing.JTextField txt_comida;
     private javax.swing.JTextField txt_entretenimiento;
     private javax.swing.JTextField txt_gastosvarios;

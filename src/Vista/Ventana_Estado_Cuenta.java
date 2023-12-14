@@ -111,9 +111,10 @@ public class Ventana_Estado_Cuenta extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(206, 212, 218));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtEstadoCuenta.setBackground(new java.awt.Color(206, 212, 218));
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+
         jtEstadoCuenta.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jtEstadoCuenta.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
+        jtEstadoCuenta.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
         jtEstadoCuenta.setForeground(new java.awt.Color(255, 255, 255));
         jtEstadoCuenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -126,7 +127,7 @@ public class Ventana_Estado_Cuenta extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtEstadoCuenta.setGridColor(new java.awt.Color(206, 212, 218));
+        jtEstadoCuenta.setGridColor(new java.awt.Color(255, 255, 255));
         jtEstadoCuenta.setSelectionBackground(new java.awt.Color(206, 212, 218));
         jtEstadoCuenta.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jtEstadoCuenta);
@@ -145,12 +146,12 @@ public class Ventana_Estado_Cuenta extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Roboto Mono", 1, 20)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("MONTO");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Roboto Mono", 1, 20)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("FECHA");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Roboto Mono", 1, 20)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,7 +167,7 @@ public class Ventana_Estado_Cuenta extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Roboto Mono", 1, 20)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("DESCRIPCION");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, -1, -1));
 
         btnMostrarTodo.setBackground(new java.awt.Color(250, 176, 5));
         btnMostrarTodo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

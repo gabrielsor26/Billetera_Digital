@@ -79,7 +79,7 @@ public class Ventana_Configurar_Perfil extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBienvenida.setBackground(new java.awt.Color(255, 255, 255));
-        txtBienvenida.setFont(new java.awt.Font("Roboto Mono", 1, 30)); // NOI18N
+        txtBienvenida.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         txtBienvenida.setForeground(new java.awt.Color(255, 255, 255));
         txtBienvenida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtBienvenida.setText("Perfil de [USUARIO]");

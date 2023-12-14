@@ -9,7 +9,6 @@ import Modelo.Consulta_Fechas_Select;
 import Modelo.Consulta_Limites_Fechas;
 import Modelo.Datos_Fechas;
 import Vista.Ventana_Estado_Cuenta;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -164,7 +163,7 @@ public class CtrlVentana_Estado_Cuenta implements MouseListener {
             int cantidadColumnas = rsMd.getColumnCount();
 
             int altoFila = 40;
-            int[] anchos = {50, 50, 50, 50, 50, 50, 50};
+            int[] anchos = {50, 50, 50, 50, 300};
             this.vista.jtEstadoCuenta.setRowHeight(altoFila);
 
             for (int i = 0; i < this.vista.jtEstadoCuenta.getColumnCount(); i++) {
@@ -188,7 +187,7 @@ public class CtrlVentana_Estado_Cuenta implements MouseListener {
             this.vista.jtEstadoCuenta.setBorder(BorderFactory.createEmptyBorder());
             this.vista.jtEstadoCuenta.setIntercellSpacing(new java.awt.Dimension(0, 0));
 
-            this.vista.jScrollPane1.getViewport().setBackground(new Color(206, 212, 218));
+            this.vista.jScrollPane1.getViewport().setBackground(new Color(255, 255, 255));
 
             javax.swing.table.TableColumnModel columnModel = this.vista.jtEstadoCuenta.getColumnModel();
             javax.swing.table.TableColumn idColumn = columnModel.getColumn(0);
@@ -236,7 +235,7 @@ public class CtrlVentana_Estado_Cuenta implements MouseListener {
             int cantidadColumnas = rsMd.getColumnCount();
 
             int altoFila = 40;
-            int[] anchos = {50, 50, 50, 50, 50, 50, 50};
+            int[] anchos = {50, 50, 50, 50, 300};
             this.vista.jtEstadoCuenta.setRowHeight(altoFila);
 
             for (int i = 0; i < this.vista.jtEstadoCuenta.getColumnCount(); i++) {
@@ -260,7 +259,7 @@ public class CtrlVentana_Estado_Cuenta implements MouseListener {
             this.vista.jtEstadoCuenta.setBorder(BorderFactory.createEmptyBorder());
             this.vista.jtEstadoCuenta.setIntercellSpacing(new java.awt.Dimension(0, 0));
 
-            this.vista.jScrollPane1.getViewport().setBackground(new Color(206, 212, 218));
+            this.vista.jScrollPane1.getViewport().setBackground(new Color(255, 255, 255));
 
             javax.swing.table.TableColumnModel columnModel = this.vista.jtEstadoCuenta.getColumnModel();
             javax.swing.table.TableColumn idColumn = columnModel.getColumn(0);

@@ -70,7 +70,6 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
         this.usuario_id = usuario_id;
 
         //Botones
-        this.vista.btnAtras.addActionListener(this);
         //this.vista.btnModificar.addActionListener(this);
         this.vista.btnEliminar.addActionListener(this);
         this.vista.btnObtener.addActionListener(this);
@@ -318,15 +317,6 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == vista.btnAtras) {
-            vista.dispose();
-            Ventana_Metas frm_metas = new Ventana_Metas();
-
-            Ctrl_Metas ctrl_metas = new Ctrl_Metas(frm_metas);
-
-            ctrl_metas.iniciar();
-            frm_metas.setVisible(true);
-        }
 
         if (e.getSource() == vista.btnEliminar) {
 
@@ -570,7 +560,7 @@ public class Ctrl_Asignar_Recursos_Metas implements ActionListener {
                     // Verificar si PresupuestoMensualCategoria es nulo o si monto_egreso + TotalMensualCategoria supera el PresupuestoMensualCategoria
                     if (PresupuestoMensualCategoria == null || MONTO_META + TotalMensualCategoria > PresupuestoMensualCategoria) {
                         // Pregunta al usuario si desea continuar
-                        int respuesta1 = JOptionPane.showConfirmDialog(null, "El monto de egreso haria que se supere el presupuesto mensual en SERVICIOS o el presupuesto no está definido. ¿Desea continuar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                        int respuesta1 = JOptionPane.showConfirmDialog(null, "El monto de egreso haria que se supere el presupuesto mensual en GASTOS VARIOS o el presupuesto no está definido. ¿Desea continuar?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
                         if (respuesta1 == JOptionPane.NO_OPTION) {
 

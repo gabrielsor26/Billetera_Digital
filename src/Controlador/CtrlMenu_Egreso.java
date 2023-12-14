@@ -26,7 +26,6 @@ public class CtrlMenu_Egreso implements ActionListener {
     public CtrlMenu_Egreso(Ventana_Egreso vista) {
         this.vista = vista;
         this.vista.btnRegistrarEgreso.addActionListener(this);
-        this.vista.btnAtras.addActionListener(this);
         this.vista.btnConsultarHistorial.addActionListener(this);
         this.vista.btnCategorizarEgreso.addActionListener(this);
 
@@ -95,17 +94,5 @@ public class CtrlMenu_Egreso implements ActionListener {
 
         }
 
-        if (e.getSource() == vista.btnAtras) {
-
-            vista.dispose();
-
-            Ventana_Opciones frm_opciones = new Ventana_Opciones();
-
-            CtrlMenu_Opciones ctrlmenu_opciones = new CtrlMenu_Opciones(frm_opciones);
-
-            ctrlmenu_opciones.iniciar();
-            frm_opciones.setVisible(true);
-
-        }
     }
 }

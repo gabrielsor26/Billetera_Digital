@@ -39,7 +39,6 @@ public class CtrlMenu_Opciones implements ActionListener {
         this.vista.btnIngreso.addActionListener(this);
         this.vista.btnEgreso.addActionListener(this);
         this.vista.btnSaldoActual.addActionListener(this);
-        this.vista.btnCambiarUsuario.addActionListener(this);
         this.vista.btnGestionar.addActionListener(this);
         this.vista.btnConfigurarPerfil.addActionListener(this);
         this.vista.btnReporte.addActionListener(this);
@@ -109,13 +108,7 @@ public class CtrlMenu_Opciones implements ActionListener {
 
         }
 
-        if (e.getSource() == vista.btnCambiarUsuario) {
 
-            vista.dispose();
-            Ventana_Login frm_ventana_login = new Ventana_Login();
-            frm_ventana_login.setVisible(true);
-
-        }
 
         if (e.getSource() == vista.btnGestionar) {
 

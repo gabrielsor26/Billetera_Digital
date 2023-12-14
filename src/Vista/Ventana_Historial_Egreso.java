@@ -15,7 +15,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class Ventana_Historial_Egreso extends javax.swing.JFrame {
-
+    
+    int xMouse, yMouse;
+    int xMouseCrema, yMouseCrema;
+    
     DefaultTableModel modelo = new DefaultTableModel();
 
     // hacer que la columna cero no sea editable
@@ -123,15 +126,18 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        btnAtras = new javax.swing.JButton();
         bgTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtEgresos = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        header = new javax.swing.JPanel();
+        exitTxt = new javax.swing.JLabel();
+        btnAtras = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 48, 60));
@@ -148,7 +154,7 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
                 txtNombreActionPerformed(evt);
             }
         });
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 500, 90, 46));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 520, 90, 46));
 
         txtPrecio.setBackground(new java.awt.Color(36, 48, 60));
         txtPrecio.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
@@ -156,14 +162,14 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
         txtPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPrecio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtPrecio.setCaretColor(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 500, 140, 46));
+        jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 520, 140, 46));
 
         txtCantidad.setBackground(new java.awt.Color(36, 48, 60));
         txtCantidad.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
         txtCantidad.setForeground(new java.awt.Color(255, 255, 255));
         txtCantidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtCantidad.setCaretColor(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 500, 340, 46));
+        jPanel1.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 520, 340, 46));
 
         btnModificar.setBackground(new java.awt.Color(102, 51, 255));
         btnModificar.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
@@ -175,7 +181,7 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 500, 160, 50));
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 520, 160, 50));
 
         btnEliminar.setBackground(new java.awt.Color(255, 0, 51));
         btnEliminar.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
@@ -187,24 +193,12 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 260, 160, 50));
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 280, 160, 50));
 
         jLabel5.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("HISTORIAL DE EGRESO");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, -1, -1));
-
-        btnAtras.setBackground(new java.awt.Color(36, 48, 60));
-        btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
-        btnAtras.setForeground(new java.awt.Color(0, 153, 153));
-        btnAtras.setText("<-");
-        btnAtras.setBorder(null);
-        btnAtras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtrasActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 40));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, -1));
 
         bgTabla.setBackground(new java.awt.Color(255, 255, 255));
         bgTabla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -213,6 +207,7 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
 
         jtEgresos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jtEgresos.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
+        jtEgresos.setForeground(new java.awt.Color(194, 39, 94));
         jtEgresos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -224,10 +219,10 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtEgresos.setGridColor(new java.awt.Color(0, 0, 0));
+        jtEgresos.setGridColor(new java.awt.Color(255, 255, 255));
         jtEgresos.setMaximumSize(new java.awt.Dimension(0, 0));
         jtEgresos.setMinimumSize(new java.awt.Dimension(0, 0));
-        jtEgresos.setSelectionBackground(new java.awt.Color(26, 177, 136));
+        jtEgresos.setSelectionBackground(new java.awt.Color(194, 39, 94));
         jtEgresos.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jtEgresos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -238,27 +233,78 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
 
         bgTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 730, 370));
 
-        jPanel1.add(bgTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 730, 340));
+        jPanel1.add(bgTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 730, 340));
 
         jLabel11.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("MONTO");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 80, 30));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 80, 30));
 
         jLabel12.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("FECHA");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 100, 30));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 100, 30));
 
         jLabel10.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("CATEGORIA");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, 140, 30));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, 140, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 570));
+        header.setBackground(new java.awt.Color(36, 48, 60));
+        header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                headerMouseDragged(evt);
+            }
+        });
+        header.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                headerMousePressed(evt);
+            }
+        });
+        header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        exitTxt.setFont(new java.awt.Font("FG Virgil", 1, 48)); // NOI18N
+        exitTxt.setForeground(new java.awt.Color(62, 82, 102));
+        exitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        exitTxt.setText("x");
+        exitTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exitTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exitTxtMouseExited(evt);
+            }
+        });
+        header.add(exitTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, -10, 50, 50));
+
+        btnAtras.setFont(new java.awt.Font("FG Virgil", 1, 30)); // NOI18N
+        btnAtras.setForeground(new java.awt.Color(62, 82, 102));
+        btnAtras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAtras.setText("<---");
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseExited(evt);
+            }
+        });
+        header.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 40));
+
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -328,17 +374,6 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-
-        this.dispose();
-        Ventana_Egreso frm_egreso = new Ventana_Egreso();
-        CtrlMenu_Egreso ctrlmenu_egreso = new CtrlMenu_Egreso(frm_egreso);
-        ctrlmenu_egreso.iniciar();
-        frm_egreso.setVisible(true);
-
-
-    }//GEN-LAST:event_btnAtrasActionPerformed
-
     private void jtEgresosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtEgresosMouseClicked
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -365,6 +400,47 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtEgresosMouseClicked
 
+    private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_exitTxtMouseClicked
+
+    private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
+        //exitBtn.setBackground(Color.red);
+        exitTxt.setForeground(Color.red);
+    }//GEN-LAST:event_exitTxtMouseEntered
+
+    private void exitTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseExited
+        //exitBtn.setBackground(new Color(36, 48, 60));
+        exitTxt.setForeground(new Color(62, 82, 102));
+    }//GEN-LAST:event_exitTxtMouseExited
+
+    private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
+        this.dispose();
+        Ventana_Egreso frm_egreso = new Ventana_Egreso();
+        CtrlMenu_Egreso ctrlmenu_egreso = new CtrlMenu_Egreso(frm_egreso);
+        ctrlmenu_egreso.iniciar();
+        frm_egreso.setVisible(true);
+    }//GEN-LAST:event_btnAtrasMouseClicked
+
+    private void btnAtrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseEntered
+        btnAtras.setForeground(new Color(12, 133, 153));
+    }//GEN-LAST:event_btnAtrasMouseEntered
+
+    private void btnAtrasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseExited
+        btnAtras.setForeground(new Color(62, 82, 102));
+    }//GEN-LAST:event_btnAtrasMouseExited
+
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        int x1 = evt.getXOnScreen() - xMouseCrema;
+        int y1 = evt.getYOnScreen() - yMouseCrema;
+        this.setLocation(x1, y1);
+    }//GEN-LAST:event_headerMouseDragged
+
+    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+        xMouseCrema = evt.getXOnScreen() - this.getX();
+        yMouseCrema = evt.getYOnScreen() - this.getY();
+    }//GEN-LAST:event_headerMousePressed
+
     private void limpiar() {
         //txtCodigo.setText("");
         txtNombre.setText("");
@@ -375,9 +451,11 @@ public class Ventana_Historial_Egreso extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel bgTabla;
-    public javax.swing.JButton btnAtras;
+    public javax.swing.JLabel btnAtras;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
+    public javax.swing.JLabel exitTxt;
+    public javax.swing.JPanel header;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

@@ -4,7 +4,9 @@
  */
 package Vista;
 
+import Controlador.CtrlMenu_Egreso;
 import Modelo.Datos_Familia;
+import java.awt.Color;
 
 /**
  *
@@ -12,9 +14,9 @@ import Modelo.Datos_Familia;
  */
 public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Ventana_Registrar_Egreso
-     */
+    int xMouse, yMouse;
+    int xMouseCrema, yMouseCrema;
+
     public Ventana_Registrar_Egreso() {
         initComponents();
     }
@@ -35,13 +37,16 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         txtMONTO_EGRESO = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         ComboBoxTIPO_EGRESO = new javax.swing.JComboBox<>();
-        btnAtras = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cbxDestinoFamiliar = new javax.swing.JComboBox<>();
         txtBienvenida = new javax.swing.JLabel();
         jDateChooser = new com.toedter.calendar.JDateChooser();
+        header = new javax.swing.JPanel();
+        exitTxt = new javax.swing.JLabel();
+        btnAtras = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 48, 60));
@@ -93,18 +98,6 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         });
         jPanel1.add(ComboBoxTIPO_EGRESO, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 290, -1));
 
-        btnAtras.setBackground(new java.awt.Color(36, 48, 60));
-        btnAtras.setFont(new java.awt.Font("Roboto Mono", 1, 36)); // NOI18N
-        btnAtras.setForeground(new java.awt.Color(0, 153, 153));
-        btnAtras.setText("<-");
-        btnAtras.setBorder(null);
-        btnAtras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtrasActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, -1));
-
         jLabel4.setFont(new java.awt.Font("Roboto Mono", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("MONTO DEL EGRESO");
@@ -132,6 +125,57 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         jDateChooser.setFont(new java.awt.Font("Roboto Mono", 0, 18)); // NOI18N
         jPanel1.add(jDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 290, 40));
 
+        header.setBackground(new java.awt.Color(36, 48, 60));
+        header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                headerMouseDragged(evt);
+            }
+        });
+        header.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                headerMousePressed(evt);
+            }
+        });
+        header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        exitTxt.setFont(new java.awt.Font("FG Virgil", 1, 48)); // NOI18N
+        exitTxt.setForeground(new java.awt.Color(62, 82, 102));
+        exitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        exitTxt.setText("x");
+        exitTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exitTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exitTxtMouseExited(evt);
+            }
+        });
+        header.add(exitTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, -10, 50, 50));
+
+        btnAtras.setFont(new java.awt.Font("FG Virgil", 1, 30)); // NOI18N
+        btnAtras.setForeground(new java.awt.Color(62, 82, 102));
+        btnAtras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAtras.setText("<---");
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseExited(evt);
+            }
+        });
+        header.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 40));
+
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 390, 600));
 
         pack();
@@ -149,24 +193,62 @@ public class Ventana_Registrar_Egreso extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxTIPO_EGRESOActionPerformed
 
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAtrasActionPerformed
-
     private void cbxDestinoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDestinoFamiliarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxDestinoFamiliarActionPerformed
 
+    private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_exitTxtMouseClicked
+
+    private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
+        //exitBtn.setBackground(Color.red);
+        exitTxt.setForeground(Color.red);
+    }//GEN-LAST:event_exitTxtMouseEntered
+
+    private void exitTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseExited
+        //exitBtn.setBackground(new Color(36, 48, 60));
+        exitTxt.setForeground(new Color(62, 82, 102));
+    }//GEN-LAST:event_exitTxtMouseExited
+
+    private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
+        this.dispose();
+        Ventana_Egreso frm_egreso = new Ventana_Egreso();
+        CtrlMenu_Egreso ctrlmenu_egreso = new CtrlMenu_Egreso(frm_egreso);
+        ctrlmenu_egreso.iniciar();
+        frm_egreso.setVisible(true);
+    }//GEN-LAST:event_btnAtrasMouseClicked
+
+    private void btnAtrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseEntered
+        btnAtras.setForeground(new Color(12, 133, 153));
+    }//GEN-LAST:event_btnAtrasMouseEntered
+
+    private void btnAtrasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseExited
+        btnAtras.setForeground(new Color(62, 82, 102));
+    }//GEN-LAST:event_btnAtrasMouseExited
+
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        int x1 = evt.getXOnScreen() - xMouseCrema;
+        int y1 = evt.getYOnScreen() - yMouseCrema;
+        this.setLocation(x1, y1);
+    }//GEN-LAST:event_headerMouseDragged
+
+    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+        xMouseCrema = evt.getXOnScreen() - this.getX();
+        yMouseCrema = evt.getYOnScreen() - this.getY();
+    }//GEN-LAST:event_headerMousePressed
+
     /**
      * @param args the command line arguments
      */
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> ComboBoxTIPO_EGRESO;
-    public javax.swing.JButton btnAtras;
+    public javax.swing.JLabel btnAtras;
     public javax.swing.JButton btnRegistrar;
     public javax.swing.JComboBox<Datos_Familia> cbxDestinoFamiliar;
+    public javax.swing.JLabel exitTxt;
+    public javax.swing.JPanel header;
     public com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
